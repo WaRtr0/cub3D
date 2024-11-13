@@ -5,6 +5,9 @@
 # include <../minilibx-linux/mlx.h>
 # include <stdlib.h>
 
+
+
+
 t_layer			*layer_create(void *mlx, int width, int height, int z_index);
 void			layer_destroy(void *mlx, t_layer *layer);
 void			layer_clear(t_layer *layer);
@@ -18,12 +21,11 @@ void			layer_set_scale(t_layer *layer, int scale);
 void			layer_set_visible(t_layer *layer, int visible);
 
 // Layer stack methods
-t_layer_stack *layer_stack_create(int initial_capacity);
+t_layer_stack *layer_stack_create(void);
 void			layer_stack_destroy(void *mlx, t_layer_stack *stack);
 int				layer_stack_add(t_layer_stack *stack, t_layer *layer);
 void			layer_stack_remove(void *mlx, t_layer_stack *stack,
 					int z_index);
-void			layer_stack_sort(t_layer_stack *stack);
 void			layer_stack_render(t_layer_stack *stack, void *mlx, void *win);
 t_layer			*layer_stack_get(t_layer_stack *stack, int z_index);
 

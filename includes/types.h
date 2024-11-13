@@ -1,6 +1,8 @@
 #ifndef TYPES_H
 # define TYPES_H
 
+# define LAYER_STACK_CAPACITY 256
+
 typedef struct s_vector2
 {
 	double			x;
@@ -9,8 +11,8 @@ typedef struct s_vector2
 
 typedef struct s_dvector2
 {
-	unsigned int	x;
-	unsigned int	y;
+	int	x;
+	int	y;
 }					t_dvector2;	
 
 typedef struct s_pixel
@@ -23,29 +25,39 @@ typedef struct s_pixel
 
 typedef struct s_layer
 {
-	void			*img;
-	char			*addr;
-	void			*mlx;
-	int				bits_per_pixel;
-	int				line_length;
-	int				endian;
-	int				width;
-	int				height;
-	int				scale;
-	int				offset_x;
-	int				offset_y;
-	int				visible;
-	int				z_index;
-	t_pixel			clear_color;
-}					t_layer;
+    void            *img;
+    unsigned int    *data;
+    int             width;
+    int             height;
+    int             offset_x;
+    int             offset_y;
+    int             visible;
+    int             z_index;
+    int             bits_per_pixel;
+    int             line_length;
+    int             endian;
+    t_pixel         clear_color;
+} t_layer;
+
+// typedef struct s_render_data
+// {
+//     unsigned int    *output;
+//     unsigned int    *layer;
+//     int             width;
+//     int             height;
+//     int             offset_x;
+//     int             offset_y;
+// }   t_render_data;
 
 typedef struct s_layer_stack
 {
-	t_layer			**layers;
+	t_layer			*layers[LAYER_STACK_CAPACITY];
 	t_layer			*output_layer;
 	int				count;
 	int				capacity;
 }					t_layer_stack;
+
+
 
 typedef struct s_game
 {
@@ -59,6 +71,7 @@ typedef struct s_game
 	double			delta_time;
 	double			last_frame;
 	t_layer_stack	*layers;
+	t_layer_stack   *texture;
 	void			*update_callback;
 	int				count;
 }					t_game;
