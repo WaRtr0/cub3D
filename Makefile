@@ -11,6 +11,7 @@ INCLUDES = $(INCLUDES_DIR)/game.h\
 		   $(INCLUDES_DIR)/hook.h\
 		   $(INCLUDES_DIR)/draw.h\
 		   $(INCLUDES_DIR)/font.h\
+		   $(INCLUDES_DIR)/cub.h\
 
 CFLAGS = -g3
 OPTIM = -O3 -march=native -flto -ffast-math

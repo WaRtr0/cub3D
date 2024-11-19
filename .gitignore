@@ -1,1 +1,7 @@
 ./minilibx-linux/
+./cub3D
+.obj
+.build
+.vscode
+*.d
+*.o

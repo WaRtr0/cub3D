@@ -56,10 +56,10 @@ static void process_row_mask(t_layer *layer, t_layer *output, t_layer *mask, int
 
 	src_y = y - layer->offset_y;
 	x = start_x;
-	while (x < output->width && x < layer->offset_x + layer->width)
+	while (x < output->width && x < layer->offset_x + layer->width && x < mask->offset_x + mask->width)
 	{
 		src_x = x - layer->offset_x;
-		if (src_x >= 0 && src_x < layer->width)
+		if (src_x >= 0 && src_x < layer->width && y - mask->offset_y >= 0 && y - mask->offset_y < mask->height)
 		{
 			current = layer->data[src_y * layer->width + src_x];
 			mask_pixel = mask->data[(y - mask->offset_y) * mask->width + (x - mask->offset_x)];
