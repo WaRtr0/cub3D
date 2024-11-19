@@ -1,32 +1,18 @@
 #include "layer.h"
+#include "../libft/libft.h"
 #include <stdlib.h>
-#include <../minilibx-linux/mlx.h>
 
-
-t_layer	*layer_create(void *mlx, int width, int height, int z_index)
+t_layer_stack	*layer_stack_create(void)
 {
-	t_layer	*layer;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
+	t_layer_stack	*stack;
+	int				i;
 
-	layer = (t_layer *)malloc(sizeof(t_layer));
-	if (!layer)
+	stack = (t_layer_stack *)malloc(sizeof(t_layer_stack));
+	if (!stack)
 		return (NULL);
-	layer->width = width;
-	layer->height = height;
-	layer->z_index = z_index;
-	layer->offset_x = 0;
-	layer->offset_y = 0;
-	layer->visible = 1;
-	layer->img = mlx_new_image(mlx, width, height);
-	if (!layer->img)
-	{
-		free(layer);
-		return (NULL);
-	}
-	layer->clear_color = pixel_create(0, 0, 0, 0);
-	layer->data = (unsigned int *)mlx_get_data_addr(layer->img, &bits_per_pixel,
-			&line_length, &endian);
-	return (layer);
+	stack->output_layer = NULL;
+	stack->count = 0;
+	stack->capacity = LAYER_STACK_CAPACITY;
+	ft_bzero(stack->layers, LAYER_STACK_CAPACITY * sizeof(t_layer *));
+	return (stack);
 }
