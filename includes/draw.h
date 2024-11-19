@@ -44,7 +44,7 @@ void	draw_circle_fill(t_layer *layer, t_vector2 center, int radius,
 void	draw_text(t_layer *layer, t_vector2 position, t_font *font,
 			const char *text);
 
-void	draw_rect(t_layer *layer, t_vector2 start, t_vector2 end,
+void	draw_rect_fill(t_layer *layer, t_vector2 start, t_vector2 end,
 			t_pixel color);
 
 void draw_triangle(t_layer *layer, t_vector2 a, t_vector2 b, t_vector2 c, t_pixel color);
