@@ -3,6 +3,23 @@
 
 # define LAYER_STACK_CAPACITY 256
 
+# include <stdbool.h>
+
+typedef enum e_map_tile
+{
+	E = 0, // empty
+	W = 1, // wall
+	P = 2, // player
+	D = 3 // door
+} t_map_tile;
+
+
+typedef struct s_map {
+	t_map_tile	*tiles;
+	int			width;
+	int			height;
+} t_map;
+
 typedef struct s_vector2
 {
 	double			x;
@@ -36,6 +53,7 @@ typedef struct s_layer
     int             bits_per_pixel;
     int             line_length;
     int             endian;
+	bool			mask;
     t_pixel         clear_color;
 } t_layer;
 
