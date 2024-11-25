@@ -236,7 +236,6 @@ void    layer_stack_render(t_layer_stack *stack, void *mlx, void *win)
         }
         i++;
     }
-
     // Composer les calques restants
     i++;
     while (i < stack->count)

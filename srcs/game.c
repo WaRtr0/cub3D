@@ -108,10 +108,10 @@ int game_run(t_game *game)
     
     game->is_running = 1;
     printf("Game is running...\n");
-    
 
     mlx_loop_hook(game->mlx, &game_render, game);
     // printf("Mlx loop hook...\n");
+
     mlx_loop(game->mlx);
 
     // while (game->is_running)
@@ -135,6 +135,7 @@ int game_handle_keypress(int keycode, t_game *game)
 {
     if (game && game->hook_callback)
         ((void (*)(int, t_game *))game->hook_callback)(keycode, game);
+    return (0);
 }
 
 void game_set_hook(t_game *game, void (*hook)(int, t_game *))

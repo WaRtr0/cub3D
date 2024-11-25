@@ -3,7 +3,7 @@ CC = cc
 
 RM = rm -rf
 
-INCLUDES_DIR = includes
+INCLUDES_DIR 	= includes
 
 INCLUDES = $(INCLUDES_DIR)/game.h\
 		   $(INCLUDES_DIR)/layer.h\
@@ -11,9 +11,12 @@ INCLUDES = $(INCLUDES_DIR)/game.h\
 		   $(INCLUDES_DIR)/hook.h\
 		   $(INCLUDES_DIR)/draw.h\
 		   $(INCLUDES_DIR)/font.h\
+		   $(INCLUDES_DIR)/view.h\
+		   $(INCLUDES_DIR)/parsing.h\
+		   $(INCLUDES_DIR)/utils.h\
 
 CFLAGS = -g3
-MLXFLAGS = -lX11 -lXext -lm
+MLXFLAGS = -lX11 -lXext -lm -g3
 
 SRC_DIR = srcs
 BUILD_DIR = .obj
@@ -23,6 +26,11 @@ SRC_FILE = main.c\
 		   layer.c\
 		   draw.c\
 		   font.c\
+		   view.c\
+		   parsing.c\
+		   parsing_map.c\
+		   parsing_checks.c\
+		   utils.c\
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILE))
 

@@ -1,0 +1,130 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_checks.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/23 00:11:50 by garivo            #+#    #+#             */
+/*   Updated: 2024/11/25 18:44:27 by garivo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "parsing.h"
+
+int	get_dir(char c)
+{
+	if (c == 'N')
+		return (N);
+	else if (c == 'S')
+		return (S);
+	else if (c == 'E')
+		return (E);
+	else if (c == 'W')
+		return (W);
+	return (-1);
+}
+
+int	check_dir(t_map *map, char *cmap, size_t i, size_t j)
+{
+	static int	startpos = 0;
+
+	if (cmap[j] == 'N' || cmap[j] == 'S' || cmap[j] == 'E'
+		|| cmap[j] == 'W')
+	{
+		if (startpos++ != 0)
+			return (prerr("Error\nMap contains more than one player\n"), 0);
+		map->player_dir = get_dir(cmap[j]);
+		map->player_x = j;
+		map->player_y = i;
+	}
+	else
+		return (prerr("Error\nInvalid char\n"), 0);
+	return (1);
+}
+
+int	check_map_char(t_map *map)
+{
+	size_t	i;
+	size_t	j;
+	char	*cmap;
+
+	i = 0;
+	while (i < map->height)
+	{
+		j = 0;
+		cmap = get_line(map, i);
+		while (cmap[j])
+		{
+			if (!(cmap[j] == '0' || cmap[j] == '1' || cmap[j] == ' '))
+				if (!check_dir(map, cmap, i, j))
+					return (0);
+			j++;
+		}
+		i++;
+	}
+	if (map->player_dir == -1)
+		return (prerr("Error\nMap contains no player\n"), 0);
+	return (1);
+}
+
+int	check_border(t_map *map, char *cmap, size_t i, size_t j)
+{
+	if (i == 0 || i == map->height || j == 0 || j == map->width - 1)
+		if (cmap[j] != ' ' && cmap[j] != '1')
+			return (0);
+	return (1);
+}
+
+int	check_closure(t_map	*map, char *cmap, size_t i, size_t j)
+{
+	if ((cmap[j] == '0' || cmap[j] == 'N' || cmap[j] == 'S'
+			|| cmap[j] == 'E' || cmap[j] == 'W')
+		&& !(i == 0 || i == map->height || j == 0 || j == map->width - 1))
+	{
+		if (cmap[j - 1] == ' ' || cmap[j + 1] == ' '
+			|| get_line(map, i - 1)[j] == ' ' || get_line(map, i + 1)[j] == ' ')
+			return (0);
+	}
+	return (1);
+}
+
+int	check_map_validity(t_map *map)
+{
+	size_t	i;
+	size_t	j;
+	char	*cmap;
+
+	i = 0;
+	while (i < map->height)
+	{
+		j = 0;
+		cmap = get_line(map, i);
+		while (cmap[j])
+		{
+			if (!check_border(map, cmap, i, j))
+				return (0);
+			if (!check_closure(map, cmap, i, j))
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
+int	check_map(t_map *map)
+{
+	size_t	i;
+	size_t	j;
+
+	if (!map->map)
+		return (0);
+	if (map->height < 3 || map->width < 3)
+		return (prerr("Error\nMap is too small or empty\n"), 0);
+	if (!check_map_char(map))
+		return (0);
+	if (!check_map_validity(map))
+		return (prerr("Error\nMap invalid\n"), 0);
+	return (1);
+}

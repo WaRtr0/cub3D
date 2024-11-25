@@ -24,11 +24,9 @@ t_layer *layer_create(void *mlx, int width, int height, int z_index)
         free(layer);
         return (NULL);
     }
-
     layer->addr = mlx_get_data_addr(layer->img, &layer->bits_per_pixel,
         &layer->line_length, &layer->endian);
     layer->clear_color = pixel_create(0, 0, 0, 0);
-
     return (layer);
 }
 
@@ -185,7 +183,6 @@ int layer_stack_add(t_layer_stack *stack, t_layer *layer)
     max.x = 0;
     max.y = 0;
 
-
     while (i < stack->count)
     {
         if (stack->layers[i]->height > max.y)
@@ -195,11 +192,13 @@ int layer_stack_add(t_layer_stack *stack, t_layer *layer)
         i++;
     }
     stack->output_layer = layer_create(layer->mlx, max.x, max.y, 0);
+    //while (1)
+	//	;
     stack->layers[stack->count++] = layer;
     layer_stack_sort(stack);
     return (1);
 }
-
+#include <stdio.h>
 // Tri des calques par z_index
 void layer_stack_sort(t_layer_stack *stack)
 {

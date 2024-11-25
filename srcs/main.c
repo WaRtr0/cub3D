@@ -4,6 +4,8 @@
 #include "hook.h"
 #include "layer.h"
 #include "font.h"
+#include "view.h"
+#include "parsing.h"
 
 void	update(t_game *game)
 {
@@ -21,11 +23,6 @@ void	update(t_game *game)
 	layer_set_offset(square2, 115 + (rand() % 10) - 5, 125 + (rand() % 10) - 5);
 	layer_set_offset(square3, 85 + (rand() % 10) - 5, 125 + (rand() % 10) - 5);
 
-	game->count++;
-	if (game->count == 150)
-	{
-		game_handle_close(game);
-	}
     // printf("FPS: %d\n", (int)(1.0f / game->delta_time));
 }
 
@@ -76,7 +73,7 @@ void empty(t_game *game)
     (void)game;
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_game *game;
 	t_layer *background;
@@ -110,6 +107,7 @@ int	main(void)
 	// Set the hook callback
 	game_set_hook(game, hook);
 
+	/*
 	// Create a new layers
 	// background
 	background = layer_create(game->mlx, game->width, game->height, 0);
@@ -158,8 +156,22 @@ int	main(void)
     draw_triangle_fill(square4_movable, (t_vector2){16, 48}, (t_vector2){48, 48},
             (t_vector2){32, 16}, pixel_create(0, 255, 255, 255));
     layer_set_pixel(square4_movable, 32, 32, pixel_create(255, 255, 255, 255));
-
-
+	*/
+	if (argc != 2)
+		return (printf("Map required\n"));
+	if (!parse(game, argv[1]))
+		return (1);
+	create_view(game);
+   	/*t_layer	*background; 
+	
+	t_layer *stupid_test = layer_create(game->mlx, game->width, game->height, 0);
+	layer_stack_add(game->layers, stupid_test);
+	//layer_fill(stupid_test, pixel_create(0, 0, 255, 255));
+	
+	background = layer_create(game->mlx, game->width, game->height, 0);
+	//layer_split(background, pixel_create(0, 0, 0, 0), pixel_create(0, 255, 0, 255));
+	//layer_fill(background, pixel_create(0, 255, 0, 0));
+	layer_stack_add(game->layers, background);*/
 
 
     // t_font font = (t_font){bdf, 50, pixel_create(255, 0, 0, 255)};

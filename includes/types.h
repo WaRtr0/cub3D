@@ -21,6 +21,17 @@ typedef struct s_pixel
 	unsigned int	a;
 }					t_pixel;
 
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int		w;
+	int		h;
+}					t_img;
+
 typedef struct s_layer
 {
 	void			*img;

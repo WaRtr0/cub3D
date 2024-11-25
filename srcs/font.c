@@ -192,9 +192,9 @@ t_glyph	parse_glyph(int fd)
                 size_t len = ft_strlen(line);
                 if (len > 0 && line[len - 1] == '\n')
                     line[len - 1] = '\0';
-                printf("line: %s\n", line);
+                //printf("line: %s\n", line);
 				glyph.bitmap[i] = hex_to_bytes(line, &byte_len);
-                printf("byte_len: %d\n", byte_len);
+                //printf("byte_len: %d\n", byte_len);
 				i++;
 			}
 		}
