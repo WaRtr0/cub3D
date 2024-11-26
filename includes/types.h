@@ -4,6 +4,8 @@
 # define LAYER_STACK_CAPACITY 256
 
 # include <stdbool.h>
+# include "raycast.h"
+# include "types.h"
 
 typedef enum e_map_tile
 {
@@ -12,13 +14,6 @@ typedef enum e_map_tile
 	P = 2, // player
 	D = 3 // door
 } t_map_tile;
-
-
-typedef struct s_map {
-	t_map_tile	*tiles;
-	int			width;
-	int			height;
-} t_map;
 
 typedef struct s_vector2
 {
@@ -31,6 +26,43 @@ typedef struct s_dvector2
 	int	x;
 	int	y;
 }					t_dvector2;	
+
+# define M_PI 3.14159265358979323846
+typedef struct s_raycast_data
+{
+	t_vector2	ray_pos;
+	t_vector2	ray_dir;
+	t_vector2	delta_dist;
+	t_vector2	side_dist;
+	t_vector2	step;
+	t_vector2	map_check;
+	double		wall_dist;
+    double        wall_x;
+	int			side;
+	bool		hit;
+}				t_raycast_data;
+
+typedef enum e_face
+{
+	N_FACE = 1,
+	S_FACE = 2,
+	E_FACE = 3,
+	O_FACE = 4
+}				t_face;
+
+typedef struct s_ray
+{
+	double		distance;
+	double		percent;
+	int			face;
+}				t_ray;
+
+typedef struct s_map {
+	t_map_tile	*tiles;
+	int			width;
+	int			height;
+} t_map;
+
 
 typedef struct s_pixel
 {
@@ -81,6 +113,11 @@ typedef struct s_game_data
 	t_map		*map;
 	t_dvector2	player;
 	int			player_dir;
+	t_ray		ray[1920];
+	int			fov;
+	int			width;
+	int			height;
+	double		center;
 }				t_game_data;
 
 typedef struct s_game

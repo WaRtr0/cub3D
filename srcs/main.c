@@ -57,26 +57,26 @@ t_dvector2 dvector2_sub(t_dvector2 v1, t_dvector2 v2)
 // }
 
 
-void free_raycast(t_raycast *raycast)
-{
-    if (!raycast)
-        return;
-    for (int i = 0; i < raycast->width; i++)
-    {
-        free(raycast->ray[i]);
-    }
-    // free(raycast->ray);
-    free(raycast);
-}
+// void free_raycast(t_raycast raycast)
+// {
+//     if (!raycast)
+//         return;
+//     for (int i = 0; i < raycast->width; i++)
+//     {
+//         free(raycast->ray[i]);
+//     }
+//     // free(raycast->ray);
+//     free(raycast);
+// }
 
-void debug_print_raycast(t_raycast *raycast)
+void debug_print_raycast(t_game_data *raycast)
 {
 	for (int i = 0; i < raycast->width; i++)
 	{
-		printf("Ray %d: distance: %f, percent: %f, face: %d\n", i, raycast->ray[i]->distance, raycast->ray[i]->percent, raycast->ray[i]->face);
+		printf("Ray %d: distance: %f, percent: %f, face: %d\n", i, raycast->ray[i].distance, raycast->ray[i].percent, raycast->ray[i].face);
 	}
 }
-t_raycast *raycast(t_game *game)
+void raycast(t_game *game)
 {
     t_vector2 ray_pos;
     t_vector2 ray_dir;
@@ -85,9 +85,10 @@ t_raycast *raycast(t_game *game)
     t_vector2 step;
     t_map *map = game->data->map;
     int fov = 60;
-    
+    t_game_data *raycast;
+
+    raycast = game->data;
     // Création de la structure de retour
-    t_raycast *raycast = malloc(sizeof(t_raycast));
     raycast->width = 1920;
     // raycast->ray = malloc(sizeof(t_ray*) * raycast->width);
     
@@ -130,7 +131,7 @@ t_raycast *raycast(t_game *game)
         }
         
         t_vector2 map_check = {(int)ray_pos.x, (int)ray_pos.y};
-        raycast->ray[i] = malloc(sizeof(t_ray));
+        // raycast->ray[i] = malloc(sizeof(t_ray));
         
         while (!hit)
         {
@@ -165,13 +166,13 @@ t_raycast *raycast(t_game *game)
                         // Déterminer la face E ou O
                         if (ray_dir.x > 0)
                         {
-                            raycast->ray[i]->face = O_FACE;  // Face Ouest
-                            raycast->ray[i]->percent = wall_x * 100;
+                            raycast->ray[i].face = O_FACE;  // Face Ouest
+                            raycast->ray[i].percent = wall_x * 100;
                         }
                         else
                         {
-                            raycast->ray[i]->face = E;  // Face Est
-                            raycast->ray[i]->percent = (1 - wall_x) * 100;
+                            raycast->ray[i].face = E_FACE;  // Face Est
+                            raycast->ray[i].percent = (1 - wall_x) * 100;
                         }
                     }
                     else
@@ -183,20 +184,19 @@ t_raycast *raycast(t_game *game)
                         // Déterminer la face N ou S
                         if (ray_dir.y > 0)
                         {
-                            raycast->ray[i]->face = N_FACE;  // Face Nord
-                            raycast->ray[i]->percent = wall_x * 100;
+                            raycast->ray[i].face = N_FACE;  // Face Nord
+                            raycast->ray[i].percent = wall_x * 100;
                         }
                         else
                         {
-                            raycast->ray[i]->face = S_FACE;  // Face Sud
-                            raycast->ray[i]->percent = (1 - wall_x) * 100;
+                            raycast->ray[i].face = S_FACE;  // Face Sud
+                            raycast->ray[i].percent = (1 - wall_x) * 100;
                         }
                     }
                     
                     // Calculer la distance perpendiculaire pour éviter l'effet fisheye
-                    raycast->ray[i]->distance = wall_dist * cos((ray_angle - game->data->player_dir + 90) * M_PI / 180.0);
+                    raycast->ray[i].distance = wall_dist * cos((ray_angle - raycast->player_dir + 90) * M_PI / 180.0);
                     
-                    // Debug visuel (optionnel)
                     t_layer *map_layer = layer_stack_get(game->layers, 100);
                     t_vector2 start = {
                         game->data->player.x * SCALE_2D + SCALE_2D/2,
@@ -214,13 +214,12 @@ t_raycast *raycast(t_game *game)
         }
         if (!hit)
         {
-            raycast->ray[i]->distance = -1;  // Aucun mur trouvé
-            raycast->ray[i]->percent = 0;
-            raycast->ray[i]->face = 0;  // Face par défaut
+            raycast->ray[i].distance = -1;  // Aucun mur trouvé
+            raycast->ray[i].percent = 0;
+            raycast->ray[i].face = 0;  // Face par défaut
         }
     }
-	// debug_print_raycast(raycast);
-    return raycast;
+    debug_print_raycast(raycast);
 }
 
 void player_dir(t_game *game)
@@ -308,7 +307,11 @@ static void	hook(int keycode, t_game *game)
 	}
 
 	if (keycode == KEY_SPACE)
-		raycast(game);
+    {
+		// raycast(game);
+        raycast(game);
+        draw_view(game);
+    }
 	// stop game
 	if (keycode == KEY_ESC)
 		game_handle_close(game);
