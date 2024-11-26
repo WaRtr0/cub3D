@@ -20,6 +20,12 @@ void			layer_get_offset(t_layer *layer, int *x, int *y);
 void			layer_set_scale(t_layer *layer, int scale);
 void			layer_set_visible(t_layer *layer, int visible);
 
+// Layer duplication
+int				layer_data_dupe(t_layer *src, unsigned int *dst);
+int				layer_dupe(t_layer *src, t_layer *dst);
+
+// Layer rotation
+void			layer_rotate(t_layer *layer, int deg);
 // Layer stack methods
 t_layer_stack *layer_stack_create(void);
 void			layer_stack_destroy(void *mlx, t_layer_stack *stack);

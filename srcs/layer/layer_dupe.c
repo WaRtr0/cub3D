@@ -1,12 +1,30 @@
 #include "layer.h"
 #include "../libft/libft.h"
+#include <../minilibx-linux/mlx.h>
+
+int layer_data_dupe(t_layer *src, unsigned int *dst)
+{
+	if (!src || !dst)
+		return (0);
+	ft_memcpy(dst, src->data, src->width * src->height * sizeof(unsigned int));
+	return (1);
+}
 
 int	layer_dupe(t_layer *src, t_layer *dst)
 {
 	if (!src || !dst)
 		return (0);
-	if (src->width != dst->width || src->height != dst->height)
-		return (0);
-	ft_memcpy(dst->data, src->data, src->width * src->height * 4);
+	dst->width = src->width;
+	dst->height = src->height;
+	dst->offset_x = src->offset_x;
+	dst->offset_y = src->offset_y;
+	dst->visible = src->visible;
+	// dst->z_index = src->z_index;
+	dst->bits_per_pixel = src->bits_per_pixel;
+	dst->line_length = src->line_length;
+	dst->endian = src->endian;
+	// dst->mask = src->mask;
+	dst->clear_color = src->clear_color;
+	layer_data_dupe(src, dst->data);
 	return (1);
 }

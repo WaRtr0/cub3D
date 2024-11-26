@@ -76,6 +76,12 @@ typedef struct s_layer_stack
 }					t_layer_stack;
 
 
+typedef struct s_game_data
+{
+	t_map		*map;
+	t_dvector2	player;
+	int			player_dir;
+}				t_game_data;
 
 typedef struct s_game
 {
@@ -86,6 +92,7 @@ typedef struct s_game
 	void			*hook_callback;
 	char			*title;
 	int				is_running;
+	t_game_data		*data;
 	double			delta_time;
 	double			last_frame;
 	t_layer_stack	*layers;
