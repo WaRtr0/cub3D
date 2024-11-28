@@ -19,7 +19,10 @@ t_layer	*layer_create(void *mlx, int width, int height, int z_index)
 	layer->offset_x = 0;
 	layer->offset_y = 0;
 	layer->mask = false;
-	layer->visible = 1;
+	layer->visible = true;
+	layer->is_volatile = false;
+	layer->volatile_update = NULL;
+	layer->volatile_data = NULL;
 	layer->img = mlx_new_image(mlx, width, height);
 	if (!layer->img)
 	{

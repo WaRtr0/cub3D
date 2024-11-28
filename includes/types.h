@@ -6,7 +6,7 @@
 # include <stdbool.h>
 # include "raycast.h"
 # include "types.h"
-
+# include "cub.h"
 typedef enum e_map_tile
 {
 	E = 0, // empty
@@ -80,11 +80,14 @@ typedef struct s_layer
     int             height;
     int             offset_x;
     int             offset_y;
-    int             visible;
     int             z_index;
     int             bits_per_pixel;
     int             line_length;
     int             endian;
+	bool			visible;
+	bool			is_volatile;
+	bool			*volatile_update;
+	unsigned int	*volatile_data;
 	bool			mask;
     t_pixel         clear_color;
 } t_layer;
@@ -111,9 +114,11 @@ typedef struct s_layer_stack
 typedef struct s_game_data
 {
 	t_map		*map;
-	t_dvector2	player;
-	int			player_dir;
-	t_ray		ray[1920];
+	t_vector2	player;
+	double		yaw;
+	double		pitch;
+	t_ray		ray[WIDTH];
+	bool		is_warping;
 	int			fov;
 	int			width;
 	int			height;
@@ -127,6 +132,9 @@ typedef struct s_game
 	int				width;
 	int				height;
 	void			*hook_callback;
+	void			*hook_release;
+	void			*hook_mouse_move;
+	void			*hook_mouse_press;
 	char			*title;
 	int				is_running;
 	t_game_data		*data;

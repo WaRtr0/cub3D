@@ -23,7 +23,14 @@ void	game_set_update_callback(t_game *game, void (*update)(t_game *));
 // Event handlers
 int		game_handle_keypress(int keycode, t_game *game);
 int		game_handle_close(t_game *game);
-void	game_set_hook(t_game *game, void (*hook)(int, t_game *));
+int		game_handle_mouse_move(int x, int y, t_game *game);
+int		game_handle_mouse_press(int button, int x, int y, t_game *game);
+int     game_handle_krelease(int keycode, t_game *game);
+void	game_set_hook_press(t_game *game, void (*hook)(int, t_game *));
+void	game_set_hook_release(t_game *game, void (*hook)(int, t_game *));
+void    game_set_hook_mouse_move(t_game *game, void (*hook)(int, int, t_game *));
+void    game_set_hook_mouse_press(t_game *game, void (*hook)(int, int, t_game *));
+
 // void
 
 // Utility functions
