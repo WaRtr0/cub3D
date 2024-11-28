@@ -4,7 +4,9 @@
 
 
 // Raycasting
+# ifndef FOV
 # define FOV 60
+# endif
 # define RAYMODE 0
 // 0 = Raycast
 // 1 = Raycast by step
@@ -14,8 +16,39 @@
 # define RAYSTEP 4
 
 // Window
-# define HEIGHT 1080
-# define WIDTH 1920
+# ifndef HEIGHT
+#  define HEIGHT 1080
+# endif
+
+# ifndef WIDTH
+#  define WIDTH 1920
+# endif
+
+# if HEIGHT < 64
+#  define HEIGHT 64
+# endif
+
+# if HEIGHT > 2160
+#  define HEIGHT 2160
+# endif
+
+
+# if WIDTH < 64
+#  define WIDTH 64
+# endif
+
+# if WIDTH > 3840
+#  define WIDTH 3840
+# endif
+
+# if FOV > 120
+#  define FOV 120
+# endif
+
+# if FOV < 30
+#  define FOV 30
+# endif
+
 # define SPLIT_HEIGHT (-(HEIGHT / 2))
 
 // Math
@@ -33,7 +66,7 @@
 # define YAW_MAX 360
 # define YAW_MIN 0
 # define PITCH_MAX 50
-# define SENTIVITY 0.5
+# define SENTIVITY 0.25
 
 # define DEBUG 0
 
