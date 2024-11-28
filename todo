@@ -5,3 +5,4 @@ MAX
 - Leak
 - collision
 - mouvement haut bas souris
+- Raycast bystep et dichotomie

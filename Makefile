@@ -16,8 +16,9 @@ INCLUDES = $(INCLUDES_DIR)/game.h\
 		   $(INCLUDES_DIR)/utils.h\
 		   $(INCLUDES_DIR)/view.h\
 
-CFLAGS = -g3
+
 OPTIM = -O3 -march=native -flto -ffast-math
+CFLAGS = -g3 $(OPTIM)
 MLXFLAGS = -lX11 -lXext -lm
 
 SRC_DIR = srcs
@@ -50,7 +51,7 @@ $(NAME): $(LIBFTA) $(LIBMLXA) $(OBJ)
 
 all :    $(NAME)
 
-$(BUILD_DIR)/%.o : $(SRC_DIR)/%.c $(INCLUDES)
+$(BUILD_DIR)/%.o : $(SRC_DIR)/%.c $(INCLUDES) Makefile
 	echo "Creating directory $(@D)"
 	mkdir -p $(@D)
 	echo "Compiling $< to $@"

@@ -14,8 +14,8 @@
 # define RAYSTEP 4
 
 // Window
-# define HEIGHT 100
-# define WIDTH 100
+# define HEIGHT 1080
+# define WIDTH 1920
 # define SPLIT_HEIGHT (-(HEIGHT / 2))
 
 // Math
@@ -34,5 +34,7 @@
 # define YAW_MIN 0
 # define PITCH_MAX 50
 # define SENTIVITY 0.5
+
+# define DEBUG 0
 
 #endif

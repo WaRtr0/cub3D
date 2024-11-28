@@ -474,6 +474,14 @@ static void	update(t_game *game)
 	// update script
     raycast(game);
     draw_view(game);
+    if (DEBUG)
+    {
+        game->count++;
+        if (game->count >= 60)
+        {
+            game_handle_close(game);
+        }
+    }
 }
 
 	// fake parsings
