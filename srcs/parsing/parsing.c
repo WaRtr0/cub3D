@@ -6,7 +6,7 @@
 /*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:10:06 by garivo            #+#    #+#             */
-/*   Updated: 2024/12/04 16:41:03 by garivo           ###   ########.fr       */
+/*   Updated: 2024/12/04 17:09:08 by garivo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,11 @@ int	extract_textures(t_game *game, t_parsing *map, char *line)
 		dir = WEST;
 	else if (ft_strncmp(line, "EA", 2) == 0)
 		dir = EAST;
-	if (layer_stack_get(game->textures, dir)->data)
-		return (prerr("Error\nTexture already declared\n"), 0);
-	layer_add_texture(game->mlx, game->textures, path, dir);
-	if (!layer_stack_get(game->textures, dir)->data)
-		return (0);
+	// if (layer_stack_get(game->textures, dir)->data)
+	// 	return (prerr("Error\nTexture already declared\n"), 0);
+	// layer_add_texture(game->mlx, game->textures, path, dir);
+	// if (!layer_stack_get(game->textures, dir)->data)
+	// 	return (0);
 	return (1);
 }
 
@@ -198,9 +198,9 @@ int	parse_header(t_game *game, t_parsing *map, char **lines)
 			return (prerr("Error\nInvalid character in header\n"), 0);
 		i++;
 	}
-	if (game->textures->layers[NORTH] == NULL || game->textures->layers[EAST] == NULL || game->textures->layers[SOUTH] == NULL
-		|| game->textures->layers[WEST] == NULL || map->floor.r == -1 || map->ceiling.r == -1)
-		return (prerr("Error\nMissing element in header\n"), 0);
+	// if (game->textures->layers[NORTH] == NULL || game->textures->layers[EAST] == NULL || game->textures->layers[SOUTH] == NULL
+	// 	|| game->textures->layers[WEST] == NULL || map->floor.r == -1 || map->ceiling.r == -1)
+	// 	return (prerr("Error\nMissing element in header\n"), 0);
 	return (i);
 }
 
@@ -215,8 +215,8 @@ int	convert_parsing(t_game *game, t_parsing *map)
 	game->data->map = malloc(sizeof(t_map));
 	if (!game->data->map)
 		return (0);
-	game->data->player_dir = map->player_dir * 90;
-	printf("Player dir: %d\n", game->data->player_dir);
+	game->data->yaw = map->player_dir * 90;
+	printf("Player dir: %f\n", game->data->yaw);
 	game->data->map->height = map->height;
 	game->data->map->width = map->width;
 	tiles = malloc(sizeof(t_map_tile) * map->height * (map->width + 1));
@@ -266,13 +266,13 @@ int	parse(t_game *game, const char *path)
 	end_of_header = parse_header(game, &map, lines);
 	if (!end_of_header)
 		return (0);
-	printf("\nEnd of header : %i\n", end_of_header);
-	printf("NO: %p\n", game->textures->layers[0]->data);
-	printf("SO: %p\n", game->textures->layers[1]->data);
-	printf("WE: %p\n", game->textures->layers[2]->data);
-	printf("EA: %p\n", game->textures->layers[3]->data);
-	printf("F: %d %d %d %d\n", map.floor.r, map.floor.g, map.floor.b, map.floor.a);
-	printf("C: %d %d %d %d\n", map.ceiling.r, map.ceiling.g, map.ceiling.b, map.ceiling.a);
+	// printf("\nEnd of header : %i\n", end_of_header);
+	// printf("NO: %p\n", game->textures->layers[0]->data);
+	// printf("SO: %p\n", game->textures->layers[1]->data);
+	// printf("WE: %p\n", game->textures->layers[2]->data);
+	// printf("EA: %p\n", game->textures->layers[3]->data);
+	// printf("F: %d %d %d %d\n", map.floor.r, map.floor.g, map.floor.b, map.floor.a);
+	// printf("C: %d %d %d %d\n", map.ceiling.r, map.ceiling.g, map.ceiling.b, map.ceiling.a);
 	if (!parse_map(game, &map, lines + end_of_header))
 		return (0);
 	i = 0;

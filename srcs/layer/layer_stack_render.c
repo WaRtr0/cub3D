@@ -41,6 +41,15 @@ static void	process_row(t_layer *layer, t_layer *output, int y, int start_x)
 			current = layer->data[src_y * layer->width + src_x];
 			if ((current >> 24) & 0xFF)
 				blend_pixels(&output->data[y * output->width + x], current);
+			if (layer->is_volatile)
+			{
+				current = layer->volatile_data[src_y * layer->width + src_x];
+				if ((current >> 24) & 0xFF)
+				{
+					blend_pixels(&output->data[y * output->width + x], current);
+					layer->volatile_data[src_y * layer->width + src_x] = 0;
+				}
+			}
 		}
 		x++;
 	}
@@ -65,6 +74,15 @@ static void process_row_mask(t_layer *layer, t_layer *output, t_layer *mask, int
 			mask_pixel = mask->data[(y - mask->offset_y) * mask->width + (x - mask->offset_x)];
 			if ((current >> 24) & 0xFF && (mask_pixel >> 24) & 0xFF)
 				blend_pixels(&output->data[y * output->width + x], current);
+			if (layer->is_volatile)
+			{
+				current = layer->volatile_data[src_y * layer->width + src_x];
+				if ((current >> 24) & 0xFF && (mask_pixel >> 24) & 0xFF)
+				{
+					blend_pixels(&output->data[y * output->width + x], current);
+					layer->volatile_data[src_y * layer->width + src_x] = 0;
+				}
+			}
 		}
 		x++;
 	}

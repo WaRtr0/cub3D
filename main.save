@@ -142,7 +142,7 @@ int	main(void)
 	game = game_new(1920, 1080, "My Game !");
 	if (!game)
 		return (1);
-	game_set_hook(game, hook);
+	game_set_hook_press(game, hook);
 	game_set_update_callback(game, update);
 	background = layer_create(game->mlx, game->width, game->height, 0);
 	sprite = layer_create(game->mlx, 500, 500, 1);

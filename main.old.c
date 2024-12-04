@@ -25,7 +25,7 @@ int	main(void)
 		return (1);
 
 	// Set the hook callback
-	game_set_hook(game, hook);
+	game_set_hook_press(game, hook);
 
 	// Create a new layers
 	// background

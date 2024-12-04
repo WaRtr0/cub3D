@@ -15,7 +15,9 @@ t_game	*game_new(int width, int height, char *title)
 	}
 	game->data->player.x = 0;
 	game->data->player.y = 0;
-	game->data->player_dir = 0;
+	game->data->pitch = 0;
+	game->data->yaw = 0;
+	game->data->is_warping = false;
 	game->data->map = NULL;
 	game->width = width;
 	game->height = height;
@@ -26,6 +28,9 @@ t_game	*game_new(int width, int height, char *title)
 	game->mlx = NULL;
 	game->win = NULL;
 	game->hook_callback = NULL;
+	game->hook_release = NULL;
+	game->hook_mouse_move = NULL;
+	game->hook_mouse_press = NULL;
 	game->layers = NULL;
 	game->textures = NULL;
 	game->update_callback = NULL;
