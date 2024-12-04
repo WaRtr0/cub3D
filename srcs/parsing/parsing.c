@@ -6,7 +6,7 @@
 /*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:10:06 by garivo            #+#    #+#             */
-/*   Updated: 2024/12/04 17:09:08 by garivo           ###   ########.fr       */
+/*   Updated: 2024/12/04 17:27:10 by garivo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,7 +238,7 @@ int	convert_parsing(t_game *game, t_parsing *map)
 			tiles[i] = W;
 		else if (map->map[i + offset] == '0' || map->map[i + offset] == ' ')
 			tiles[i] = E;
-		else if (map->map[i + offset] == '\0')
+		else if (map->map[i + offset] == '\0' && i--)
 			offset++;
 		i++;
 	}
