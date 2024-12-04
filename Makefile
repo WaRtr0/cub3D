@@ -15,6 +15,7 @@ INCLUDES = $(INCLUDES_DIR)/game.h\
 		   $(INCLUDES_DIR)/raycast.h\
 		   $(INCLUDES_DIR)/utils.h\
 		   $(INCLUDES_DIR)/view.h\
+		   $(INCLUDES_DIR)/parsing.h\
 
 CFLAGS = -g3
 OPTIM = -O3 -march=native -flto -ffast-math
@@ -31,6 +32,7 @@ SRC_FILE = main.c\
 		   raycast/raycast.c raycast/ray_dda.c\
 		   view/view_create.c\
 		   font.c\
+		   parsing/parsing.c parsing/parsing_map.c parsing/parsing_checks.c\
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILE))
 

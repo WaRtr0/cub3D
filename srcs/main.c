@@ -5,6 +5,7 @@
 #include "layer.h"
 #include "types.h"
 #include "raycast.h"
+#include "parsing.h"
 
 static void	update(t_game *game)
 {
@@ -411,7 +412,7 @@ static void generate_map(t_map *map_struct, t_game *game)
 	center_offset_player_on_map(game);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_game *game;
 	t_layer *background;
@@ -423,6 +424,16 @@ int	main(void)
 	game = game_new(1920, 1080, "My Game !");
 	if (!game)
 		return (1);
+    if (argc == 2)
+    {
+        if (!parse(game, argv[1]))
+            return (1);
+    }
+    else
+    {
+        prerr("Error: Invalid number of arguments\n");
+        return (1);
+    }
 	game_set_hook(game, hook);
 	game_set_update_callback(game, update);
 	background = layer_create(game->mlx, game->width, game->height, 0);
@@ -430,7 +441,18 @@ int	main(void)
 	layer_stack_add(game->layers, background);
 	bg_color = pixel_create(255, 255, 255, 255);
 	layer_fill(background, bg_color);
-	generate_map(get_parsed_map(), game);
+
+    printf("Map:\n");
+    for (int y = 0; y < game->data->map->height; y++)
+    {
+        for (int x = 0; x < game->data->map->width; x++)
+        {
+            printf("%d", game->data->map->tiles[y * game->data->map->width + x]);
+        }
+        printf("\n");
+    }
+
+    generate_map(game->data->map, game);
 	game_run(game);
 	game_destroy(game);
 	return (0);

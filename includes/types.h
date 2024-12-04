@@ -63,7 +63,6 @@ typedef struct s_map {
 	int			height;
 } t_map;
 
-
 typedef struct s_pixel
 {
 	unsigned int	r;
@@ -133,7 +132,7 @@ typedef struct s_game
 	double			delta_time;
 	double			last_frame;
 	t_layer_stack	*layers;
-	t_layer_stack   *texture;
+	t_layer_stack   *textures;
 	void			*update_callback;
 	int				count;
 }					t_game;
