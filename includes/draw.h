@@ -15,22 +15,28 @@ typedef struct s_draw_triangle_fill
 	float		area3;
 }				t_draw_triangle_fill;
 
-typedef struct s_texture_info
-{
-	int			start_x;
-	int			start_y;
-	int			end_x;
-	int			end_y;
-	int			y;
-	int			src_offset;
-}				t_texture_info;
-
 typedef struct s_mlx_data
 {
 	int			bpp;
 	int			line_len;
 	int			endian;
-}				t_mlx_data;
+}		t_mlx_data;		
+typedef struct s_texture_info
+{
+	int				start_x;
+	int				start_y;
+	int				end_x;
+	int				end_y;
+	int				y;
+	void			*img;
+	unsigned int	*data;
+	int				width;
+	int				height;
+	t_mlx_data		mlx_data;
+	int				src_offset;
+}				t_texture_info;
+
+
 
 void			draw_line(t_layer *layer, t_vector2 start, t_vector2 end,
 					t_pixel color);

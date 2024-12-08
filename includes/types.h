@@ -27,7 +27,7 @@ typedef struct s_dvector2
 	int	y;
 }					t_dvector2;	
 
-# define M_PI 3.14159265358979323846
+// # define M_PI 3.14159265358979323846
 typedef struct s_raycast_data
 {
 	t_vector2	ray_pos;

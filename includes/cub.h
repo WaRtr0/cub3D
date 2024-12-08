@@ -53,14 +53,15 @@
 
 // Math
 # define M_PI 3.14159265358979323846
+// # define M_PI 3.14
 
 # define WALL_HEIGHT 1
-# define HIT_BOX 0.01
+# define HIT_BOX 0.1
 # define SPEED 0.1
 
 // Scale
 # define SCALE_2D 32
-# define SCALE_3D ((WIDTH / 2) / tan((FOV / 2) * M_PI / 180) * WALL_HEIGHT)
+# define SCALE_3D (((WIDTH / 2) / tan((FOV / 2) * M_PI / 180)) * WALL_HEIGHT)
 
 // Mouse
 # define YAW_MAX 360

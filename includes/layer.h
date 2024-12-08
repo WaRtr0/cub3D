@@ -23,6 +23,11 @@ int				layer_dupe(t_layer *src, t_layer *dst);
 
 void	layer_split_fill(t_layer *layer, t_pixel color1, t_pixel color2);
 
+// texturing
+
+t_layer	*layer_add_texture(void *mlx, t_layer_stack *stack, char *path,
+		int z_index);
+
 // Layer volatile
 
 void			layer_volatile_on(t_layer *layer);

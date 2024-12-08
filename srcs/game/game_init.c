@@ -18,7 +18,9 @@ int game_init(t_game *game)
     game->layers = layer_stack_create();
     if (!game->layers)
         return (0);
-    
+    game->textures = layer_stack_create();
+    if (!game->textures)
+        return (0);
     mlx_hook(game->win, ON_KEYDOWN, MASK_KEY_PRESS, game_handle_keypress, game);
     mlx_hook(game->win, ON_DESTROY_NOTIFY, MASK_NO_EVENT, game_handle_close, game);
     mlx_hook(game->win, ON_KEYUP, MASK_KEY_RELEASE, game_handle_krelease, game);

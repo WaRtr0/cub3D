@@ -7,6 +7,7 @@
 #include "view.h"
 #include "raycast.h"
 #include "parsing.h"
+#include "player.h"
 
 void center_offset_player_on_map(t_game *game)
 {
@@ -18,117 +19,6 @@ void center_offset_player_on_map(t_game *game)
 		map_mask->height/2 - (game->data->player.y * SCALE_2D) - SCALE_2D/2 + map_mask->offset_y
     );
 }
-
-void player_move_forward(t_game *game)
-{
-    t_map *map = game->data->map;
-    double move_x = sin((game->data->yaw) * M_PI / 180) * SPEED;
-    double move_y = -cos((game->data->yaw) * M_PI / 180) * SPEED;
-    double new_x = game->data->player.x + move_x;
-    double new_y = game->data->player.y + move_y;
-    
-
-    t_vector2 hit_points[4] = {
-        {new_x - HIT_BOX, new_y - HIT_BOX},  // Haut gauche
-        {new_x + HIT_BOX, new_y - HIT_BOX},  // Haut droite
-        {new_x - HIT_BOX, new_y + HIT_BOX},  // Bas gauche
-        {new_x + HIT_BOX, new_y + HIT_BOX}   // Bas droite
-    };
-    
-    // Vérifier les limites de la carte pour tous les points
-    for (int i = 0; i < 4; i++)
-    {
-        if (hit_points[i].x < 0 || hit_points[i].x >= map->width || 
-            hit_points[i].y < 0 || hit_points[i].y >= map->height)
-            return;
-    }
-    
-    // Vérifier les collisions pour chaque point
-    for (int i = 0; i < 4; i++)
-    {
-        int check_x = (int)floor(hit_points[i].x);
-        int check_y = (int)floor(hit_points[i].y);
-        
-        if (map->tiles[check_y * map->width + check_x] == W)
-        {
-            // Si collision détectée, trouver la direction de la collision
-            bool collision_x = false;
-            bool collision_y = false;
-            
-            // Vérifier si la collision est horizontale
-            if (map->tiles[(int)floor(game->data->player.y) * map->width + check_x] == W)
-                collision_x = true;
-                
-            // Vérifier si la collision est verticale
-            if (map->tiles[check_y * map->width + (int)floor(game->data->player.x)] == W)
-                collision_y = true;
-                
-            // Appliquer le mouvement seulement dans les directions sans collision
-            if (!collision_x)
-                game->data->player.x = new_x;
-            if (!collision_y)
-                game->data->player.y = new_y;
-                
-            center_offset_player_on_map(game);
-            return;
-        }
-    }
-    
-    // Si aucune collision n'est détectée, appliquer le mouvement complet
-    game->data->player.x = new_x;
-    game->data->player.y = new_y;
-    center_offset_player_on_map(game);
-}
-
-void    player_move_backward(t_game *game)
-{
-    t_map *map = game->data->map;
-    // Ajuster l'angle pour que 0 degré pointe vers le haut
-    // et rotation dans le sens horaire
-    double move_x = sin((game->data->yaw) * M_PI / 180) * SPEED;
-    double move_y = -cos((game->data->yaw) * M_PI / 180) * SPEED;
-    double new_x = game->data->player.x - move_x;
-    double new_y = game->data->player.y - move_y;
-    
-    int current_x = (int)floor(game->data->player.x);
-    int current_y = (int)floor(game->data->player.y);
-    int next_x = (int)floor(new_x);
-    int next_y = (int)floor(new_y);
-    
-    // Vérifier les limites de la carte
-    if (next_x < 0 || next_x >= map->width || next_y < 0 || next_y >= map->height)
-        return;
-        
-    // Vérifier les collisions le long du mouvement
-    bool can_move_x = true;
-    bool can_move_y = true;
-    
-    // Vérifier la collision en X
-    if (map->tiles[current_y * map->width + next_x] == W)
-        can_move_x = false;
-        
-    // Vérifier la collision en Y
-    if (map->tiles[next_y * map->width + current_x] == W)
-        can_move_y = false;
-        
-    // Vérifier la collision diagonale
-    if (map->tiles[next_y * map->width + next_x] == W)
-    {
-        can_move_x = false;
-        can_move_y = false;
-    }
-    
-    // Appliquer le mouvement selon les collisions
-    if (can_move_x)
-        game->data->player.x = new_x;
-    if (can_move_y)
-        game->data->player.y = new_y;
-        
-    center_offset_player_on_map(game);
-}
-
-
-#include <math.h>
 
 t_dvector2 dvector2_rotate(t_dvector2 v, int deg)
 {
@@ -149,32 +39,6 @@ t_dvector2 dvector2_sub(t_dvector2 v1, t_dvector2 v2)
     return (t_dvector2){v1.x - v2.x, v1.y - v2.y};
 }
 
-// void raycast(t_game *game)
-// {
-// 	t_dvector2	player;
-// 	t_vector2	yaw;
-// 	t_map		*map;
-// 	int		 	fov = 60;
-
-// 	map = game->data->map;
-// 	player = game->data->player;
-// 	yaw = (t_vector2){cos(game->data->yaw * M_PI / 180), sin(game->data->yaw * M_PI / 180)};
-// 	printf("Player: %d %d | dir: %f %f\n", player.x, player.y, yaw.x, yaw.y);
-// }
-
-
-// void free_raycast(t_raycast raycast)
-// {
-//     if (!raycast)
-//         return;
-//     for (int i = 0; i < raycast->width; i++)
-//     {
-//         free(raycast->ray[i]);
-//     }
-//     // free(raycast->ray);
-//     free(raycast);
-// }
-
 void debug_print_raycast(t_game_data *raycast)
 {
 	for (int i = 0; i < raycast->width; i++)
@@ -184,31 +48,41 @@ void debug_print_raycast(t_game_data *raycast)
 }
 void raycast(t_game *game)
 {
-    t_vector2 ray_pos;
-    t_vector2 ray_dir;
-    t_vector2 delta_dist;
-    t_vector2 side_dist;
-    t_vector2 step;
+   
+    
+    
+    
+    
     t_map *map = game->data->map;
-    // int fov = 60;
     t_game_data *raycast;
 
     raycast = game->data;
-    // Création de la structure de retour
     raycast->width = WIDTH;
     // raycast->ray = malloc(sizeof(t_ray*) * raycast->width);
     
-   
+    // double ray_angle = (game->data->yaw - 90 - FOV/2.0)
+    // + ((double)i * FOV / raycast->width);
+    t_vector2 ray_pos;
+    double sub_angle = FOV / (double)raycast->width;
+    double angle = game->data->yaw - 90 - (FOV >> 1);
+    ray_pos.x = game->data->player.x + 0.5;
+    ray_pos.y = game->data->player.y + 0.5;
     for (int i = 0; i < raycast->width; i++)
     {
+        
+        t_vector2 ray_dir;
+        t_vector2 delta_dist;
+        t_vector2 step;
+        t_vector2 side_dist;
         bool hit = false;
         int side;
         
-        double ray_angle = (game->data->yaw - 90 - FOV/2.0) + ((double)i * FOV / raycast->width);
-        double angle_rad = ray_angle * M_PI / 180.0;
+        // double ray_angle = angle + (double)i * sub_angle;
+        // double ray_angle = (i - (raycast->width / 2)) * ((1. / raycast->width) * (game->data->yaw - 90));
+        double ray_angle = angle + ((double)i * sub_angle);
+        double angle_rad = ray_angle * (M_PI / 180.0);
         
-        ray_pos.x = game->data->player.x + 0.5;
-        ray_pos.y = game->data->player.y + 0.5;
+        
         
         ray_dir.x = cos(angle_rad);
         ray_dir.y = sin(angle_rad);
@@ -438,12 +312,12 @@ static void	hook(int keycode, t_game *game)
 
     if (keycode == KEY_W)
     {
-        player_move_forward(game);
+        player_move(game, 1);
     }
 
     if (keycode == KEY_S)
     {
-        player_move_backward(game);
+        player_move(game, -1);
     }
 	if (keycode == KEY_A)
 	{
@@ -483,40 +357,6 @@ static void	update(t_game *game)
             game_handle_close(game);
         }
     }
-}
-
-	// fake parsings
-static t_map	*get_parsed_map(void)
-{
-	t_map	*map;
-	t_map_tile	*tiles;
-
-	map = (t_map *)malloc(sizeof(t_map));
-	map->width = 10;
-	map->height = 10;
-	tiles = (t_map_tile *)malloc(sizeof(t_map_tile) * map->width * map->height);
-	
-	map->tiles = tiles;
-
-	static const t_map_tile map_tile[10][10] = {
-		{W, W, W, W, W, W, W, W, W, W},
-		{W, E, E, W, W, E, E, E, E, W},
-		{W, E, E, E, W, E, E, E, E, W},
-		{W, E, E, E, W, W, W, E, E, W},
-		{W, E, E, E, E, W, E, E, E, W},
-		{W, E, E, P, E, E, E, E, E, W},
-		{W, E, E, E, E, E, W, E, E, W},
-		{W, E, E, E, E, E, W, D, W, W},
-		{W, E, E, E, E, E, W, E, E, W},
-		{W, W, W, W, W, W, W, W, W, W},
-	};
-	
-	 for (int y = 0; y < map->height; y++) {
-        for (int x = 0; x < map->width; x++) {
-        tiles[y * map->width + x] = map_tile[y][x]; // Indexation 1D
-        }
-    }
-	return (map);
 }
 
 
@@ -624,15 +464,15 @@ int	main(int argc, char **argv)
     wall = layer_create(game->mlx, game->width, game->height, 2);
 
 
-    printf("Map:\n");
-    for (int y = 0; y < game->data->map->height; y++)
-    {
-        for (int x = 0; x < game->data->map->width; x++)
-        {
-            printf("%d", game->data->map->tiles[y * game->data->map->width + x]);
-        }
-        printf("\n");
-    }
+    // printf("Map:\n");
+    // for (int y = 0; y < game->data->map->height; y++)
+    // {
+    //     for (int x = 0; x < game->data->map->width; x++)
+    //     {
+    //         printf("%d", game->data->map->tiles[y * game->data->map->width + x]);
+    //     }
+    //     printf("\n");
+    // }
 
     generate_map(game->data->map, game);
     layer_split_fill(background_split, pixel_create(25, 25, 75, 255), pixel_create(75, 25, 25, 255));
@@ -644,6 +484,14 @@ int	main(int argc, char **argv)
 	// layer_fill(background, bg_color);
     layer_volatile_on(wall);
     //warning
+
+    //test texture
+    layer_add_texture(game->mlx, game->textures, "test.xpm", 0);
+    printf("Texture added\n");
+    // get basic info
+
+    printf("Texture Width %d\n Height %d\n", game->textures->layers[0]->width, game->textures->layers[0]->height);
+
     mlx_mouse_hide(game->mlx, game->win);
 	game_run(game);
 	game_destroy(game);
