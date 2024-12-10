@@ -24,14 +24,19 @@ static void	copy_texture_line(t_layer *layer, unsigned int *data,
 static int	get_image(t_texture_info *info, void *mlx, char *path)
 {
 	info->img = mlx_xpm_file_to_image(mlx, path, &info->end_x, &info->end_y);
-	if (!info->img && (printf("Error: Could not load XPM file: %s\n", path)
-			|| 1))
+	if (!info->img)
+	{
+		printf("Error: Could not load XPM file: %s\n", path);
 		return (0);
+	}
 	info->data = (unsigned int *)mlx_get_data_addr(info->img,
 			&info->mlx_data.bpp, &info->mlx_data.line_len,
 			&info->mlx_data.endian);
-	if (!info->data && (mlx_destroy_image(mlx, info->img) || 1))
+	if (!info->data)
+	{
+		mlx_destroy_image(mlx, info->img);
 		return (0);
+	}
 	return (1);
 }
 

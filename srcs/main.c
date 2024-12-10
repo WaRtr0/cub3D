@@ -486,11 +486,11 @@ int	main(int argc, char **argv)
     //warning
 
     //test texture
-    layer_add_texture(game->mlx, game->textures, "test.xpm", 0);
-    printf("Texture added\n");
+    // layer_add_texture(game->mlx, game->textures, "test.xpm", 0);
+    // printf("Texture added\n");
     // get basic info
 
-    printf("Texture Width %d\n Height %d\n", game->textures->layers[0]->width, game->textures->layers[0]->height);
+    // printf("Texture Width %d\n Height %d\n", game->textures->layers[0]->width, game->textures->layers[0]->height);
 
     mlx_mouse_hide(game->mlx, game->win);
 	game_run(game);

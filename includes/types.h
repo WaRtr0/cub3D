@@ -7,6 +7,15 @@
 # include "raycast.h"
 # include "types.h"
 # include "cub.h"
+
+typedef enum e_dir 
+{
+	NORTH,
+	EAST,
+	SOUTH,
+	WEST
+}	t_dir;
+
 typedef enum e_map_tile
 {
 	E = 0, // empty

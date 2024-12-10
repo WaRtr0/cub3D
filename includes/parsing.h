@@ -6,7 +6,7 @@
 /*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:08:15 by garivo            #+#    #+#             */
-/*   Updated: 2024/12/04 15:50:43 by garivo           ###   ########.fr       */
+/*   Updated: 2024/12/09 18:24:59 by garivo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,6 @@
 # include "draw.h"
 # include <stdio.h>
 # include "utils.h"
-
-typedef enum e_dir 
-{
-	NORTH,
-	EAST,
-	SOUTH,
-	WEST
-}	t_dir;
 
 typedef struct t_parsing
 {

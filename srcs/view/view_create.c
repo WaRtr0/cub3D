@@ -1,6 +1,7 @@
 #include "view.h"
 #include "cub.h"
 #include "game.h"
+#include <float.h>
 
 void	layer_split(t_layer *layer, t_pixel color1, t_pixel color2)
 {
@@ -24,6 +25,14 @@ void	layer_split(t_layer *layer, t_pixel color1, t_pixel color2)
 	}
 }
 
+t_pixel	texture_pixel(t_layer *xpm, double x_ratio, double y_ratio)
+{
+	t_pixel	pixel;
+
+	pixel = layer_get_pixel(xpm, x_ratio * xpm->width, y_ratio * xpm->height);
+	return (pixel);
+}
+
 int	draw_view(t_game *game)
 {
 	t_layer *render;
@@ -43,22 +52,29 @@ int	draw_view(t_game *game)
 	raycast = game->data;
 	render = layer_stack_get(game->layers, 2);
 	background = layer_stack_get(game->layers, 1);
-	// warning change center get percent 0 => variable
+	// warning change center get percent / 100. 0 => variable
 	raycast->center = game->height / 2 + raycast->pitch * 10;
 	layer_set_offset(background, 0, SPLIT_HEIGHT + raycast->pitch * 10);
 	x = 0;
 	
 	while (x < game->width)
 	{
-		perceived_height = (int)(SCALE_3D / raycast->ray[x].distance);
-		y = raycast->center - perceived_height / 2;
-		while (y < raycast->center + perceived_height / 2)
+		perceived_height = (int)(SCALE_3D / raycast->ray[x].distance) >> 1;
+		y = raycast->center - perceived_height;
+		while (y < raycast->center + perceived_height)
 		{
 			// layer_set_pixel(render, x, y++, pixel_create(255, 0, 0, 255));
 			if ((int)raycast->ray[x].percent == 0 || (int)raycast->ray[x].percent == 100)
 				layer_set_pixel(render, x, y++, pixel_create(0, 0, 0, 255));
 			else if (raycast->ray[x].face == N_FACE)
-				layer_set_pixel(render, x, y++, NORD);
+			{
+				double tmp = y - (raycast->center - perceived_height);
+				tmp /= perceived_height;
+				layer_set_pixel(render, x, y,
+				 	texture_pixel(layer_stack_get(game->textures, NORTH), raycast->ray[x].percent / 100.,
+						(y - (raycast->center - perceived_height)) / (perceived_height * 2)));
+				y++;
+			}
 			else if (raycast->ray[x].face == S_FACE)
 				layer_set_pixel(render, x, y++, SUD);
 			else if (raycast->ray[x].face == E_FACE)
@@ -67,6 +83,17 @@ int	draw_view(t_game *game)
 				layer_set_pixel(render, x, y++, OUEST);
 			else
 				y++;
+
+			// else if (raycast->ray[x].face == N_FACE)
+			// 	layer_set_pixel(render, x, y++, NORD);
+			// else if (raycast->ray[x].face == S_FACE)
+			// 	layer_set_pixel(render, x, y++, SUD);
+			// else if (raycast->ray[x].face == E_FACE)
+			// 	layer_set_pixel(render, x, y++, EST);
+			// else if (raycast->ray[x].face == O_FACE)
+			// 	layer_set_pixel(render, x, y++, OUEST);
+			// else
+			// 	y++;
 
 			
 		}
