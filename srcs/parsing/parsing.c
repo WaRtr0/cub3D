@@ -6,7 +6,7 @@
 /*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:10:06 by garivo            #+#    #+#             */
-/*   Updated: 2024/12/09 18:16:26 by garivo           ###   ########.fr       */
+/*   Updated: 2024/12/11 01:26:08 by garivo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,6 +256,7 @@ int	parse(t_game *game, const char *path)
 	size_t		i;
 	t_parsing	map;
 	int			end_of_header;
+	t_layer		*background_split;
 
 	ft_memset(&map, 0, sizeof(t_parsing));
 	map.player_dir = -1;
@@ -281,8 +282,11 @@ int	parse(t_game *game, const char *path)
 	if (!convert_parsing(game, &map))
 		return (0);
 	free(map.map);
+	background_split = layer_create(game->mlx, game->width, game->height * 2, 1);
+    layer_split_fill(background_split, map.ceiling, map.floor);
+    layer_set_offset(background_split, 0, SPLIT_HEIGHT);
+	layer_stack_add(game->layers, background_split);
 	return (1);
 }
 
 //free la map les pixels et les textures en cas d'erreur
-//checker le passage au layer stack pour les textures

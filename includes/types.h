@@ -53,10 +53,10 @@ typedef struct s_raycast_data
 
 typedef enum e_face
 {
-	N_FACE = 1,
+	N_FACE = 0,
+	E_FACE = 1,
 	S_FACE = 2,
-	E_FACE = 3,
-	O_FACE = 4
+	W_FACE = 3
 }				t_face;
 
 typedef struct s_ray

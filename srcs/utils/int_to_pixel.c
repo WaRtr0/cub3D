@@ -3,6 +3,11 @@
 
 t_pixel	int_to_pixel(color)
 {
-	return (pixel_create((color >> 16) & 0xFF, (color >> 8) & 0xFF,
-			color & 0xFF, (color >> 24) & 0xFF));
+	t_pixel	pixel;
+
+	pixel.a = (color >> 24) & 0xFF;
+	pixel.r = (color >> 16) & 0xFF;
+	pixel.g = (color >> 8) & 0xFF;
+	pixel.b = color & 0xFF;
+	return (pixel);
 }

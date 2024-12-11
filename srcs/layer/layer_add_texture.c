@@ -10,13 +10,16 @@ static void	copy_texture_line(t_layer *layer, unsigned int *data,
 	int				x;
 	int				src_x;
 	unsigned int	color;
+	t_pixel			pixel;
 
 	x = info.start_x;
 	while (x < info.end_x)
 	{
 		src_x = x - (int)position.x;
 		color = data[info.src_offset + src_x];
-		layer_set_pixel(layer, x, info.y, int_to_pixel(color));
+		pixel = int_to_pixel(color);
+		pixel.a = 255 - pixel.a;
+		layer_set_pixel(layer, x, info.y, pixel);
 		x++;
 	}
 }

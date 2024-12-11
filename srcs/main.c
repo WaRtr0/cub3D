@@ -146,7 +146,7 @@ void raycast(t_game *game)
                         
                         if (ray_dir.x > 0)
                         {
-                            raycast->ray[i].face = O_FACE;
+                            raycast->ray[i].face = W_FACE;
                             raycast->ray[i].percent = wall_x * 100;
                         }
                         else
@@ -437,11 +437,10 @@ static void generate_map(t_map *map_struct, t_game *game)
 int	main(int argc, char **argv)
 {
 	t_game *game;
-    t_layer *background;
-	t_layer *background_split;
 	t_layer *wall;
 	t_pixel bg_color;
 	t_pixel sprite_color;
+    t_layer *background;
 
 	game = game_new(WIDTH, HEIGHT, "My Game !");
 	if (!game)
@@ -456,29 +455,15 @@ int	main(int argc, char **argv)
         prerr("Error: Invalid number of arguments\n");
         return (1);
     }
+    background = layer_create(game->mlx, game->width, game->height, 0);
+    layer_stack_add(game->layers, background);
 	game_set_hook_press(game, hook);
     game_set_hook_mouse_move(game, hook_mouse_move);
 	game_set_update_callback(game, update);
-    background = layer_create(game->mlx, game->width, game->height, 0);
-	background_split = layer_create(game->mlx, game->width, game->height * 2, 1);
     wall = layer_create(game->mlx, game->width, game->height, 2);
 
-
-    // printf("Map:\n");
-    // for (int y = 0; y < game->data->map->height; y++)
-    // {
-    //     for (int x = 0; x < game->data->map->width; x++)
-    //     {
-    //         printf("%d", game->data->map->tiles[y * game->data->map->width + x]);
-    //     }
-    //     printf("\n");
-    // }
-
     generate_map(game->data->map, game);
-    layer_split_fill(background_split, pixel_create(25, 25, 75, 255), pixel_create(75, 25, 25, 255));
-    layer_set_offset(background_split, 0, SPLIT_HEIGHT);
-    layer_stack_add(game->layers, background);
-	layer_stack_add(game->layers, background_split);
+    
     layer_stack_add(game->layers, wall);
 	// bg_color = pixel_create(255, 255, 255, 255);
 	// layer_fill(background, bg_color);

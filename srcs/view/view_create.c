@@ -33,6 +33,8 @@ t_pixel	texture_pixel(t_layer *xpm, double x_ratio, double y_ratio)
 	return (pixel);
 }
 
+
+#include "draw.h"
 int	draw_view(t_game *game)
 {
 	t_layer *render;
@@ -65,37 +67,15 @@ int	draw_view(t_game *game)
 		{
 			// layer_set_pixel(render, x, y++, pixel_create(255, 0, 0, 255));
 			if ((int)raycast->ray[x].percent == 0 || (int)raycast->ray[x].percent == 100)
-				layer_set_pixel(render, x, y++, pixel_create(0, 0, 0, 255));
-			else if (raycast->ray[x].face == N_FACE)
-			{
-				double tmp = y - (raycast->center - perceived_height);
-				tmp /= perceived_height;
-				layer_set_pixel(render, x, y,
-				 	texture_pixel(layer_stack_get(game->textures, NORTH), raycast->ray[x].percent / 100.,
-						(y - (raycast->center - perceived_height)) / (perceived_height * 2)));
-				y++;
-			}
-			else if (raycast->ray[x].face == S_FACE)
-				layer_set_pixel(render, x, y++, SUD);
-			else if (raycast->ray[x].face == E_FACE)
-				layer_set_pixel(render, x, y++, EST);
-			else if (raycast->ray[x].face == O_FACE)
-				layer_set_pixel(render, x, y++, OUEST);
+				layer_set_pixel(render, x, y, pixel_create(0, 0, 0, 255));
 			else
-				y++;
-
-			// else if (raycast->ray[x].face == N_FACE)
-			// 	layer_set_pixel(render, x, y++, NORD);
-			// else if (raycast->ray[x].face == S_FACE)
-			// 	layer_set_pixel(render, x, y++, SUD);
-			// else if (raycast->ray[x].face == E_FACE)
-			// 	layer_set_pixel(render, x, y++, EST);
-			// else if (raycast->ray[x].face == O_FACE)
-			// 	layer_set_pixel(render, x, y++, OUEST);
-			// else
-			// 	y++;
-
-			
+			{
+				layer_set_pixel(render, x, y,
+				 	texture_pixel(layer_stack_get(game->textures, raycast->ray[x].face),
+					raycast->ray[x].percent / 100.,
+					(y - (raycast->center - perceived_height)) / (perceived_height * 2)));
+			}
+			y++;
 		}
 		x++;
 	}
