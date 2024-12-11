@@ -393,7 +393,7 @@ static void generate_map(t_map *map_struct, t_game *game)
 	draw_circle(circle_map, (t_vector2){125, 125}, 125, pixel_create(255, 0, 0, 255));
 	layer_set_offset(circle_map, 25, 25);
 	draw_circle_fill(player, (t_vector2){SCALE_2D / 2, SCALE_2D / 2}, SCALE_2D / 2, pixel_create(255, 0, 0, 255));
-	draw_triangle_fill(rotate, (t_vector2){0 + 5, SCALE_2D / 2}, (t_vector2){SCALE_2D / 2, 5}, (t_vector2){SCALE_2D - 5, SCALE_2D / 2}, pixel_create(255, 255, 255, 255));
+	yaw(game);
 	layer_set_offset(map_mask, 25, 25);
     layer_set_offset(raycast_debug, 25, 25);
 	color = pixel_create(0, 0, 0, 255);
@@ -434,6 +434,7 @@ static void generate_map(t_map *map_struct, t_game *game)
     }
 }
 
+
 int	main(int argc, char **argv)
 {
 	t_game *game;
@@ -461,7 +462,6 @@ int	main(int argc, char **argv)
     game_set_hook_mouse_move(game, hook_mouse_move);
 	game_set_update_callback(game, update);
     wall = layer_create(game->mlx, game->width, game->height, 2);
-
     generate_map(game->data->map, game);
     
     layer_stack_add(game->layers, wall);

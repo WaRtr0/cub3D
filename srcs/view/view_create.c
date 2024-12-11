@@ -45,11 +45,6 @@ int	draw_view(t_game *game)
 	int		y;
 	int		perceived_height;
 
-	t_pixel SUD = pixel_create(0, 0, 255, 255); // Blue
-	t_pixel OUEST = pixel_create(0, 255, 0, 255); // Green
-	t_pixel NORD = pixel_create(255, 0, 0, 255); // Red
-	t_pixel EST = pixel_create(255, 0, 255, 255); // Purple
-
 
 	raycast = game->data;
 	render = layer_stack_get(game->layers, 2);
@@ -65,16 +60,13 @@ int	draw_view(t_game *game)
 		y = raycast->center - perceived_height;
 		while (y < raycast->center + perceived_height)
 		{
-			// layer_set_pixel(render, x, y++, pixel_create(255, 0, 0, 255));
-			if ((int)raycast->ray[x].percent == 0 || (int)raycast->ray[x].percent == 100)
-				layer_set_pixel(render, x, y, pixel_create(0, 0, 0, 255));
-			else
-			{
-				layer_set_pixel(render, x, y,
-				 	texture_pixel(layer_stack_get(game->textures, raycast->ray[x].face),
-					raycast->ray[x].percent / 100.,
-					(y - (raycast->center - perceived_height)) / (perceived_height * 2)));
-			}
+			//layer_set_pixel(render, x, y, pixel_create(255, 0, 0, 255));
+			/*if ((int)raycast->ray[x].percent == 0 || (int)raycast->ray[x].percent == 100)
+				layer_set_pixel(render, x, y, pixel_create(0, 0, 0, 255));*/
+			layer_set_pixel(render, x, y,
+				texture_pixel(layer_stack_get(game->textures, raycast->ray[x].face),
+				raycast->ray[x].percent / 100.,
+				(y - (raycast->center - perceived_height)) / (perceived_height * 2)));
 			y++;
 		}
 		x++;
