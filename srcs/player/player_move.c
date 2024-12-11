@@ -97,64 +97,55 @@ static inline void center_offset_player_on_map(t_game *game)
 //     center_offset_player_on_map(game);
 // }
 
-void player_move(t_game *game, int dir)
+void	move_along(t_game *game, int side, double new_x, double new_y)
 {
-    t_map *map = game->data->map;
-    double move_x = sin((game->data->yaw) * M_PI / 180) * SPEED;
-    double move_y = -cos((game->data->yaw) * M_PI / 180) * SPEED;
-    
+	if (side == 0 && new_y < game->data->player.y + 0.5)
+		game->data->player.y = new_y - 0.5;
+	else if (side == 1 && new_x > game->data->player.x + 0.5)
+		game->data->player.x = new_x - 0.5;
+	else if (side == 2 && new_y > game->data->player.y + 0.5)
+		game->data->player.y = new_y - 0.5;
+	else if (side == 3 && new_x < game->data->player.x + 0.5)
+		game->data->player.x = new_x - 0.5;
+}
+
+void	player_move(t_game *game, int dir)
+{
+	int		i;
+	int		speed;
+    t_map	*map = game->data->map;
+    double	move_x = sin((game->data->yaw) * M_PI / 180) * STEP;
+    double	move_y = -cos((game->data->yaw) * M_PI / 180) * STEP;
+
     // Calcul de la nouvelle position potentielle
-    double new_x = game->data->player.x + (move_x * dir);
-    double new_y = game->data->player.y + (move_y * dir);
+    double new_x = game->data->player.x + (move_x * dir) + 0.5;
+    double new_y = game->data->player.y + (move_y * dir) + 0.5;
     
     // Points de collision (centre + diagonales)
-    /*int check_points[][2] = {
-        {0, 0},     // Centre
-        {-1, -1},   // Haut gauche
-        {1, -1},    // Haut droite
-        {-1, 1},    // Bas gauche
-        {1, 1}      // Bas droite
-    };*/
-    
-    // Vérification des collisions
-    bool collision = false;
-	/*int map_x = (int)check_x;
-	int map_y = (int)check_y;
-	
-	if (map->tiles[map_y * map->width + map_x] == W)
+    int check_points[][2] = {
+        {0, -1},     // Haut
+		{1, 0},     // Droite
+		{0, 1},    // Bas
+		{-1, 0}     // Gauche
+    };
+	// Vérification des collisions
+	if (map->tiles[(int)new_y * map->width + (int)new_x] == W)
+		return ;
+	i = 0;
+	while (i < 4)
 	{
-		collision = true;
-		break;
-	}*/
-    /*for (int i = 0; i < 5; i++)
-    {
-        double check_x = new_x + (check_points[i][0] * HIT_BOX);
-        double check_y = new_y + (check_points[i][1] * HIT_BOX);
-        
-        // Vérification des limites de la carte
-        if (check_x < 0 || check_x >= map->width || 
-            check_y < 0 || check_y >= map->height)
-        {
-            collision = true;
-            break;
-        }
-        
-        // Vérification des collisions avec les murs
-        int map_x = (int)check_x;
-        int map_y = (int)check_y;
-        
-        if (map->tiles[map_y * map->width + map_x] == W)
-        {
-            collision = true;
-            break;
-        }
-    }*/
-    
-    // Si pas de collision, appliquer le mouvement
-    if (!collision)
-    {
-        game->data->player.x = new_x;
-        game->data->player.y = new_y;
-        center_offset_player_on_map(game);
-    }
+		double check_x = new_x + (check_points[i][0] * HIT_BOX);
+		double check_y = new_y + (check_points[i][1] * HIT_BOX);
+		// Vérification des limites de la carte
+		if (check_x >= 0 && check_x < map->width && 
+			check_y >= 0 && check_y < map->height)
+		{
+			// Vérification des collisions avec les murs
+			if (map->tiles[(int)check_y * map->width + (int)check_x] != W)
+				move_along(game, i, new_x, new_y);
+		}
+		i++;
+	}
+	if (i == 4)
+    	center_offset_player_on_map(game);
 }
