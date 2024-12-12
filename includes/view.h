@@ -16,6 +16,6 @@
 
 // int		create_view(t_game *game);
 // t_view	get_view(t_game *game, t_raycast raycasts);
-int		draw_view(t_game *game);
+int	draw_view(t_game *game, t_game_data *raycast, t_layer *render);
 
 #endif

@@ -112,7 +112,6 @@ void	move_along(t_game *game, int side, double new_x, double new_y)
 void	player_move(t_game *game, int dir)
 {
 	int		i;
-	int		speed;
     t_map	*map = game->data->map;
     double	move_x = sin((game->data->yaw) * M_PI / 180) * STEP;
     double	move_y = -cos((game->data->yaw) * M_PI / 180) * STEP;

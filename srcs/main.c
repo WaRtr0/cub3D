@@ -336,8 +336,7 @@ static void	hook(int keycode, t_game *game)
 
 	if (keycode == KEY_SPACE)
     {
-		// raycast(game);
-        
+		game->player_state.jumping = current_time();
     }
 	// stop game
 	if (keycode == KEY_ESC)
@@ -348,7 +347,7 @@ static void	update(t_game *game)
 	// (void)game;
 	// update script
     raycast(game);
-    draw_view(game);
+    draw_view(game, game->data, layer_stack_get(game->layers, 2));
     if (DEBUG)
     {
         game->count++;

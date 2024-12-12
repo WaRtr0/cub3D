@@ -8,7 +8,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-# include <time.h>
+# include <time.h> //HEYO WHAT
 
 // Constructor & Destructor
 t_game	*game_new(int width, int height, char *title);

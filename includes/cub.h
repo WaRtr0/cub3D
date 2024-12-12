@@ -58,7 +58,7 @@
 # define WALL_HEIGHT 1
 # define HIT_BOX 0.05
 # define SPEED 1
-# define STEP 0.02
+# define STEP 0.03
 
 // Scale
 # define SCALE_2D 32

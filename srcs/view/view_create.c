@@ -2,6 +2,7 @@
 #include "cub.h"
 #include "game.h"
 #include <float.h>
+#include "utils.h"
 
 void	layer_split(t_layer *layer, t_pixel color1, t_pixel color2)
 {
@@ -33,26 +34,37 @@ t_pixel	texture_pixel(t_layer *xpm, double x_ratio, double y_ratio)
 	return (pixel);
 }
 
-
-#include "draw.h"
-int	draw_view(t_game *game)
+int	set_center(t_game *game, t_game_data *raycast, t_layer *background)
 {
-	t_layer *render;
-	t_layer *background;
-	t_game_data *raycast;
+	long long 	difftime;
+	double		jump;
 
+	jump = 0;
+	raycast->center = game->height / 2 + raycast->pitch * 10;
+	if (game->player_state.jumping != 0)
+	{
+		difftime = current_time() - game->player_state.jumping;
+		if (difftime < 500)
+			jump = 100 * (1 - pow(2 * (difftime / 500.0 - 0.5), 2));
+		else
+			game->player_state.jumping = 0;
+	}
+	raycast->center += jump;
+	layer_set_offset(background, 0, SPLIT_HEIGHT + raycast->pitch * 10 + jump);
+	return (0);
+}
+
+int	draw_view(t_game *game, t_game_data *raycast, t_layer *render)
+{
+	t_layer *background;
 	int		x;
 	int		y;
 	int		perceived_height;
 	int		display_height;
 
-
-	raycast = game->data;
-	render = layer_stack_get(game->layers, 2);
 	background = layer_stack_get(game->layers, 1);
 	// warning change center get percent / 100. 0 => variable
-	raycast->center = game->height / 2 + raycast->pitch * 10;
-	layer_set_offset(background, 0, SPLIT_HEIGHT + raycast->pitch * 10);
+	set_center(game, raycast, background);
 	x = 0;
 	
 	while (x < game->width)
@@ -67,7 +79,6 @@ int	draw_view(t_game *game)
 			display_height = raycast->center + perceived_height;
 		while (y < display_height)
 		{
-			//layer_set_pixel(render, x, y, pixel_create(255, 0, 0, 255));
 			/*if ((int)raycast->ray[x].percent == 0 || (int)raycast->ray[x].percent == 100)
 				layer_set_pixel(render, x, y, pixel_create(0, 0, 0, 255));*/
 			layer_set_pixel(render, x, y,
@@ -80,17 +91,3 @@ int	draw_view(t_game *game)
 	}
 	return (0);
 }
-
-// int	create_view(t_game *game)
-// {
-// 	t_layer	*background;
-// 	t_view	view;
-	
-// 	t_layer *stupid_test = layer_create(game->mlx, game->width, game->height, 0);
-// 	layer_stack_add(game->layers, stupid_test);
-	
-// 	background = layer_create(game->mlx, game->width, game->height, 0);
-// 	layer_split(background, pixel_create(45, 0, 190, 255), pixel_create(40, 40, 40, 255));
-// 	layer_stack_add(game->layers, background);
-// 	return (0);
-// }

@@ -133,6 +133,12 @@ typedef struct s_game_data
 	double		center;
 }				t_game_data;
 
+typedef struct s_player_state
+{
+	long long	jumping;
+	long long	running;	
+}				t_player_state;
+
 typedef struct s_game
 {
 	void			*mlx;
@@ -152,6 +158,7 @@ typedef struct s_game
 	t_layer_stack   *textures;
 	void			*update_callback;
 	int				count;
+	t_player_state	player_state;
 }					t_game;
 
 #endif
