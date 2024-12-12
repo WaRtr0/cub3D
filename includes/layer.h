@@ -21,12 +21,13 @@ void			layer_set_visible(t_layer *layer, int visible);
 int				layer_data_dupe(t_layer *src, unsigned int *dst);
 int				layer_dupe(t_layer *src, t_layer *dst);
 
-void	layer_split_fill(t_layer *layer, t_pixel color1, t_pixel color2);
+void			layer_split_fill(t_layer *layer, t_pixel color1,
+					t_pixel color2);
 
 // texturing
 
-t_layer	*layer_add_texture(void *mlx, t_layer_stack *stack, char *path,
-		int z_index);
+t_layer			*layer_add_texture(void *mlx, t_layer_stack *stack, char *path,
+					int z_index);
 
 // Layer volatile
 
@@ -46,7 +47,7 @@ t_layer			*layer_stack_get(t_layer_stack *stack, int z_index);
 
 // Utility functions
 t_pixel			pixel_create(int r, int g, int b, int a);
-int				pixel_to_int(t_pixel pixel);
-t_pixel			int_to_pixel(int color);
+unsigned int	pixel_to_int(t_pixel pixel);
+t_pixel			int_to_pixel(unsigned int color);
 
 #endif

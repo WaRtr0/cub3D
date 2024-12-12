@@ -1,7 +1,7 @@
-#include "types.h"
 #include "layer.h"
+#include "types.h"
 
-t_pixel	int_to_pixel(color)
+t_pixel	int_to_pixel(unsigned int color)
 {
 	t_pixel	pixel;
 

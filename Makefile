@@ -1,6 +1,8 @@
 NAME = cub3d
 CC = cc
 
+OPTI = 0
+
 RM = rm -rf
 
 INCLUDES_DIR = includes
@@ -19,8 +21,13 @@ INCLUDES = $(INCLUDES_DIR)/game.h\
 		   $(INCLUDES_DIR)/player.h\
 
 
-OPTIM = -O3 -march=native -flto -ffast-math
+FLAG_OPTI =  -O3 -march=native -flto -ffast-math
 CFLAGS = -g3
+
+ifeq ($(OPTI), 1)
+	CFLAGS += $(FLAG_OPTI)
+endif
+
 MLXFLAGS = -lX11 -lXext -lm
 
 SRC_DIR = srcs
