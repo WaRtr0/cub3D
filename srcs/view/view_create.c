@@ -44,6 +44,7 @@ int	draw_view(t_game *game)
 	int		x;
 	int		y;
 	int		perceived_height;
+	int		display_height;
 
 
 	raycast = game->data;
@@ -58,7 +59,13 @@ int	draw_view(t_game *game)
 	{
 		perceived_height = (int)(SCALE_3D / raycast->ray[x].distance) >> 1;
 		y = raycast->center - perceived_height;
-		while (y < raycast->center + perceived_height)
+		if (raycast->center - perceived_height < 0)
+			y = 0;
+		if (raycast->center + perceived_height > game->height)
+			display_height = game->height;
+		else
+			display_height = raycast->center + perceived_height;
+		while (y < display_height)
 		{
 			//layer_set_pixel(render, x, y, pixel_create(255, 0, 0, 255));
 			/*if ((int)raycast->ray[x].percent == 0 || (int)raycast->ray[x].percent == 100)
