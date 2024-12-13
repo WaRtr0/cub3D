@@ -50,8 +50,8 @@ int	draw_view(t_game *game)
 	render = layer_stack_get(game->layers, 2);
 	background = layer_stack_get(game->layers, 1);
 	// warning change center get percent / 100. 0 => variable
-	raycast->center = game->height / 2 + raycast->pitch * 10;
-	layer_set_offset(background, 0, SPLIT_HEIGHT + raycast->pitch * 10);
+	raycast->center = ((game->height / 2) + (raycast->pitch * HEIGHT_PERC));
+	layer_set_offset(background, 0, SPLIT_HEIGHT + raycast->pitch * HEIGHT_PERC);
 	x = 0;
 	
 	while (x < game->width)

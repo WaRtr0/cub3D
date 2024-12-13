@@ -17,11 +17,11 @@
 
 // Window
 # ifndef HEIGHT
-#  define HEIGHT 1080
+#  define HEIGHT (1080 * 2)
 # endif
 
 # ifndef WIDTH
-#  define WIDTH 1920
+#  define WIDTH (1920 * 2)
 # endif
 
 # if HEIGHT < 64
@@ -51,6 +51,7 @@
 
 # define SPLIT_HEIGHT (-(HEIGHT / 2))
 
+# define HEIGHT_PERC ( HEIGHT / 100)
 // Math
 # define M_PI 3.14159265358979323846
 // # define M_PI 3.14
@@ -70,6 +71,7 @@
 # define PITCH_MAX 50
 # define SENTIVITY 0.25
 
-# define DEBUG 0
+# define DEBUG 1
+# define MAX_FRAME 999999999
 
 #endif
