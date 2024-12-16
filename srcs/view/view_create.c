@@ -43,7 +43,7 @@ int	set_center(t_game *game, t_game_data *raycast, t_layer *background)
 	raycast->center = game->height / 2 + raycast->pitch * 10;
 	if (game->player_state.jumping != 0)
 	{
-		difftime = current_time() - game->player_state.jumping;
+		difftime = current_time() - game->player_state.jumping;  //BONUS
 		if (difftime < 500)
 			jump = 100 * (1 - pow(2 * (difftime / 500.0 - 0.5), 2));
 		else
