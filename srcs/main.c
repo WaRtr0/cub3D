@@ -361,7 +361,7 @@ static void	update(t_game *game)
 	// (void)game;
 	// update script
     raycast(game);
-    draw_view(game, game->data, layer_stack_get(game->layers, 2));
+    draw_view(game, game->data);
     if (DEBUG)
     {
         game->count++;

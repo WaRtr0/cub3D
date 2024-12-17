@@ -54,7 +54,7 @@ t_pixel	texture_pixel(t_layer *xpm, double x_ratio, double y_ratio)
 // 	return (0);
 // }
 
-int	draw_view(t_game *game, t_game_data *raycast, t_layer *render)
+int	draw_view(t_game *game, t_game_data *raycast)
 {
 	t_layer *group;
 	t_layer *render;
