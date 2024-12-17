@@ -17,11 +17,11 @@
 
 // Window
 # ifndef HEIGHT
-#  define HEIGHT (1080 * 2)
+#  define HEIGHT (1080 / 2)
 # endif
 
 # ifndef WIDTH
-#  define WIDTH (1920 * 2)
+#  define WIDTH (1920 / 2)
 # endif
 
 # if HEIGHT < 64
@@ -57,9 +57,11 @@
 // # define M_PI 3.14
 
 # define WALL_HEIGHT 1
-# define HIT_BOX 0.05
+# define HIT_BOX 0.25
 # define SPEED 1
 # define STEP 0.02
+
+# define ENABLE_TRANSPARENCY 1
 
 // Scale
 # define SCALE_2D 32
@@ -72,6 +74,6 @@
 # define SENTIVITY 0.25
 
 # define DEBUG 1
-# define MAX_FRAME 999999999
+# define MAX_FRAME 180
 
 #endif

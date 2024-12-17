@@ -1,167 +1,100 @@
+#include "../libft/libft.h"
 #include "layer.h"
 #include <math.h>
+#include <stdbool.h>
 #include <stdint.h>
+#include <stdio.h>
 
-
-static void	blend_pixels(unsigned int *dst, unsigned int src)
+static inline int	blend_pixels(unsigned int *dst, unsigned int s)
 {
-	unsigned char	alpha;
-	float			a;
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
+	const unsigned int	d = *dst;
+	const unsigned int	d_a = d >> 24;
+	const unsigned int	s_a = s >> 24;
+	unsigned int		final;
 
-	alpha = (src >> 24) & 0xFF;
-	if (alpha == 255)
-		*dst = src;
-	else if (alpha > 0)
-	{
-		a = alpha / 255.0f;
-		r = ((src >> 16) & 0xFF) * a + ((*dst >> 16) & 0xFF) * (1.0f - a);
-		g = ((src >> 8) & 0xFF) * a + ((*dst >> 8) & 0xFF) * (1.0f - a);
-		b = (src & 0xFF) * a + (*dst & 0xFF) * (1.0f - a);
-		*dst = (255 << 24) | (r << 16) | (g << 8) | b;
-	}
+	if (!s_a)
+		return (d_a == 255);
+	if (!d_a)
+		return (*dst = s, s_a == 255);
+	if (d_a == 255)
+		return (1);
+	final = d_a + ((s_a * (255 - d_a)) + 127) / 255;
+	if (!final)
+		return (*dst = 0, 0);
+	*dst = (final << 24) | ((((((d >> 16) & 0xFF) * d_a * 255
+						+ ((s >> 16) & 0xFF) * s_a * (255 - d_a)) + (255
+						* final >> 1)) / (255
+					* final)) << 16) | ((((((d >> 8) & 0xFF) * d_a * 255
+						+ ((s >> 8) & 0xFF) * s_a * (255 - d_a)) + (255
+						* final >> 1)) / (255 * final)) << 8) | (((((d & 0xFF)
+						* d_a * 255 + (s & 0xFF) * s_a * (255 - d_a)) + (255
+						* final >> 1)) / (255 * final)));
+	return (final == 255);
 }
 
-static void	process_row(t_layer *layer, t_layer *output, int y, int start_x)
+static inline unsigned int	get_depth_layer_color(t_layer_stack *stack,
+		unsigned int x, unsigned int y)
 {
-	int				x;
-	int				src_y;
-	int				src_x;
-	unsigned int	current;
+	t_layer			*layer;
+	unsigned int	color;
+	unsigned int	pos;
+	int				i;
+	t_dvector2		src;
 
-	src_y = y - layer->offset_y;
-	x = start_x;
-	while (x < output->width && x < layer->offset_x + layer->width)
+	color = 0;
+	i = stack->count - 1;
+	while (i >= 0)
 	{
-		src_x = x - layer->offset_x;
-		if (src_x >= 0 && src_x < layer->width)
+		layer = stack->layers[i];
+		src.x = x - layer->offset_x;
+		src.y = y - layer->offset_y;
+		pos = src.y * layer->width + src.x;
+		if (layer->mask)
 		{
-			current = layer->data[src_y * layer->width + src_x];
-			if ((current >> 24) & 0xFF)
-				blend_pixels(&output->data[y * output->width + x], current);
+			if (!(pos < layer->width * layer->height && layer->data[pos] > 0
+					&& src.x <= layer->width))
+				i--;
+		}
+		else if ((src.x >= 0) && (src.x < (int)layer->width) && (src.y >= 0)
+			&& (src.y < (int)layer->height))
+		{
 			if (layer->is_volatile)
 			{
-				current = layer->volatile_data[src_y * layer->width + src_x];
-				if ((current >> 24) & 0xFF)
+				if (blend_pixels(&color, layer->volatile_data[pos]))
 				{
-					blend_pixels(&output->data[y * output->width + x], current);
-					layer->volatile_data[src_y * layer->width + src_x] = 0;
+					layer->volatile_data[pos] = 0;
+					return (color);
 				}
+				layer->volatile_data[pos] = 0;
 			}
+			if (blend_pixels(&color, layer->data[pos]))
+				return (color);
 		}
-		x++;
+		i--;
 	}
-}
-
-static void process_row_mask(t_layer *layer, t_layer *output, t_layer *mask, int y, int start_x)
-{
-	int				x;
-	int				src_y;
-	int				src_x;
-	unsigned int	current;
-	unsigned int	mask_pixel;
-
-	src_y = y - layer->offset_y;
-	x = start_x;
-	while (x < output->width && x < layer->offset_x + layer->width && x < mask->offset_x + mask->width)
-	{
-		src_x = x - layer->offset_x;
-		if (src_x >= 0 && src_x < layer->width && y - mask->offset_y >= 0 && y - mask->offset_y < mask->height)
-		{
-			current = layer->data[src_y * layer->width + src_x];
-			mask_pixel = mask->data[(y - mask->offset_y) * mask->width + (x - mask->offset_x)];
-			if ((current >> 24) & 0xFF && (mask_pixel >> 24) & 0xFF)
-				blend_pixels(&output->data[y * output->width + x], current);
-			if (layer->is_volatile)
-			{
-				current = layer->volatile_data[src_y * layer->width + src_x];
-				if ((current >> 24) & 0xFF && (mask_pixel >> 24) & 0xFF)
-				{
-					blend_pixels(&output->data[y * output->width + x], current);
-					layer->volatile_data[src_y * layer->width + src_x] = 0;
-				}
-			}
-		}
-		x++;
-	}
-}
-
-static void	blend_layer_to_output(t_layer *layer, t_layer *output)
-{
-	int	y;
-	int	start_y;
-	int	start_x;
-
-	if (!layer->visible)
-		return ;
-	start_y = fmax(0, layer->offset_y);
-	start_x = fmax(0, layer->offset_x);
-	y = start_y;
-	while (y < output->height && y < layer->offset_y + layer->height)
-	{
-		if (y - layer->offset_y >= 0 && y - layer->offset_y < layer->height)
-			process_row(layer, output, y, start_x);
-		y++;
-	}
-}
-
-static void blend_layer_mask_to_output(t_layer *layer, t_layer *output, t_layer *mask)
-{
-	int	y;
-	int	start_y;
-	int	start_x;
-
-	if (!mask->visible)
-		return ;
-	start_y = fmax(0, mask->offset_y);
-	start_x = fmax(0, mask->offset_x);
-	y = start_y;
-	while (y < output->height && y < layer->offset_y + layer->height && y < mask->offset_y + mask->height)
-	{
-		if (y - layer->offset_y >= 0 && y - layer->offset_y < layer->height && y - mask->offset_y >= 0 && y - mask->offset_y < mask->height)
-			process_row_mask(layer, output, mask, y, start_x);
-		y++;
-	}
-}
-
-static void	copy_background(t_layer *output, t_layer *bg)
-{
-	size_t		i;
-	uint64_t	*output64;
-	uint64_t	*bg64;
-	size_t		size64;
-
-	output64 = (uint64_t *)output->data;
-	bg64 = (uint64_t *)bg->data;
-	size64 = (output->width * output->height) / 2;
-	i = 0;
-	while (i < size64)
-	{
-		output64[i] = bg64[i];
-		i++;
-	}
-	if ((output->width * output->height) % 2)
-		output->data[output->width * output->height
-			- 1] = bg->data[output->width * output->height - 1];
+	return (color);
 }
 
 void	layer_stack_render(t_layer_stack *stack, void *mlx, void *win)
 {
-	int	i;
+	int						i;
+	register unsigned int	x;
+	register unsigned int	y;
 
-	if (!stack || !mlx || !win || stack->count == 0 || !stack->output_layer)
+	if (!stack || !mlx || !win || stack->count <= 0 || !stack->output_layer
+		|| !stack->layers)
 		return ;
-	copy_background(stack->output_layer, stack->layers[0]);
-	i = 1;
-	while (i < stack->count)
+	y = 0;
+	while (y < stack->output_layer->height)
 	{
-		if (stack->layers[i] && !stack->layers[i]->mask)
-			blend_layer_to_output(stack->layers[i], stack->output_layer);
-		else if (stack->layers[i] && stack->layers[i]->mask && ++i < stack->count && stack->layers[i])
-			blend_layer_mask_to_output(stack->layers[i - 1], stack->output_layer, stack->layers[i]);
-		i++;
+		x = 0;
+		while (x < stack->output_layer->width)
+		{
+			stack->output_layer->data[y * stack->output_layer->width
+				+ x] = get_depth_layer_color(stack, x, y);
+			x++;
+		}
+		y++;
 	}
 	mlx_put_image_to_window(mlx, win, stack->output_layer->img, 0, 0);
 }
