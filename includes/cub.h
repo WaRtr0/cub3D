@@ -56,7 +56,7 @@
 // # define M_PI 3.14
 
 # define WALL_HEIGHT 1
-# define HIT_BOX 0.05
+# define HIT_BOX 0.1
 # define SPEED 1
 # define STEP 0.03
 

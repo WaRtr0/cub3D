@@ -244,7 +244,6 @@ static void hook_mouse_move(int x, int y, t_game *game)
         game->data->is_warping = false;
         return;
     }
-    
 
     int center_x = game->width / 2;
     int center_y = game->height / 2;
@@ -336,11 +335,23 @@ static void	hook(int keycode, t_game *game)
 
 	if (keycode == KEY_SPACE)
     {
-		game->player_state.jumping = current_time();
+		;
+    }
+    if (keycode == KEY_SHIFT)
+    {
+        game->player_state.running = 1;
     }
 	// stop game
 	if (keycode == KEY_ESC)
 		game_handle_close(game);
+}
+
+static void	hook_release(int keycode, t_game *game)
+{
+    if (keycode == KEY_SHIFT)
+    {
+        game->player_state.running = 0;
+    }
 }
 static void	update(t_game *game)
 {
@@ -458,6 +469,7 @@ int	main(int argc, char **argv)
     background = layer_create(game->mlx, game->width, game->height, 0);
     layer_stack_add(game->layers, background);
 	game_set_hook_press(game, hook);
+    game_set_hook_release(game, hook_release);
     game_set_hook_mouse_move(game, hook_mouse_move);
 	game_set_update_callback(game, update);
     wall = layer_create(game->mlx, game->width, game->height, 2);

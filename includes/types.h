@@ -135,8 +135,7 @@ typedef struct s_game_data
 
 typedef struct s_player_state
 {
-	long long	jumping;
-	long long	running;	
+	long	running;	
 }				t_player_state;
 
 typedef struct s_game

@@ -113,8 +113,8 @@ void	player_move(t_game *game, int dir)
 {
 	int		i;
     t_map	*map = game->data->map;
-    double	move_x = sin((game->data->yaw) * M_PI / 180) * STEP;
-    double	move_y = -cos((game->data->yaw) * M_PI / 180) * STEP;
+    double	move_x = sin((game->data->yaw) * M_PI / 180) * (STEP + game->player_state.running * STEP);
+    double	move_y = -cos((game->data->yaw) * M_PI / 180) * (STEP + game->player_state.running * STEP);
 
     // Calcul de la nouvelle position potentielle
     double new_x = game->data->player.x + (move_x * dir) + 0.5;

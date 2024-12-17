@@ -34,25 +34,25 @@ t_pixel	texture_pixel(t_layer *xpm, double x_ratio, double y_ratio)
 	return (pixel);
 }
 
-int	set_center(t_game *game, t_game_data *raycast, t_layer *background)
-{
-	long long 	difftime;
-	double		jump;
+// int	set_center(t_game *game, t_game_data *raycast, t_layer *background)
+// {
+// 	long long 	difftime;
+// 	double		jump;
 
-	jump = 0;
-	raycast->center = game->height / 2 + raycast->pitch * 10;
-	if (game->player_state.jumping != 0)
-	{
-		difftime = current_time() - game->player_state.jumping;  //BONUS
-		if (difftime < 500)
-			jump = 100 * (1 - pow(2 * (difftime / 500.0 - 0.5), 2));
-		else
-			game->player_state.jumping = 0;
-	}
-	raycast->center += jump;
-	layer_set_offset(background, 0, SPLIT_HEIGHT + raycast->pitch * 10 + jump);
-	return (0);
-}
+// 	jump = 0;
+// 	raycast->center = game->height / 2 + raycast->pitch * 10;
+// 	if (game->player_state.jumping != 0)
+// 	{
+// 		difftime = current_time() - game->player_state.jumping;  //BONUS
+// 		if (difftime < 500)
+// 			jump = 100 * (1 - pow(2 * (difftime / 500.0 - 0.5), 2));
+// 		else
+// 			game->player_state.jumping = 0;
+// 	}
+// 	raycast->center += jump;
+// 	layer_set_offset(background, 0, SPLIT_HEIGHT + raycast->pitch * 10 + jump);
+// 	return (0);
+// }
 
 int	draw_view(t_game *game, t_game_data *raycast, t_layer *render)
 {
@@ -64,7 +64,8 @@ int	draw_view(t_game *game, t_game_data *raycast, t_layer *render)
 
 	background = layer_stack_get(game->layers, 1);
 	// warning change center get percent / 100. 0 => variable
-	set_center(game, raycast, background);
+	raycast->center = game->height / 2 + raycast->pitch * 10;
+	layer_set_offset(background, 0, SPLIT_HEIGHT + raycast->pitch * 10);
 	x = 0;
 	
 	while (x < game->width)
