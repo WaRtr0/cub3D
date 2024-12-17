@@ -4,6 +4,8 @@
 
 void    layer_rotate(t_layer *layer, int deg)
 {
+    (void)layer;
+    (void)deg;
     // int i;
     // int j;
     // int x;

@@ -5,7 +5,6 @@
 t_layer_stack	*layer_stack_create(void)
 {
 	t_layer_stack	*stack;
-	int				i;
 
 	stack = (t_layer_stack *)malloc(sizeof(t_layer_stack));
 	if (!stack)

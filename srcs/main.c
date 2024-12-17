@@ -389,7 +389,7 @@ static void generate_map(t_map *map_struct, t_game *game)
 	t_pixel	color;
 	t_dvector2 pos = {0, 0};
 
-	game->data->map = map_struct;
+	// game->data->map = map_struct;
     
 
     group = layer_group_create(250,250, 2);

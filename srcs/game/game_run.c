@@ -13,7 +13,7 @@ static int game_render(t_game *game)
 
 int game_run(t_game *game)
 {
-    t_layer  *layer;
+    t_layer  *layer; (void)layer;
 
     if (!game || !game->mlx || !game->win)
         return (0);

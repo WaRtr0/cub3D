@@ -92,8 +92,8 @@ typedef struct s_layer
     void           			*img;
 	unsigned int   			*data;
 	struct s_layer_stack	*layers;
-    int             		width;
-    int             		height;
+    unsigned int            width;
+    unsigned int            height;
     int            			offset_x;
     int            			offset_y;
     int             		z_index;

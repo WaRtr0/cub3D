@@ -51,7 +51,7 @@ static inline void get_depth_layer_color(t_layer_stack *stack, unsigned int x, u
         pos = src.y * layer->width + src.x;
         if (layer->mask)
         {
-            if (!(pos < layer->width * layer->height && layer->data[pos] > 0 && src.x <= layer->width))
+            if (!(pos < layer->width * layer->height && layer->data[pos] > 0 && (unsigned int)src.x <= layer->width))
                 i--;
         }
         else if ((src.x >= 0) && (src.x < (int)layer->width) && (src.y >= 0) && (src.y < (int)layer->height))
@@ -89,8 +89,8 @@ unsigned int ft_min(unsigned int x, unsigned int y) {
 
 static void layer_group_render(t_layer *group, t_layer *output)
 {
-    unsigned int x, y;
-    unsigned int color;
+    unsigned int x;
+    unsigned int stride;
     unsigned int start_x, end_x, start_y, end_y;
 
     if (!group || !output || group->type != GROUP_LAYER)
@@ -101,17 +101,17 @@ static void layer_group_render(t_layer *group, t_layer *output)
     start_y = ft_max(0, group->offset_y);
     end_y = ft_min(output->height, group->offset_y + group->height);
 
-    y = start_y;
-    while (y < end_y)
+    while (start_y < end_y)
     {
         x = start_x;
+        stride = start_y * output->width;
         while (x < end_x)
         {
-            if (y < output->height && x < output->width)
-   				get_depth_layer_color(group->layers, x - group->offset_x, y - group->offset_y, (unsigned int *)&output->data[y * output->width + x]);
+            // if (y < output->height && x < output->width)
+   				get_depth_layer_color(group->layers, x - group->offset_x, start_y - group->offset_y, (unsigned int *)&output->data[stride + x]);
             x++;
         }
-        y++;
+        start_y++;
     }
 }
 static void	set_zero(t_layer *output)
@@ -168,7 +168,7 @@ void layer_stack_render(t_layer_stack *stack, void *mlx, void *win)
     if (!stack || !mlx || !win || !stack->output_layer || stack->count <= 0)
         return;
 
-	set_zero(stack->output_layer);
+    set_zero(stack->output_layer);
     i = stack->count - 1;
     while (i >= 0)
     {
