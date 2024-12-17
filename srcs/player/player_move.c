@@ -29,10 +29,9 @@ static void	inline move_along(t_game *game, int side, double new_x, double new_y
 void	player_move(t_game *game, int dir)
 {
 	int		i;
-	int		speed;
     t_map	*map = game->data->map;
-    double	move_x = sin((game->data->yaw) * M_PI / 180) * STEP;
-    double	move_y = -cos((game->data->yaw) * M_PI / 180) * STEP;
+    double	move_x = sin((game->data->yaw) * M_PI / 180) * (STEP + game->player_state.running * STEP);
+    double	move_y = -cos((game->data->yaw) * M_PI / 180) * (STEP + game->player_state.running * STEP);
 
     // Calcul de la nouvelle position potentielle
     double new_x = game->data->player.x + (move_x * dir) + 0.5;

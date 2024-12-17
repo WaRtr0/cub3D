@@ -2,6 +2,7 @@
 #include "cub.h"
 #include "game.h"
 #include <float.h>
+#include "utils.h"
 
 void	layer_split(t_layer *layer, t_pixel color1, t_pixel color2)
 {
@@ -33,18 +34,35 @@ t_pixel	texture_pixel(t_layer *xpm, double x_ratio, double y_ratio)
 	return (pixel);
 }
 
+// int	set_center(t_game *game, t_game_data *raycast, t_layer *background)
+// {
+// 	long long 	difftime;
+// 	double		jump;
 
-#include "draw.h"
-int	draw_view(t_game *game)
+// 	jump = 0;
+// 	raycast->center = game->height / 2 + raycast->pitch * 10;
+// 	if (game->player_state.jumping != 0)
+// 	{
+// 		difftime = current_time() - game->player_state.jumping;  //BONUS
+// 		if (difftime < 500)
+// 			jump = 100 * (1 - pow(2 * (difftime / 500.0 - 0.5), 2));
+// 		else
+// 			game->player_state.jumping = 0;
+// 	}
+// 	raycast->center += jump;
+// 	layer_set_offset(background, 0, SPLIT_HEIGHT + raycast->pitch * 10 + jump);
+// 	return (0);
+// }
+
+int	draw_view(t_game *game, t_game_data *raycast, t_layer *render)
 {
 	t_layer *group;
 	t_layer *render;
 	t_layer *background;
-	t_game_data *raycast;
-
 	int		x;
 	int		y;
 	int		perceived_height;
+	int		display_height;
 
 
 	group = layer_stack_get(game->layers, 1);
@@ -60,9 +78,14 @@ int	draw_view(t_game *game)
 	{
 		perceived_height = (int)(SCALE_3D / raycast->ray[x].distance) >> 1;
 		y = raycast->center - perceived_height;
-		while (y < raycast->center + perceived_height)
+		if (raycast->center - perceived_height < 0)
+			y = 0;
+		if (raycast->center + perceived_height > game->height)
+			display_height = game->height;
+		else
+			display_height = raycast->center + perceived_height;
+		while (y < display_height)
 		{
-			//layer_set_pixel(render, x, y, pixel_create(255, 0, 0, 255));
 			/*if ((int)raycast->ray[x].percent == 0 || (int)raycast->ray[x].percent == 100)
 				layer_set_pixel(render, x, y, pixel_create(0, 0, 0, 255));*/
 			layer_set_pixel(render, x, y,

@@ -247,7 +247,6 @@ static void hook_mouse_move(int x, int y, t_game *game)
         game->data->is_warping = false;
         return;
     }
-    
 
     int center_x = game->width >> 1;
     int center_y = game->height >> 1;
@@ -339,19 +338,30 @@ static void	hook(int keycode, t_game *game)
 
 	if (keycode == KEY_SPACE)
     {
-		// raycast(game);
-        
+		;
+    }
+    if (keycode == KEY_SHIFT)
+    {
+        game->player_state.running = 1;
     }
 	// stop game
 	if (keycode == KEY_ESC)
 		game_handle_close(game);
+}
+
+static void	hook_release(int keycode, t_game *game)
+{
+    if (keycode == KEY_SHIFT)
+    {
+        game->player_state.running = 0;
+    }
 }
 static void	update(t_game *game)
 {
 	// (void)game;
 	// update script
     raycast(game);
-    draw_view(game);
+    draw_view(game, game->data, layer_stack_get(game->layers, 2));
     if (DEBUG)
     {
         game->count++;
@@ -474,6 +484,7 @@ int	main(int argc, char **argv)
     }
     
 	game_set_hook_press(game, hook);
+    game_set_hook_release(game, hook_release);
     game_set_hook_mouse_move(game, hook_mouse_move);
 	game_set_update_callback(game, update);
     generate_map(game->data->map, game);

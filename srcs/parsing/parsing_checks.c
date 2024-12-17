@@ -6,7 +6,7 @@
 /*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 00:11:50 by garivo            #+#    #+#             */
-/*   Updated: 2024/12/09 21:33:25 by garivo           ###   ########.fr       */
+/*   Updated: 2024/12/13 00:38:06 by garivo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	check_map_char(t_parsing *map)
 		cmap = get_line(map, i);
 		while (cmap[j])
 		{
-			if (!(cmap[j] == '0' || cmap[j] == '1' || cmap[j] == ' '))
+			if (!(cmap[j] == '0' || cmap[j] == '1' || cmap[j] == ' ' || cmap[j] == 'D')) //BONUS
 				if (!check_dir(map, cmap, i, j))
 					return (0);
 			j++;
@@ -102,6 +102,10 @@ int	check_closure(t_parsing	*map, char *cmap, size_t i, size_t j)
 			|| get_line(map, i - 1)[j] == ' ' || get_line(map, i + 1)[j] == ' ')
 			return (0);
 	}
+	if (cmap[j] == 'D' && !(cmap[j - 1] == '1' && cmap[j + 1] == '1')
+		&& !(get_line(map, i - 1)[j] == '1'
+		&& get_line(map, i + 1)[j] == '1'))
+		return (prerr("Error\nInvalid door position\n"), 0);	//BONUS	
 	return (1);
 }
 

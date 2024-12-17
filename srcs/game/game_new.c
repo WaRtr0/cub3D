@@ -35,6 +35,7 @@ t_game	*game_new(int width, int height, char *title)
 	game->textures = NULL;
 	game->update_callback = NULL;
 	game->count = 0;
+	game->player_state.running = 0;
 	if (game_init(game) == 0)
 	{
 		free(game);

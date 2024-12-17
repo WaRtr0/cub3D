@@ -44,6 +44,7 @@ SRC_FILE = main.c\
 		   font.c\
 		   player/player_move.c\
 		   parsing/parsing.c parsing/parsing_map.c parsing/parsing_checks.c\
+		   utils/math_utils_bonus.c\
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILE))
 

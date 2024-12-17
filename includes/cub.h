@@ -64,7 +64,7 @@
 # define WALL_HEIGHT 1
 # define HIT_BOX 0.25
 # define SPEED 1
-# define STEP 0.02
+# define STEP 0.03
 
 # define ENABLE_TRANSPARENCY 1
 
