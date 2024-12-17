@@ -30,14 +30,13 @@
 //     free(stack);
 // }
 
-void    layer_stack_destroy(void *mlx, t_layer_stack *stack)
+void layer_stack_destroy(void *mlx, t_layer_stack *stack)
 {
     int i;
     t_layer *output_layer;
 
     if (!stack)
         return;
-        
     printf("Destroying layer stack\n");
     output_layer = stack->output_layer;
     i = 0;
@@ -45,17 +44,20 @@ void    layer_stack_destroy(void *mlx, t_layer_stack *stack)
     {
         if (stack->layers[i] && stack->layers[i] != output_layer)
         {
-            layer_destroy(mlx, stack->layers[i]);
+            if (stack->layers[i]->type == GROUP_LAYER)
+                layer_group_destroy(mlx, stack->layers[i]);
+            else
+                layer_destroy(mlx, stack->layers[i]);
+
             stack->layers[i] = NULL;
         }
         i++;
     }
-    
     if (output_layer)
     {
         layer_destroy(mlx, output_layer);
         stack->output_layer = NULL;
     }
-    
     free(stack);
+    stack = NULL;
 }

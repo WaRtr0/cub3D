@@ -257,6 +257,7 @@ int	parse(t_game *game, const char *path)
 	t_parsing	map;
 	int			end_of_header;
 	t_layer		*background_split;
+	t_layer		*group;
 
 	ft_memset(&map, 0, sizeof(t_parsing));
 	map.player_dir = -1;
@@ -282,10 +283,12 @@ int	parse(t_game *game, const char *path)
 	if (!convert_parsing(game, &map))
 		return (0);
 	free(map.map);
-	background_split = layer_create(game->mlx, game->width, game->height * 2, 1);
+	background_split = layer_create(game->mlx, WIDTH, HEIGHT * 2, 1);
     layer_split_fill(background_split, map.ceiling, map.floor);
     layer_set_offset(background_split, 0, SPLIT_HEIGHT);
-	layer_stack_add(game->layers, background_split);
+	group = layer_group_create(WIDTH, HEIGHT, 1);
+    layer_group_add(group, background_split);
+    layer_stack_add(game->layers, group);
 	return (1);
 }
 

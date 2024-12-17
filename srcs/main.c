@@ -11,12 +11,13 @@
 
 void center_offset_player_on_map(t_game *game)
 {
-    t_layer *map = layer_stack_get(game->layers, 100);
-    t_layer *map_mask = layer_stack_get(game->layers, 101);
+    t_layer *group = layer_stack_get(game->layers, 2);
+    t_layer *map = layer_group_get(group, 0);
+    t_layer *map_mask = layer_group_get(group, 1);
     
 	layer_set_offset(map,
-		(map_mask->width >> 1) - (game->data->player.x * SCALE_2D) - (SCALE_2D >> 1) + map_mask->offset_x,
-		(map_mask->height >> 1) - (game->data->player.y * SCALE_2D) - (SCALE_2D >> 1) + map_mask->offset_y
+		(map_mask->width >> 1) - (game->data->player.x * SCALE_2D) - (SCALE_2D >> 1),
+		(map_mask->height >> 1) - (game->data->player.y * SCALE_2D) - (SCALE_2D >> 1)
     );
 }
 
@@ -48,7 +49,7 @@ void debug_print_raycast(t_game_data *raycast)
 }
 void raycast(t_game *game)
 {
-   
+   t_layer *group = layer_stack_get(game->layers, 2);
     
     
     
@@ -176,7 +177,7 @@ void raycast(t_game *game)
                     // fish eye correction
                     raycast->ray[i].distance = wall_dist * cos((ray_angle - raycast->yaw + 90) * M_PI / 180.0);
                     
-                     t_layer *map_layer = layer_stack_get(game->layers, 100);
+                     t_layer *map_layer = layer_group_get(group, 0);
                    
                     t_vector2 start = {
                         game->data->player.x * SCALE_2D + SCALE_2D/2,
@@ -205,13 +206,15 @@ void raycast(t_game *game)
 
 void yaw(t_game *game)
 {
-    int deg = 0;
-    t_dvector2 center = {SCALE_2D >> 1, SCALE_2D >> 1};
-    t_dvector2 pos1 = {5, SCALE_2D >> 1};             // Point gauche
-    t_dvector2 pos2 = {SCALE_2D >> 1, 5};             // Point haut
-    t_dvector2 pos3 = {SCALE_2D - 5, SCALE_2D >> 1};  // Point droit
+    const static int size = (SCALE_2D * HIT_BOX);
+    int deg;
+    t_dvector2 center = {size, size};
+    t_dvector2 pos1 = {(size >> 2), size};             // Point gauche
+    t_dvector2 pos2 = {size, (size >> 2)};             // Point haut
+    t_dvector2 pos3 = {(size * 2) - (size >> 2), size};  // Point droit
 
-    t_layer *rotate = layer_stack_get(game->layers, 104);
+    t_layer *cursor = layer_stack_get(game->layers, 3);
+    t_layer *rotate = layer_group_get(cursor, 2);
     layer_fill(rotate, pixel_create(0, 0, 0, 0));
     deg = game->data->yaw;
 
@@ -282,9 +285,9 @@ static void	hook(int keycode, t_game *game)
 	(void)game;
 	(void)keycode;
 	
-
-	player = layer_stack_get(game->layers, 102);
-	rotate = layer_stack_get(game->layers, 104);
+    t_layer *group = layer_stack_get(game->layers, 2);
+	player = layer_group_get(group, 2);
+	rotate = layer_group_get(group, 4);
 
 	// hook script
 	// example move sprite
@@ -362,6 +365,11 @@ static void	update(t_game *game)
 
 static void generate_map(t_map *map_struct, t_game *game)
 {
+    //group layer
+    t_layer *group;
+    t_layer *cursor;
+
+    //layer
 	t_layer *map;
 	t_layer *map_mask;
 	t_layer *circle_map;
@@ -372,30 +380,44 @@ static void generate_map(t_map *map_struct, t_game *game)
 	t_dvector2 pos = {0, 0};
 
 	game->data->map = map_struct;
-	map = layer_create(game->mlx, map_struct->width * SCALE_2D, map_struct->height * SCALE_2D, 100);
-	player = layer_create(game->mlx, SCALE_2D, SCALE_2D, 102);
-	map_mask = layer_create(game->mlx, 250, 250, 101);
-    map_mask->mask = true;
-	circle_map = layer_create(game->mlx, 251, 251, 103);
-	rotate = layer_create(game->mlx, SCALE_2D, SCALE_2D, 104);
-    raycast_debug = layer_create(game->mlx,  map_struct->width * SCALE_2D, map_struct->height * SCALE_2D, 105);
+    
 
-	layer_stack_add(game->layers, circle_map);
-	layer_stack_add(game->layers, map);
-	layer_stack_add(game->layers, map_mask);
-	layer_stack_add(game->layers, player);
-	layer_stack_add(game->layers, rotate);
-    layer_stack_add(game->layers, raycast_debug);
+    group = layer_group_create(250,250, 2);
+    cursor = layer_group_create(SCALE_2D * HIT_BOX * 2,SCALE_2D * HIT_BOX * 2, 3);
+
+    layer_stack_add(game->layers, group);
+    layer_stack_add(game->layers, cursor);
+
+	map = layer_create(game->mlx, map_struct->width * SCALE_2D, map_struct->height * SCALE_2D, 0);
+    raycast_debug = layer_create(game->mlx,  map_struct->width * SCALE_2D, map_struct->height * SCALE_2D, 5);
+	map_mask = layer_create(game->mlx, 250, 250, 1);
+    map_mask->mask = true;
+	circle_map = layer_create(game->mlx, 250, 250, 3);
+
+	player = layer_create(game->mlx, SCALE_2D * HIT_BOX * 2, SCALE_2D * HIT_BOX * 2, 1);
+	rotate = layer_create(game->mlx, SCALE_2D * HIT_BOX * 2, SCALE_2D * HIT_BOX * 2, 2);
+
+	layer_group_add(group, circle_map);
+	layer_group_add(group, map);
+	layer_group_add(group, map_mask);
+    layer_group_add(group, raycast_debug);
+
+	layer_group_add(cursor, player);
+	layer_group_add(cursor, rotate);
 
 	layer_fill(map, pixel_create(125, 125, 125, 200));
-	// draw_rect_fill(player, (t_vector2){0, 0}, (t_vector2){250, 250}, pixel_create(255, 255, 255, 255));
 	draw_circle_fill(map_mask, (t_vector2){125, 125}, 125, pixel_create(0, 0, 0, 255));
-	draw_circle(circle_map, (t_vector2){125, 125}, 125, pixel_create(255, 0, 0, 255));
-	layer_set_offset(circle_map, 25, 25);
-	draw_circle_fill(player, (t_vector2){SCALE_2D / 2, SCALE_2D / 2}, SCALE_2D * HIT_BOX, pixel_create(255, 0, 0, 255));
+
+    draw_circle(circle_map, (t_vector2){125, 125}, 120, pixel_create(255, 255, 0, 255));
+    draw_circle(circle_map, (t_vector2){125, 125}, 121, pixel_create(200, 200, 0, 255));
+    draw_circle(circle_map, (t_vector2){125, 125}, 122, pixel_create(150, 150, 0, 255));
+	draw_circle(circle_map, (t_vector2){125, 125}, 123, pixel_create(150, 150, 0, 255));
+    draw_circle(circle_map, (t_vector2){125, 125}, 124, pixel_create(100, 100, 0, 255));
+    draw_circle(circle_map, (t_vector2){125, 125}, 125, pixel_create(50, 50, 0, 255));
+
+	draw_circle_fill(player, (t_vector2){SCALE_2D * HIT_BOX, SCALE_2D * HIT_BOX}, SCALE_2D * HIT_BOX, pixel_create(255, 0, 0, 255));
 	yaw(game);
-	layer_set_offset(map_mask, 25, 25);
-    layer_set_offset(raycast_debug, 25, 25);
+	layer_set_offset(group, 25, 25);
 	color = pixel_create(0, 0, 0, 255);
 	for (pos.y = 0; pos.y < map_struct->height; pos.y++)
 	{
@@ -413,13 +435,9 @@ static void generate_map(t_map *map_struct, t_game *game)
 				(t_vector2){(pos.x + 1) * SCALE_2D, (pos.y + 1) * SCALE_2D}, pixel_create(0, 0, 0, 175));
 		}
 	}
-	layer_set_offset(player, 
-		map_mask->width/2 - SCALE_2D / 2 + map_mask->offset_x,
-		map_mask->height/2 - SCALE_2D / 2 + map_mask->offset_y
-	);
-	layer_set_offset(rotate, 
-		map_mask->width/2 - SCALE_2D / 2 + map_mask->offset_x,
-		map_mask->height/2 - SCALE_2D / 2 + map_mask->offset_y
+	layer_set_offset(cursor, 
+		map_mask->width/2 - SCALE_2D * HIT_BOX + group->offset_x,
+		map_mask->height/2 - SCALE_2D * HIT_BOX + group->offset_y
 	);
 	center_offset_player_on_map(game);
     layer_volatile_on(map);
@@ -438,12 +456,10 @@ static void generate_map(t_map *map_struct, t_game *game)
 int	main(int argc, char **argv)
 {
 	t_game *game;
+    t_layer *group;
 	t_layer *wall;
-	t_pixel bg_color;
-	t_pixel sprite_color;
-    t_layer *background;
 
-	game = game_new(WIDTH, HEIGHT, "My Game !");
+	game = game_new(OUTPUT_WIDTH, OUTPUT_HEIGHT, "My Game !");
 	if (!game)
 		return (1);
     if (argc == 2)
@@ -456,26 +472,16 @@ int	main(int argc, char **argv)
         prerr("Error: Invalid number of arguments\n");
         return (1);
     }
-    // background = layer_create(game->mlx, game->width, game->height, 0);
-    // layer_stack_add(game->layers, background);
+    
 	game_set_hook_press(game, hook);
     game_set_hook_mouse_move(game, hook_mouse_move);
 	game_set_update_callback(game, update);
-    wall = layer_create(game->mlx, game->width, game->height, 2);
     generate_map(game->data->map, game);
     
-    layer_stack_add(game->layers, wall);
-	// bg_color = pixel_create(255, 255, 255, 255);
-	// layer_fill(background, bg_color);
+    group = layer_stack_get(game->layers, 1);
+    wall = layer_create(game->mlx, WIDTH, HEIGHT, 2);
+    layer_group_add(group, wall);
     layer_volatile_on(wall);
-    //warning
-
-    //test texture
-    // layer_add_texture(game->mlx, game->textures, "test.xpm", 0);
-    // printf("Texture added\n");
-    // get basic info
-
-    // printf("Texture Width %d\n Height %d\n", game->textures->layers[0]->width, game->textures->layers[0]->height);
 
     mlx_mouse_hide(game->mlx, game->win);
 	game_run(game);

@@ -18,6 +18,7 @@ t_layer	*layer_create(void *mlx, int width, int height, int z_index)
 	layer->z_index = z_index;
 	layer->offset_x = 0;
 	layer->offset_y = 0;
+	layer->type = LAYER;
 	layer->mask = false;
 	layer->visible = true;
 	layer->is_volatile = false;

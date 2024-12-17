@@ -29,6 +29,14 @@ void			layer_split_fill(t_layer *layer, t_pixel color1,
 t_layer			*layer_add_texture(void *mlx, t_layer_stack *stack, char *path,
 					int z_index);
 
+
+// group layer
+
+t_layer			*layer_group_create(int width, int height, int z_index);
+int				layer_group_add(t_layer *group, t_layer *layer);
+t_layer			*layer_group_get(t_layer *group, int z_index);
+void			layer_group_destroy(void *mlx, t_layer *group);
+
 // Layer volatile
 
 void			layer_volatile_on(t_layer *layer);

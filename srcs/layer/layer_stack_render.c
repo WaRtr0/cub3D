@@ -5,6 +5,9 @@
 #include <stdint.h>
 #include <stdio.h>
 
+
+
+
 static inline int	blend_pixels(unsigned int *dst, unsigned int s)
 {
 	const unsigned int	d = *dst;
@@ -32,69 +35,149 @@ static inline int	blend_pixels(unsigned int *dst, unsigned int s)
 	return (final == 255);
 }
 
-static inline unsigned int	get_depth_layer_color(t_layer_stack *stack,
-		unsigned int x, unsigned int y)
+static inline void get_depth_layer_color(t_layer_stack *stack, unsigned int x, unsigned int y, unsigned int *color)
 {
-	t_layer			*layer;
-	unsigned int	color;
-	unsigned int	pos;
-	int				i;
-	t_dvector2		src;
+    t_layer *layer;
+    unsigned int pos;
+    int i;
+    t_dvector2 src;
 
-	color = 0;
-	i = stack->count - 1;
-	while (i >= 0)
-	{
-		layer = stack->layers[i];
-		src.x = x - layer->offset_x;
-		src.y = y - layer->offset_y;
-		pos = src.y * layer->width + src.x;
-		if (layer->mask)
-		{
-			if (!(pos < layer->width * layer->height && layer->data[pos] > 0
-					&& src.x <= layer->width))
-				i--;
-		}
-		else if ((src.x >= 0) && (src.x < (int)layer->width) && (src.y >= 0)
-			&& (src.y < (int)layer->height))
-		{
-			if (layer->is_volatile)
-			{
-				if (blend_pixels(&color, layer->volatile_data[pos]))
-				{
-					layer->volatile_data[pos] = 0;
-					return (color);
-				}
-				layer->volatile_data[pos] = 0;
-			}
-			if (blend_pixels(&color, layer->data[pos]))
-				return (color);
-		}
-		i--;
-	}
-	return (color);
+    i = stack->count - 1;
+    while (i >= 0)
+    {
+        layer = stack->layers[i];
+        src.x = x - layer->offset_x;
+        src.y = y - layer->offset_y;
+        pos = src.y * layer->width + src.x;
+        if (layer->mask)
+        {
+            if (!(pos < layer->width * layer->height && layer->data[pos] > 0 && src.x <= layer->width))
+                i--;
+        }
+        else if ((src.x >= 0) && (src.x < (int)layer->width) && (src.y >= 0) && (src.y < (int)layer->height))
+        {
+            if (layer->is_volatile)
+            {
+                if (blend_pixels(color, layer->volatile_data[pos]))
+                {
+                    layer->volatile_data[pos] = 0;
+                    return ;
+                }
+                layer->volatile_data[pos] = 0;
+            }
+            if (blend_pixels(color, layer->data[pos]))
+                return ;
+        }
+        i--;
+    }
 }
 
-void	layer_stack_render(t_layer_stack *stack, void *mlx, void *win)
-{
-	int						i;
-	register unsigned int	x;
-	register unsigned int	y;
-
-	if (!stack || !mlx || !win || stack->count <= 0 || !stack->output_layer
-		|| !stack->layers)
-		return ;
-	y = 0;
-	while (y < stack->output_layer->height)
-	{
-		x = 0;
-		while (x < stack->output_layer->width)
-		{
-			stack->output_layer->data[y * stack->output_layer->width
-				+ x] = get_depth_layer_color(stack, x, y);
-			x++;
-		}
-		y++;
-	}
-	mlx_put_image_to_window(mlx, win, stack->output_layer->img, 0, 0);
+unsigned int ft_max(unsigned int x, unsigned int y) {
+    if (x > y) {
+        return x;
+    }
+    return y;
 }
+
+unsigned int ft_min(unsigned int x, unsigned int y) {
+	if (x < y) {
+		return x;
+	}
+	return y;
+}
+
+
+static void layer_group_render(t_layer *group, t_layer *output)
+{
+    unsigned int x, y;
+    unsigned int color;
+    unsigned int start_x, end_x, start_y, end_y;
+
+    if (!group || !output || group->type != GROUP_LAYER)
+        return;
+
+    start_x = ft_max(0, group->offset_x);
+    end_x = ft_min(output->width, group->offset_x + group->width);
+    start_y = ft_max(0, group->offset_y);
+    end_y = ft_min(output->height, group->offset_y + group->height);
+
+    y = start_y;
+    while (y < end_y)
+    {
+        x = start_x;
+        while (x < end_x)
+        {
+            if (y < output->height && x < output->width)
+   				get_depth_layer_color(group->layers, x - group->offset_x, y - group->offset_y, (unsigned int *)&output->data[y * output->width + x]);
+            x++;
+        }
+        y++;
+    }
+}
+static void	set_zero(t_layer *output)
+{
+	size_t		i;
+	uint64_t	*output64;
+	size_t		size64;
+
+	output64 = (uint64_t *)output->data;
+	size64 = (output->width * output->height) / 2;
+	i = 0;
+	while (i < size64)
+	{
+		output64[i] = 0;
+		i++;
+	}
+	if ((output->width * output->height) % 2) {
+        ((uint8_t *)output->data)[output->width * output->height - 1] = 0;
+    }
+}
+
+static void ratio_transform(t_layer *output)
+{
+	//Fonctionne que ratio 2
+    unsigned int x;
+    unsigned int y;
+    unsigned int dest_x;
+    unsigned int dest_y;
+    unsigned int *data;
+
+    data = output->data;
+    y = HEIGHT - 1;
+    while (y > 0)
+    {
+        x = WIDTH - 1;
+        while (x > 0)
+        {
+            dest_x = x * 2;
+            dest_y = y * 2;
+            data[dest_y * OUTPUT_WIDTH + dest_x] = data[y * OUTPUT_WIDTH + x];
+            data[dest_y * OUTPUT_WIDTH + dest_x + 1] = data[y * OUTPUT_WIDTH + x];
+            data[(dest_y + 1) * OUTPUT_WIDTH + dest_x] = data[y * OUTPUT_WIDTH + x];
+            data[(dest_y + 1) * OUTPUT_WIDTH + dest_x + 1] = data[y * OUTPUT_WIDTH + x];
+            x--;
+        }
+        y--;
+    }
+}
+
+void layer_stack_render(t_layer_stack *stack, void *mlx, void *win)
+{
+    int i;
+
+    if (!stack || !mlx || !win || !stack->output_layer || stack->count <= 0)
+        return;
+
+	set_zero(stack->output_layer);
+    i = stack->count - 1;
+    while (i >= 0)
+    {
+        if (stack->layers[i]->type == GROUP_LAYER)
+            layer_group_render(stack->layers[i], stack->output_layer);
+        i--;
+    }
+	if (RATIO > 1)
+		ratio_transform(stack->output_layer);
+    mlx_put_image_to_window(mlx, win, stack->output_layer->img, 0, 0);
+}
+

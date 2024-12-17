@@ -1,7 +1,7 @@
 #ifndef TYPES_H
 # define TYPES_H
 
-# define LAYER_STACK_CAPACITY 256
+# define LAYER_STACK_CAPACITY 16
 
 # include <stdbool.h>
 # include "raycast.h"
@@ -80,25 +80,34 @@ typedef struct s_pixel
 	unsigned int	a;
 }					t_pixel;
 
+typedef enum e_layer_type
+{
+	GROUP_LAYER = 0,
+	LAYER = 1,
+}	t_layer_type;
+
 typedef struct s_layer
 {
-    void            *img;
-    unsigned int    *data;
-    int             width;
-    int             height;
-    int             offset_x;
-    int             offset_y;
-    int             z_index;
-    int             bits_per_pixel;
-    int             line_length;
-    int             endian;
-	bool			visible;
-	bool			is_volatile;
-	bool			*volatile_update;
-	unsigned int	*volatile_data;
-	bool			mask;
-    t_pixel         clear_color;
+	t_layer_type   			type;
+    void           			*img;
+	unsigned int   			*data;
+	struct s_layer_stack	*layers;
+    int             		width;
+    int             		height;
+    int            			offset_x;
+    int            			offset_y;
+    int             		z_index;
+    int            			bits_per_pixel;
+    int            			line_length;
+    int            			endian;
+	bool					visible;
+	bool					is_volatile;
+	bool					*volatile_update;
+	unsigned int			*volatile_data;
+	bool					mask;
+    t_pixel       			 clear_color;
 } t_layer;
+
 
 // typedef struct s_render_data
 // {

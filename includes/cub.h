@@ -17,12 +17,17 @@
 
 // Window
 # ifndef HEIGHT
-#  define HEIGHT (1080 / 2)
+#  define HEIGHT 1080
 # endif
 
 # ifndef WIDTH
-#  define WIDTH (1920 / 2)
+#  define WIDTH 1920
 # endif
+
+
+# define OUTPUT_HEIGHT 2160
+# define OUTPUT_WIDTH 3840
+# define RATIO 2
 
 # if HEIGHT < 64
 #  define HEIGHT 64
@@ -74,6 +79,6 @@
 # define SENTIVITY 0.25
 
 # define DEBUG 1
-# define MAX_FRAME 180
+# define MAX_FRAME 1000
 
 #endif

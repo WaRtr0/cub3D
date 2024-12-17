@@ -9,7 +9,7 @@ void	layer_split(t_layer *layer, t_pixel color1, t_pixel color2)
     int y;
 
 	y = 0;
-	while (y < layer->height / 2)
+	while (y < layer->height >> 1)
 	{
 		x = 0;
 		while (x < layer->width)
@@ -37,6 +37,7 @@ t_pixel	texture_pixel(t_layer *xpm, double x_ratio, double y_ratio)
 #include "draw.h"
 int	draw_view(t_game *game)
 {
+	t_layer *group;
 	t_layer *render;
 	t_layer *background;
 	t_game_data *raycast;
@@ -46,15 +47,16 @@ int	draw_view(t_game *game)
 	int		perceived_height;
 
 
+	group = layer_stack_get(game->layers, 1);
 	raycast = game->data;
-	render = layer_stack_get(game->layers, 2);
-	background = layer_stack_get(game->layers, 1);
+	render = layer_group_get(group, 2);
+	background = layer_group_get(group, 1);
 	// warning change center get percent / 100. 0 => variable
-	raycast->center = ((game->height / 2) + (raycast->pitch * HEIGHT_PERC));
+	raycast->center = ((HEIGHT >> 1) + (raycast->pitch * HEIGHT_PERC));
 	layer_set_offset(background, 0, SPLIT_HEIGHT + raycast->pitch * HEIGHT_PERC);
 	x = 0;
 	
-	while (x < game->width)
+	while (x < WIDTH)
 	{
 		perceived_height = (int)(SCALE_3D / raycast->ray[x].distance) >> 1;
 		y = raycast->center - perceived_height;
@@ -66,24 +68,10 @@ int	draw_view(t_game *game)
 			layer_set_pixel(render, x, y,
 				texture_pixel(layer_stack_get(game->textures, raycast->ray[x].face),
 				raycast->ray[x].percent / 100.,
-				(y - (raycast->center - perceived_height)) / (perceived_height * 2)));
+				(y - (raycast->center - perceived_height)) / (perceived_height << 1)));
 			y++;
 		}
 		x++;
 	}
 	return (0);
 }
-
-// int	create_view(t_game *game)
-// {
-// 	t_layer	*background;
-// 	t_view	view;
-	
-// 	t_layer *stupid_test = layer_create(game->mlx, game->width, game->height, 0);
-// 	layer_stack_add(game->layers, stupid_test);
-	
-// 	background = layer_create(game->mlx, game->width, game->height, 0);
-// 	layer_split(background, pixel_create(45, 0, 190, 255), pixel_create(40, 40, 40, 255));
-// 	layer_stack_add(game->layers, background);
-// 	return (0);
-// }
