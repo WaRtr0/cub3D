@@ -177,17 +177,17 @@ void raycast(t_game *game)
                     // fish eye correction
                     raycast->ray[i].distance = wall_dist * cos((ray_angle - raycast->yaw + 90) * M_PI / 180.0);
                     
-                     t_layer *map_layer = layer_group_get(group, 0);
+                    //  t_layer *map_layer = layer_group_get(group, 0);
                    
-                    t_vector2 start = {
-                        game->data->player.x * SCALE_2D + SCALE_2D/2,
-                        game->data->player.y * SCALE_2D + SCALE_2D/2
-                    };
-                    t_vector2 end = {
-                        (map_check.x + (side == 0 ? (step.x < 0 ? 1 : 0) : wall_x)) * SCALE_2D,
-                        (map_check.y + (side == 1 ? (step.y < 0 ? 1 : 0) : wall_x)) * SCALE_2D
-                    };
-                    draw_line(map_layer, start, end, pixel_create(255, 0, 0, 255));
+                    // t_vector2 start = {
+                    //     game->data->player.x * SCALE_2D + SCALE_2D/2,
+                    //     game->data->player.y * SCALE_2D + SCALE_2D/2
+                    // };
+                    // t_vector2 end = {
+                    //     (map_check.x + (side == 0 ? (step.x < 0 ? 1 : 0) : wall_x)) * SCALE_2D,
+                    //     (map_check.y + (side == 1 ? (step.y < 0 ? 1 : 0) : wall_x)) * SCALE_2D
+                    // };
+                    // draw_line(map_layer, start, end, pixel_create(255, 0, 0, 255));
                 }
             }
             else
@@ -200,6 +200,8 @@ void raycast(t_game *game)
             raycast->ray[i].face = 0;
         }
     }
+    t_layer *map_layer = layer_group_get(group, 0);
+    draw_circle_fill(map_layer, (t_vector2){game->data->player.x * SCALE_2D + SCALE_2D/2, game->data->player.y * SCALE_2D + SCALE_2D/2}, 5, pixel_create(255, 0, 0, 255));
     // debug_print_raycast(raycast);
 }
 
@@ -450,7 +452,7 @@ static void generate_map(t_map *map_struct, t_game *game)
 		map_mask->height/2 - SCALE_2D * HIT_BOX + group->offset_y
 	);
 	center_offset_player_on_map(game);
-    layer_volatile_on(map);
+    // layer_volatile_on(map);
 
     if (WIDTH < 275*2 || HEIGHT < 275*2)
     {

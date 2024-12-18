@@ -54,11 +54,19 @@ t_pixel	texture_pixel(t_layer *xpm, double x_ratio, double y_ratio)
 // 	return (0);
 // }
 
+#include "math.h"	
+// static inline unsigned int scale_3d(void)
+// {
+// 	unsigned int scale = (((WIDTH / 2) / tan((FOV / 2) * M_PI / 180)) * WALL_HEIGHT);
+// 	return (scale);
+// }
+
 int	draw_view(t_game *game, t_game_data *raycast)
 {
 	t_layer *group;
 	t_layer *render;
 	t_layer *background;
+	unsigned int scale_3d = game->scale_3d;
 	int		x;
 	int		y;
 	int		perceived_height;
@@ -76,7 +84,7 @@ int	draw_view(t_game *game, t_game_data *raycast)
 	
 	while (x < WIDTH)
 	{
-		perceived_height = (int)(SCALE_3D / raycast->ray[x].distance) >> 1;
+		perceived_height = (int)(scale_3d / raycast->ray[x].distance) >> 1;
 		y = raycast->center - perceived_height;
 		if (raycast->center - perceived_height < 0)
 			y = 0;

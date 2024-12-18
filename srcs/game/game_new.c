@@ -1,4 +1,5 @@
 #include "game.h"
+#include "math.h"
 
 t_game	*game_new(int width, int height, char *title)
 {
@@ -23,6 +24,8 @@ t_game	*game_new(int width, int height, char *title)
 	game->height = height;
 	game->title = title;
 	game->is_running = 0;
+	// (((WIDTH / 2) / tan((FOV / 2) * M_PI / 180)) * WALL_HEIGHT)
+	game->scale_3d = (((WIDTH >> 1) / tan((FOV >> 1) * M_PI / 180)) * WALL_HEIGHT);
 	game->delta_time = 0.0;
 	game->last_frame = 0.0;
 	game->mlx = NULL;

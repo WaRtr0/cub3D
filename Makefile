@@ -1,7 +1,7 @@
 NAME = cub3d
 CC = cc
 
-OPTI = 0
+OPTI = 1
 
 RM = rm -rf
 
@@ -22,10 +22,13 @@ INCLUDES = $(INCLUDES_DIR)/game.h\
 
 
 FLAG_OPTI =  -O3 -march=native -flto -ffast-math
-CFLAGS = -g3 -Wall -Wextra
+DEFAULT_FLAG = -g3
+CFLAGS = -Wall -Wextra
 
 ifeq ($(OPTI), 1)
 	CFLAGS += $(FLAG_OPTI)
+else
+	CFLAGS += $(DEFAULT_FLAG)
 endif
 
 MLXFLAGS = -lX11 -lXext -lm

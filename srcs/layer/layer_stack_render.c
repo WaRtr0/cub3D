@@ -133,28 +133,28 @@ static void	set_zero(t_layer *output)
     }
 }
 
-static void ratio_transform(t_layer *output)
+static void ratio_transform(unsigned int *data)
 {
 	//Fonctionne que ratio 2
     unsigned int x;
     unsigned int y;
     unsigned int dest_x;
     unsigned int dest_y;
-    unsigned int *data;
+    unsigned int src_y;
 
-    data = output->data;
-    y = HEIGHT - 1;
+    y = HEIGHT;
     while (y > 0)
     {
-        x = WIDTH - 1;
+        x = WIDTH;
+        src_y = y * OUTPUT_WIDTH;
+        dest_y = y << 1;
         while (x > 0)
         {
-            dest_x = x * 2;
-            dest_y = y * 2;
-            data[dest_y * OUTPUT_WIDTH + dest_x] = data[y * OUTPUT_WIDTH + x];
-            data[dest_y * OUTPUT_WIDTH + dest_x + 1] = data[y * OUTPUT_WIDTH + x];
-            data[(dest_y + 1) * OUTPUT_WIDTH + dest_x] = data[y * OUTPUT_WIDTH + x];
-            data[(dest_y + 1) * OUTPUT_WIDTH + dest_x + 1] = data[y * OUTPUT_WIDTH + x];
+            dest_x = x << 1;
+            data[dest_y * OUTPUT_WIDTH + dest_x] = data[src_y + x];
+            data[dest_y * OUTPUT_WIDTH + dest_x + 1] = data[src_y + x];
+            data[(dest_y + 1) * OUTPUT_WIDTH + dest_x] = data[src_y + x];
+            data[(dest_y + 1) * OUTPUT_WIDTH + dest_x + 1] = data[src_y + x];
             x--;
         }
         y--;
@@ -177,7 +177,7 @@ void layer_stack_render(t_layer_stack *stack, void *mlx, void *win)
         i--;
     }
 	if (RATIO > 1)
-		ratio_transform(stack->output_layer);
+		ratio_transform(stack->output_layer->data);
     mlx_put_image_to_window(mlx, win, stack->output_layer->img, 0, 0);
 }
 

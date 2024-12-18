@@ -160,6 +160,7 @@ typedef struct s_game
 	char			*title;
 	int				is_running;
 	t_game_data		*data;
+	unsigned int	scale_3d;
 	double			delta_time;
 	double			last_frame;
 	t_layer_stack	*layers;

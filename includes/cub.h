@@ -25,9 +25,9 @@
 # endif
 
 
-# define OUTPUT_HEIGHT 540
-# define OUTPUT_WIDTH 960
-# define RATIO 1
+# define OUTPUT_HEIGHT 1080
+# define OUTPUT_WIDTH 1920
+# define RATIO 2
 
 # if HEIGHT < 64
 #  define HEIGHT 64
@@ -79,6 +79,6 @@
 # define SENTIVITY 0.25
 
 # define DEBUG 0
-# define MAX_FRAME 60
+# define MAX_FRAME 180
 
 #endif
