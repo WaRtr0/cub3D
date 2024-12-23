@@ -13,6 +13,8 @@ t_layer	*layer_group_create(int width, int height, int z_index)
 	group->z_index = z_index;
 	group->offset_x = 0;
 	group->offset_y = 0;
+	group->visible = true;
+	group->layers = NULL;
 	group->layers = layer_stack_create();
 	return (group);
 }

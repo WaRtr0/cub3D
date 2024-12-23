@@ -14,7 +14,7 @@ static inline void center_offset_player_on_map(t_game *game)
     );
 }
 
-static void	inline move_along(t_game *game, int side, double new_x, double new_y)
+static inline void move_along(t_game *game, int side, double new_x, double new_y)
 {
 	if (side == 0 && new_y < game->data->player.y + 0.5)
 		game->data->player.y = new_y - 0.5;

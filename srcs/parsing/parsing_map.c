@@ -40,17 +40,16 @@ size_t	get_lines(char **lines)
 
 char	*get_line(t_parsing *map, size_t i)
 {
-	if (i >= map->height)
+	if (i >= (unsigned int)map->height)
 		return (NULL);
 	return (map->map + i * (map->width + 1));
 }
 
 int	check_map_last(t_parsing *map, char **lines, size_t i)
 {
-	int	last;
+	unsigned int	last;
 
 	last = i;
-	i = last;
 	while (lines[i] && lines[i][0] == '\0')
 		i++;
 	if (i != last && lines[i])
@@ -59,7 +58,7 @@ int	check_map_last(t_parsing *map, char **lines, size_t i)
 	return (1);
 }
 
-int	extract_map(t_game *game, t_parsing *map, char **lines)
+int	extract_map(t_parsing *map, char **lines)
 {
 	size_t	i;
 	size_t	j;
@@ -69,7 +68,7 @@ int	extract_map(t_game *game, t_parsing *map, char **lines)
 			* (get_max_line(lines) + 1));
 	if (!map->map)
 		return (0);
-	while (lines[i] && i < map->height)
+	while (lines[i] && i < (unsigned int)map->height)
 	{
 		j = 0;
 		while (lines[i][j])
@@ -77,7 +76,7 @@ int	extract_map(t_game *game, t_parsing *map, char **lines)
 			map->map[i * (map->width + 1) + j] = lines[i][j];
 			j++;
 		}
-		while (j < map->width)
+		while (j < (unsigned int)map->width)
 			map->map[i * (map->width + 1) + j++] = ' ';
 		map->map[i * (map->width + 1) + j] = '\0';
 		i++;
@@ -87,13 +86,13 @@ int	extract_map(t_game *game, t_parsing *map, char **lines)
 	return (1);
 }
 
-int	parse_map(t_game *game, t_parsing *map, char **lines)
+int	parse_map(t_parsing *map, char **lines)
 {
 	int	i;
 
 	map->height = get_lines(lines);
 	map->width = get_max_line(lines);
-	if (!extract_map(game, map, lines))
+	if (!extract_map(map, lines))
 		return (0);
 	if (!check_map(map))
 		return (0);

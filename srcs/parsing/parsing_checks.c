@@ -66,7 +66,7 @@ int	check_map_char(t_parsing *map)
 	char	*cmap;
 
 	i = 0;
-	while (i < map->height)
+	while (i < (unsigned int)map->height)
 	{
 		j = 0;
 		cmap = get_line(map, i);
@@ -79,14 +79,12 @@ int	check_map_char(t_parsing *map)
 		}
 		i++;
 	}
-	if (map->player_dir == -1)
-		return (prerr("Error\nMap contains no player\n"), 0);
 	return (1);
 }
 
 int	check_border(t_parsing *map, char *cmap, size_t i, size_t j)
 {
-	if (i == 0 || i == map->height - 1 || j == 0 || j == map->width - 1)
+	if (i == 0 || i == (unsigned int)map->height - 1 || j == 0 || j == (unsigned int)map->width - 1)
 		if (cmap[j] != ' ' && cmap[j] != '1')
 			return (0);
 	return (1);
@@ -96,7 +94,7 @@ int	check_closure(t_parsing	*map, char *cmap, size_t i, size_t j)
 {
 	if ((cmap[j] == '0' || cmap[j] == 'N' || cmap[j] == 'S'
 			|| cmap[j] == 'E' || cmap[j] == 'W')
-		&& !(i == 0 || i == map->height || j == 0 || j == map->width - 1))
+		&& !(i == 0 || i == (unsigned int)map->height || j == 0 || j == (unsigned int)map->width - 1))
 	{
 		if (cmap[j - 1] == ' ' || cmap[j + 1] == ' '
 			|| get_line(map, i - 1)[j] == ' ' || get_line(map, i + 1)[j] == ' ')
@@ -116,7 +114,7 @@ int	check_map_validity(t_parsing *map)
 	char	*cmap;
 
 	i = 0;
-	while (i < map->height)
+	while (i < (unsigned int)map->height)
 	{
 		j = 0;
 		cmap = get_line(map, i);
@@ -135,9 +133,6 @@ int	check_map_validity(t_parsing *map)
 
 int	check_map(t_parsing *map)
 {
-	size_t	i;
-	size_t	j;
-
 	if (!map->map)
 		return (0);
 	if (map->height < 3 || map->width < 3)

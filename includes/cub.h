@@ -15,19 +15,33 @@
 
 # define RAYSTEP 4
 
+
+// resolution size
+// QQVGA 160 x 120
+// QVGA 320 x 240
+// VGA 640 x 480
+// SVGA 800 x 600
+// XGA 1024 x 768
+// HD 1280 x 720
+// HD 1366 x 768
+// mac 1440 x 900
+// HD 1600 x 900
+// FHD 1920 x 1080
+// 2K 2560 x 1440
+// 4K 3840 x 2160
+
+# define OUTPUT_HEIGHT 900
+# define OUTPUT_WIDTH 1440
+# define RATIO 2
+
 // Window
 # ifndef HEIGHT
-#  define HEIGHT 540
+#  define HEIGHT (OUTPUT_HEIGHT / RATIO)
 # endif
 
 # ifndef WIDTH
-#  define WIDTH 960
+#  define WIDTH (OUTPUT_WIDTH / RATIO)
 # endif
-
-
-# define OUTPUT_HEIGHT 1080
-# define OUTPUT_WIDTH 1920
-# define RATIO 2
 
 # if HEIGHT < 64
 #  define HEIGHT 64
@@ -69,8 +83,13 @@
 # define ENABLE_TRANSPARENCY 1
 
 // Scale
-# define SCALE_2D 32
-# define SCALE_3D (((WIDTH / 2) / tan((FOV / 2) * M_PI / 180)) * WALL_HEIGHT)
+# define SCALE_2D (32 / RATIO)
+// # define SCALE_3D (((WIDTH / 2) / tan((FOV / 2) * M_PI / 180)) * WALL_HEIGHT)
+
+// Map
+
+# define MAP_SIZE_RATIO 1
+# define MAP_SIZE ((250 * MAP_SIZE_RATIO) / RATIO)
 
 // Mouse
 # define YAW_MAX 360

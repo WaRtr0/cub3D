@@ -208,7 +208,7 @@ void raycast(t_game *game)
 
 void yaw(t_game *game)
 {
-    const static int size = (SCALE_2D * HIT_BOX);
+    const int size = (SCALE_2D * HIT_BOX);
     int deg;
     t_dvector2 center = {size, size};
     t_dvector2 pos1 = {(size >> 2), size};             // Point gauche
@@ -280,15 +280,15 @@ static void hook_mouse_move(int x, int y, t_game *game)
 
 static void	hook(int keycode, t_game *game)
 {
-	t_layer	*player;
-	t_layer *rotate;
+	// t_layer	*player;
+	// t_layer *rotate;
 
 	(void)game;
 	(void)keycode;
 	
-    t_layer *group = layer_stack_get(game->layers, 2);
-	player = layer_group_get(group, 2);
-	rotate = layer_group_get(group, 4);
+    // t_layer *group = layer_stack_get(game->layers, 2);
+	// player = layer_group_get(group, 2);
+	// rotate = layer_group_get(group, 4);
 
 	// hook script
 	// example move sprite
@@ -394,7 +394,7 @@ static void generate_map(t_map *map_struct, t_game *game)
 	// game->data->map = map_struct;
     
 
-    group = layer_group_create(250,250, 2);
+    group = layer_group_create(MAP_SIZE,MAP_SIZE, 2);
     cursor = layer_group_create(SCALE_2D * HIT_BOX * 2,SCALE_2D * HIT_BOX * 2, 3);
 
     layer_stack_add(game->layers, group);
@@ -402,9 +402,9 @@ static void generate_map(t_map *map_struct, t_game *game)
 
 	map = layer_create(game->mlx, map_struct->width * SCALE_2D, map_struct->height * SCALE_2D, 0);
     raycast_debug = layer_create(game->mlx,  map_struct->width * SCALE_2D, map_struct->height * SCALE_2D, 5);
-	map_mask = layer_create(game->mlx, 250, 250, 1);
+	map_mask = layer_create(game->mlx, MAP_SIZE, MAP_SIZE, 1);
     map_mask->mask = true;
-	circle_map = layer_create(game->mlx, 250, 250, 3);
+	circle_map = layer_create(game->mlx, MAP_SIZE, MAP_SIZE, 3);
 
 	player = layer_create(game->mlx, SCALE_2D * HIT_BOX * 2, SCALE_2D * HIT_BOX * 2, 1);
 	rotate = layer_create(game->mlx, SCALE_2D * HIT_BOX * 2, SCALE_2D * HIT_BOX * 2, 2);
@@ -418,14 +418,14 @@ static void generate_map(t_map *map_struct, t_game *game)
 	layer_group_add(cursor, rotate);
 
 	layer_fill(map, pixel_create(125, 125, 125, 200));
-	draw_circle_fill(map_mask, (t_vector2){125, 125}, 125, pixel_create(0, 0, 0, 255));
+	draw_circle_fill(map_mask, (t_vector2){MAP_SIZE / 2, MAP_SIZE / 2}, MAP_SIZE / 2, pixel_create(0, 0, 0, 255));
 
-    draw_circle(circle_map, (t_vector2){125, 125}, 120, pixel_create(255, 255, 0, 255));
-    draw_circle(circle_map, (t_vector2){125, 125}, 121, pixel_create(200, 200, 0, 255));
-    draw_circle(circle_map, (t_vector2){125, 125}, 122, pixel_create(150, 150, 0, 255));
-	draw_circle(circle_map, (t_vector2){125, 125}, 123, pixel_create(150, 150, 0, 255));
-    draw_circle(circle_map, (t_vector2){125, 125}, 124, pixel_create(100, 100, 0, 255));
-    draw_circle(circle_map, (t_vector2){125, 125}, 125, pixel_create(50, 50, 0, 255));
+    draw_circle(circle_map, (t_vector2){MAP_SIZE / 2, MAP_SIZE / 2}, MAP_SIZE / 2 - 5, pixel_create(255, 255, 0, 255));
+    draw_circle(circle_map, (t_vector2){MAP_SIZE / 2, MAP_SIZE / 2}, MAP_SIZE / 2 - 4, pixel_create(200, 200, 0, 255));
+    draw_circle(circle_map, (t_vector2){MAP_SIZE / 2, MAP_SIZE / 2}, MAP_SIZE / 2 - 3, pixel_create(150, 150, 0, 255));
+	draw_circle(circle_map, (t_vector2){MAP_SIZE / 2, MAP_SIZE / 2}, MAP_SIZE / 2 - 2, pixel_create(150, 150, 0, 255));
+    draw_circle(circle_map, (t_vector2){MAP_SIZE / 2, MAP_SIZE / 2}, MAP_SIZE / 2 - 1, pixel_create(100, 100, 0, 255));
+    draw_circle(circle_map, (t_vector2){MAP_SIZE / 2, MAP_SIZE / 2}, MAP_SIZE / 2, pixel_create(50, 50, 0, 255));
 
 	draw_circle_fill(player, (t_vector2){SCALE_2D * HIT_BOX, SCALE_2D * HIT_BOX}, SCALE_2D * HIT_BOX, pixel_create(255, 0, 0, 255));
 	yaw(game);
@@ -452,7 +452,7 @@ static void generate_map(t_map *map_struct, t_game *game)
 		map_mask->height/2 - SCALE_2D * HIT_BOX + group->offset_y
 	);
 	center_offset_player_on_map(game);
-    // layer_volatile_on(map);
+    layer_volatile_on(map);
 
     if (WIDTH < 275*2 || HEIGHT < 275*2)
     {

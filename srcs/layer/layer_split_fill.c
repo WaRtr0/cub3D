@@ -2,8 +2,8 @@
 
 void	layer_split_fill(t_layer *layer, t_pixel color1, t_pixel color2)
 {
-    int x;
-    int y;
+	unsigned int x;
+	unsigned int y;
 
 	y = 0;
 	while (y < layer->height / 2)

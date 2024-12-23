@@ -35,7 +35,7 @@ typedef struct t_parsing
 }	t_parsing;
 
 int		parse(t_game *game, const char *path);
-int		parse_map(t_game *game, t_parsing *map, char **lines);
+int		parse_map(t_parsing *map, char **lines);
 int		check_map(t_parsing *map);
 char	*get_line(t_parsing *map, size_t i);
 int		check_extension(const char *path , const char *ext);

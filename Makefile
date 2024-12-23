@@ -23,7 +23,7 @@ INCLUDES = $(INCLUDES_DIR)/game.h\
 
 FLAG_OPTI =  -O3 -march=native -flto -ffast-math
 DEFAULT_FLAG = -g3
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -Werror
 
 ifeq ($(OPTI), 1)
 	CFLAGS += $(FLAG_OPTI)

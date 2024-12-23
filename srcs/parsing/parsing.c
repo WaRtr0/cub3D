@@ -60,7 +60,6 @@ char	**extract_all(const char *path)
 
 char	*skip_sp(char *line)
 {
-	int	i;
 	while (*line == ' ')
 		line++;
 	return (line);
@@ -94,13 +93,13 @@ char	*extract_last_word(char *line)
 	return (line);
 }
 
-int	extract_textures(t_game *game, t_parsing *map, char *line)
+int	extract_textures(t_game *game, char *line)
 {
-	void	*img;
 	char	*path;
 	t_dir	dir;
 
 	path = extract_last_word(skip_sp(line + 2));
+	dir = 0;
 	if (!path || !check_extension(path, ".xpm"))
 		return (0);
 	if (ft_strncmp(line, "NO", 2) == 0)
@@ -119,7 +118,7 @@ int	extract_textures(t_game *game, t_parsing *map, char *line)
 	return (1);
 }
 
-int	extract_pixel(t_game *game, t_parsing *map, char *line, t_pixel *pixel)
+int	extract_pixel(char *line, t_pixel *pixel)
 {
 	line = skip_sp(line + 1);
 	pixel->r = ft_atoi(line);
@@ -138,30 +137,26 @@ int	extract_pixel(t_game *game, t_parsing *map, char *line, t_pixel *pixel)
 	if (*line != '\0')
 		return (prerr("Error\nInvalid character after RGB declaration\n"), 0);
 	pixel->a = 255;
-	if (pixel->r < 0 || pixel->r > 255 || pixel->g < 0 || pixel->g > 255
-		|| pixel->b < 0 || pixel->b > 255)
+	if ( pixel->r > 255 || pixel->g > 255
+		|| pixel->b > 255)
 		return (prerr("Error\nRGB values must be between 0 and 255\n"), 0);
 	return (1);
 }
 
-int	extract_background(t_game *game, t_parsing *map, char *line)
+int	extract_background(t_parsing *map, char *line)
 {
 	t_pixel	ceiling;
 	t_pixel	floor;
 
 	if (*line == 'F')
 	{
-		if (map->floor.r != -1)
-			return (prerr("Error\nFloor color already declared\n"), 0);
-		if (!extract_pixel(game, map, line, &floor))
+		if (!extract_pixel(line, &floor))
 			return (0);
 		map->floor = floor;
 	}
 	else if (*line == 'C')
 	{
-		if (map->ceiling.r != -1)
-			return (prerr("Error\nCeiling color already declared\n"), 0);
-		if (!extract_pixel(game, map, line, &ceiling))
+		if (!extract_pixel(line, &ceiling))
 			return (0);
 		map->ceiling = ceiling;
 	}
@@ -183,12 +178,12 @@ int	parse_header(t_game *game, t_parsing *map, char **lines)
 		if (ft_strncmp(line, "NO", 2) == 0 || ft_strncmp(line, "SO", 2) == 0
 			|| ft_strncmp(line, "WE", 2) == 0 || ft_strncmp(line, "EA", 2) == 0)
 		{
-			if (!extract_textures(game, map, line))
+			if (!extract_textures(game, line))
 				return (0);
 		}
 		else if (*line == 'F' || *line == 'C')
 		{
-			if (!extract_background(game, map, line))
+			if (!extract_background(map, line))
 				return (0);
 		}
 		else if (*line == '1' || *line == '0' || *line == ' '
@@ -201,8 +196,7 @@ int	parse_header(t_game *game, t_parsing *map, char **lines)
 	if (!layer_stack_get(game->textures, NORTH)
 		|| !layer_stack_get(game->textures, EAST)
 		|| !layer_stack_get(game->textures, SOUTH)
-		|| !layer_stack_get(game->textures, WEST)
-		|| map->floor.r == -1 || map->ceiling.r == -1)
+		|| !layer_stack_get(game->textures, WEST))
 		return (prerr("Error\nMissing element in header\n"), 0);
 	return (i);
 }
@@ -227,7 +221,7 @@ int	convert_parsing(t_game *game, t_parsing *map)
 		return (free(game->data->map), 0);
 	i = 0;
 	offset = 0;
-	while (i + offset < map->height * (map->width + 1))
+	while (i + offset < (unsigned int)(map->height * (map->width + 1)))
 	{
 		if (map->map[i + offset] == 'N')
 			tiles[i] = P;
@@ -273,7 +267,7 @@ int	parse(t_game *game, const char *path)
 	end_of_header = parse_header(game, &map, lines);
 	if (!end_of_header)
 		return (0);
-	if (!parse_map(game, &map, lines + end_of_header))
+	if (!parse_map(&map, lines + end_of_header))
 		return (0);
 	i = 0;
 	while (lines[i])
