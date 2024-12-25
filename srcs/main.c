@@ -273,26 +273,12 @@ static void hook_mouse_move(int x, int y, t_game *game)
         game->data->yaw += YAW_MAX;
     
     yaw(game);
-    
     game->data->is_warping = true;
     mlx_mouse_move(game->mlx, game->win, center_x, center_y);
 }
 
 static void	hook(int keycode, t_game *game)
 {
-	// t_layer	*player;
-	// t_layer *rotate;
-
-	(void)game;
-	(void)keycode;
-	
-    // t_layer *group = layer_stack_get(game->layers, 2);
-	// player = layer_group_get(group, 2);
-	// rotate = layer_group_get(group, 4);
-
-	// hook script
-	// example move sprite
-
 	if (keycode == KEY_RIGHT)
 	{
 		game->data->player.x += 1;
@@ -325,14 +311,12 @@ static void	hook(int keycode, t_game *game)
     }
 	if (keycode == KEY_A)
 	{
-		// layer_rotate(player, 90);
 		game->data->yaw-=5;
 		yaw(game);
 		
 	}
 	if (keycode == KEY_D)
 	{
-		// layer_rotate(player, 90);
 		game->data->yaw+=5;
 		yaw(game);
 		
