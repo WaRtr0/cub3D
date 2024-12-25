@@ -2,8 +2,11 @@
 #ifndef RAYCAST_H
 # define RAYCAST_H
 
+
+// # include "game.h"
 # include "types.h"
 
+void raycast(t_game *game);
 
 // typedef struct s_raycast
 // {
