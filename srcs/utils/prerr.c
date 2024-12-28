@@ -15,5 +15,6 @@
 void	prerr(char *msg)
 {
 	while (*msg)
-		write(2, msg++, 1);
+		if (write(2, msg++, 1) == -1)
+			break ;
 }

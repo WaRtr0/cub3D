@@ -150,12 +150,16 @@ int	extract_background(t_parsing *map, char *line)
 
 	if (*line == 'F')
 	{
+		if (map->floor.r != 277)
+			return (prerr("Error\nFloor already declared\n"), 0);
 		if (!extract_pixel(line, &floor))
 			return (0);
 		map->floor = floor;
 	}
 	else if (*line == 'C')
 	{
+		if (map->ceiling.r != 277)
+			return (prerr("Error\nCeiling already declared\n"), 0);
 		if (!extract_pixel(line, &ceiling))
 			return (0);
 		map->ceiling = ceiling;
@@ -196,7 +200,8 @@ int	parse_header(t_game *game, t_parsing *map, char **lines)
 	if (!layer_stack_get(game->textures, NORTH)
 		|| !layer_stack_get(game->textures, EAST)
 		|| !layer_stack_get(game->textures, SOUTH)
-		|| !layer_stack_get(game->textures, WEST))
+		|| !layer_stack_get(game->textures, WEST)
+		|| map->floor.r == 277 || map->ceiling.r == 277)
 		return (prerr("Error\nMissing element in header\n"), 0);
 	return (i);
 }
@@ -213,7 +218,6 @@ int	convert_parsing(t_game *game, t_parsing *map)
 	if (!game->data->map)
 		return (0);
 	game->data->yaw = map->player_dir * 90;
-	printf("Player dir: %f\n", game->data->yaw);
 	game->data->map->height = map->height;
 	game->data->map->width = map->width;
 	tiles = malloc(sizeof(t_map_tile) * map->height * (map->width + 1));
@@ -257,8 +261,8 @@ int	parse(t_game *game, const char *path)
 
 	ft_memset(&map, 0, sizeof(t_parsing));
 	map.player_dir = -1;
-	map.floor.r = -1;
-	map.ceiling.r = -1;
+	map.floor.r = 277;
+	map.ceiling.r = 277;
 	if (!check_extension(path, ".cub"))
 		return (0);
 	lines = extract_all(path);
