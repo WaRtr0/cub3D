@@ -31,7 +31,7 @@ else
 	CFLAGS += $(DEFAULT_FLAG)
 endif
 
-MLXFLAGS = -lX11 -lXext -lm
+MLXFLAGS = -lX11 -lXext -lm -g3
 
 SRC_DIR = srcs
 BUILD_DIR = .obj

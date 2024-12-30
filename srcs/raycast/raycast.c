@@ -98,7 +98,7 @@ void raycast(t_game *game)
             if (map_check.x >= 0 && map_check.x < map->width && 
                 map_check.y >= 0 && map_check.y < map->height)
             {
-                if (map->tiles[(int)map_check.y * map->width + (int)map_check.x] == W)
+                if (map->tiles[(int)map_check.y * map->width + (int)map_check.x] >= W)
                 {
                     hit = true;
                     double wall_dist;
@@ -130,14 +130,16 @@ void raycast(t_game *game)
                         if (ray_dir.y > 0)
                         {
                             raycast->ray[i].face = N_FACE;
-                            raycast->ray[i].percent = wall_x * 100;
+                            raycast->ray[i].percent = (1 - wall_x) * 100;
                         }
                         else
                         {
                             raycast->ray[i].face = S_FACE;
-                            raycast->ray[i].percent = (1 - wall_x) * 100;
+                            raycast->ray[i].percent = wall_x * 100;
                         }
                     }
+					if (map->tiles[(int)map_check.y * map->width + (int)map_check.x] == D)
+						raycast->ray[i].face = D_FACE;
                     
                     // fish eye correction
                     raycast->ray[i].distance = wall_dist * cos((ray_angle - raycast->yaw + 90) * M_PI / 180.0);

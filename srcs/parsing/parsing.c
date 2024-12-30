@@ -96,20 +96,20 @@ char	*extract_last_word(char *line)
 int	extract_textures(t_game *game, char *line)
 {
 	char	*path;
-	t_dir	dir;
+	t_face	dir;
 
 	path = extract_last_word(skip_sp(line + 2));
 	dir = 0;
 	if (!path || !check_extension(path, ".xpm"))
 		return (0);
 	if (ft_strncmp(line, "NO", 2) == 0)
-		dir = NORTH;
+		dir = N_FACE;
 	else if (ft_strncmp(line, "SO", 2) == 0)
-		dir = SOUTH;
+		dir = S_FACE;
 	else if (ft_strncmp(line, "WE", 2) == 0)
-		dir = WEST;
+		dir = W_FACE;
 	else if (ft_strncmp(line, "EA", 2) == 0)
-		dir = EAST;
+		dir = E_FACE;
 	if (layer_stack_get(game->textures, dir))
 		return (prerr("Error\nTexture already declared\n"), 0);
 	layer_add_texture(game->mlx, game->textures, path, dir);
@@ -197,10 +197,10 @@ int	parse_header(t_game *game, t_parsing *map, char **lines)
 			return (prerr("Error\nInvalid character in header\n"), 0);
 		i++;
 	}
-	if (!layer_stack_get(game->textures, NORTH)
-		|| !layer_stack_get(game->textures, EAST)
-		|| !layer_stack_get(game->textures, SOUTH)
-		|| !layer_stack_get(game->textures, WEST)
+	if (!layer_stack_get(game->textures, N_FACE)
+		|| !layer_stack_get(game->textures, E_FACE)
+		|| !layer_stack_get(game->textures, S_FACE)
+		|| !layer_stack_get(game->textures, W_FACE)
 		|| map->floor.r == 277 || map->ceiling.r == 277)
 		return (prerr("Error\nMissing element in header\n"), 0);
 	return (i);
@@ -242,11 +242,20 @@ int	convert_parsing(t_game *game, t_parsing *map)
 		else if (map->map[i + offset] == '\0' && i--)
 			offset++;
 		else if (map->map[i + offset] == 'D')
-			tiles[i] = E;
+			tiles[i] = D;
 		i++;
 	}
 	tiles[i] = '\0';
 	game->data->map->tiles = tiles;
+	return (1);
+}
+
+int	set_textures(t_game *game)
+{
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/door.xpm", D_FACE);
+	if (!layer_stack_get(game->textures, D_FACE))
+		return (0);
 	return (1);
 }
 
@@ -264,6 +273,8 @@ int	parse(t_game *game, const char *path)
 	map.floor.r = 277;
 	map.ceiling.r = 277;
 	if (!check_extension(path, ".cub"))
+		return (0);
+	if (!set_textures(game))
 		return (0);
 	lines = extract_all(path);
 	if (!lines)

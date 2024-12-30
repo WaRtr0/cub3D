@@ -19,8 +19,8 @@ typedef enum e_dir
 typedef enum e_map_tile
 {
 	E = 0, // empty
-	W = 1, // wall
-	P = 2, // player
+	P = 1, // player
+	W = 2, // wall
 	D = 3 // door
 } t_map_tile;
 
@@ -56,7 +56,8 @@ typedef enum e_face
 	N_FACE = 0,
 	E_FACE = 1,
 	S_FACE = 2,
-	W_FACE = 3
+	W_FACE = 3,
+	D_FACE = 4
 }				t_face;
 
 typedef struct s_ray
