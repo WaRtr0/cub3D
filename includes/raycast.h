@@ -7,6 +7,8 @@
 # include "types.h"
 
 void raycast(t_game *game);
+int	animate(t_game *game, int pos, int get);
+
 
 // typedef struct s_raycast
 // {

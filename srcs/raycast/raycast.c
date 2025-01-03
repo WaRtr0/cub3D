@@ -4,6 +4,7 @@
 #include "draw.h"
 #include "layer.h"
 #include "math.h"
+#include "utils.h"
 
 void debug_print_raycast(t_game_data *raycast)
 {
@@ -12,6 +13,36 @@ void debug_print_raycast(t_game_data *raycast)
 		printf("Ray %d: distance: %f, percent: %f, face: %d\n", i, raycast->ray[i].distance, raycast->ray[i].percent, raycast->ray[i].face);
 	}
 }
+
+int	animate(t_game *game, int pos, int get)
+{
+	static t_door	door = {-1, 0};
+	long long		time;
+	long long		diff;
+
+	time = current_time();
+	if (door.pos == -1 && !get)
+	{
+		door.pos = pos;
+		door.timestamp = time;
+	}
+	if (door.pos == pos && get)
+	{
+		diff = time - door.timestamp;
+		if (diff <= 500)
+			return (0);
+		else if (diff <= 1000)
+			return (1);
+		else
+		{
+			game->data->map->tiles[pos] = E;
+			door.pos = -1;
+			return (0);
+		}
+	}
+	return (0);
+}
+
 void raycast(t_game *game)
 {
    t_layer *group = layer_stack_get(game->layers, 2);
@@ -139,7 +170,8 @@ void raycast(t_game *game)
                         }
                     }
 					if (map->tiles[(int)map_check.y * map->width + (int)map_check.x] == D)
-						raycast->ray[i].face = D_FACE;
+						raycast->ray[i].face = D_FACE
+							+ animate(game, (int)map_check.y * map->width + (int)map_check.x, 1);
                     
                     // fish eye correction
                     raycast->ray[i].distance = wall_dist * cos((ray_angle - raycast->yaw + 90) * M_PI / 180.0);

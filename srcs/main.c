@@ -159,7 +159,7 @@ static void	hook(int keycode, t_game *game)
 
 	if (keycode == KEY_SPACE)
     {
-		;
+		open_door(game, 1);
     }
     if (keycode == KEY_SHIFT)
     {

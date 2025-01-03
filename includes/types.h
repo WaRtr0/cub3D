@@ -57,7 +57,8 @@ typedef enum e_face
 	E_FACE = 1,
 	S_FACE = 2,
 	W_FACE = 3,
-	D_FACE = 4
+	D_FACE = 4,
+	D_FACE2 = 5
 }				t_face;
 
 typedef struct s_ray
@@ -128,6 +129,11 @@ typedef struct s_layer_stack
 	int				capacity;
 }					t_layer_stack;
 
+typedef struct s_door
+{
+	int			pos;
+	long long	timestamp;
+}				t_door;
 
 typedef struct s_game_data
 {

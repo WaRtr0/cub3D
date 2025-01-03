@@ -28,8 +28,10 @@ static inline void move_along(t_game *game, int side, double new_x, double new_y
 
 void	player_move(t_game *game, int dir)
 {
-	int		i;
-    t_map	*map = game->data->map;
+	int			i;
+    t_map		*map = game->data->map;
+	int			check_tile;
+
     double	move_x = sin((game->data->yaw) * M_PI / 180) * (STEP + game->player_state.running * STEP);
     double	move_y = -cos((game->data->yaw) * M_PI / 180) * (STEP + game->player_state.running * STEP);
 
@@ -45,7 +47,8 @@ void	player_move(t_game *game, int dir)
 		{-1, 0}     // Gauche
     };
 	// Vérification des collisions
-	if (map->tiles[(int)new_y * map->width + (int)new_x] == W)
+	check_tile = map->tiles[(int)new_y * map->width + (int)new_x];
+	if (check_tile == W || check_tile == D)
 		return ;
 	i = 0;
 	while (i < 4)
@@ -57,7 +60,8 @@ void	player_move(t_game *game, int dir)
 			check_y >= 0 && check_y < map->height)
 		{
 			// Vérification des collisions avec les murs
-			if (map->tiles[(int)check_y * map->width + (int)check_x] != W)
+			check_tile = map->tiles[(int)check_y * map->width + (int)check_x];
+			if (check_tile != W && check_tile != D)
 				move_along(game, i, new_x, new_y);
 		}
 		i++;

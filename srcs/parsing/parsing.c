@@ -256,6 +256,10 @@ int	set_textures(t_game *game)
 		"./assets/textures/door.xpm", D_FACE);
 	if (!layer_stack_get(game->textures, D_FACE))
 		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/00.xpm", D_FACE2);
+	if (!layer_stack_get(game->textures, D_FACE2))
+		return (0);						//free
 	return (1);
 }
 
