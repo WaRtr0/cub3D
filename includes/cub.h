@@ -4,6 +4,8 @@
 
 
 // Raycasting
+
+# define GAME_NAME "My Game !"
 # ifndef FOV
 # define FOV 60
 # endif

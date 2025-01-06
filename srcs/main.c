@@ -271,7 +271,7 @@ int	main(int argc, char **argv)
     t_layer *group;
 	t_layer *wall;
 
-	game = game_new(OUTPUT_WIDTH, OUTPUT_HEIGHT, "My Game !");
+	game = game_new(OUTPUT_WIDTH, OUTPUT_HEIGHT, GAME_NAME);
 	if (!game)
 		return (1);
     if (argc == 2)
