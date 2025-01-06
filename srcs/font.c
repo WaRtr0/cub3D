@@ -49,7 +49,7 @@ int hex_char_to_int(char c)
     else if (c >= 'a' && c <= 'f')
         return c - 'a' + 10;
     else
-        return -1; // Caractère hexadécimal invalide
+        return -1;
 }
 
 #include <stdio.h>

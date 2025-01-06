@@ -8,6 +8,7 @@
 #include "raycast.h"
 #include "parsing.h"
 #include "player.h"
+#include "utils.h"
 
 void center_offset_player_on_map(t_game *game)
 {
@@ -20,26 +21,6 @@ void center_offset_player_on_map(t_game *game)
 		(map_mask->height >> 1) - (game->data->player.y * SCALE_2D) - (SCALE_2D >> 1)
     );
 }
-
-t_dvector2 dvector2_rotate(t_dvector2 v, int deg)
-{
-	t_dvector2 new_v = {0, 0};
-	double rad = deg * M_PI / 180;
-	new_v.x = v.x * cos(rad) - v.y * sin(rad);
-	new_v.y = v.x * sin(rad) + v.y * cos(rad);
-	return (new_v);
-}
-
-t_dvector2 dvector2_add(t_dvector2 v1, t_dvector2 v2)
-{
-    return (t_dvector2){v1.x + v2.x, v1.y + v2.y};
-}
-
-t_dvector2 dvector2_sub(t_dvector2 v1, t_dvector2 v2)
-{
-    return (t_dvector2){v1.x - v2.x, v1.y - v2.y};
-}
-
 
 void yaw(t_game *game)
 {

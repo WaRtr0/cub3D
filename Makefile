@@ -42,13 +42,12 @@ SRC_FILE = main.c\
 		   layer/stack/layer_stack_add.c layer/stack/layer_stack_create.c layer/stack/layer_stack_destroy.c layer/stack/layer_stack_get.c layer/stack/layer_stack_render.c\
 		   layer/group/layer_group_create.c layer/group/layer_group_destroy.c layer/group/layer_group_add.c layer/group/layer_group_get.c\
 		   draw/draw_circle_fill.c draw/draw_circle.c draw/draw_line.c draw/draw_rect_fill.c draw/draw_rect.c draw/draw_triangle_fill.c draw/draw_triangle.c draw/draw_xpm_texture.c draw/draw_text.c\
-		   utils/int_to_pixel.c utils/pixel_create.c utils/pixel_to_int.c utils/prerr.c\
+		   utils/int_to_pixel.c utils/pixel_create.c utils/pixel_to_int.c utils/prerr.c utils/math_utils_bonus.c utils/vector2.c\
 		   raycast/raycast.c raycast/ray_dda.c\
 		   view/view_create.c\
 		   font.c\
 		   player/player_move.c player/door_manager.c\
 		   parsing/parsing.c parsing/parsing_map.c parsing/parsing_checks.c\
-		   utils/math_utils_bonus.c\
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILE))
 
