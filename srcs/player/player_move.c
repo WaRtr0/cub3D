@@ -1,16 +1,22 @@
 #include "game.h"
 #include "layer.h"
 
-static inline void center_offset_player_on_map(t_game *game)
+static inline void	center_offset_player_on_map(t_game *game)
 {
-	t_layer *group = layer_stack_get(game->layers, 2);
-    t_layer *map = layer_group_get(group, 0);
-    t_layer *map_mask = layer_group_get(group, 1);
-    
+	t_layer	*group;
+	t_layer	*map;
+	t_layer	*map_mask;
+
+	group = layer_stack_get(game->layers, 2);
+	map = layer_group_get(group, 0);
+	map_mask = layer_group_get(group, 1);
+
 	layer_set_offset(map,
-		(map_mask->width >> 1) - (game->data->player.x * SCALE_2D) - (SCALE_2D >> 1) + map_mask->offset_x,
-		(map_mask->height >> 1) - (game->data->player.y * SCALE_2D) - (SCALE_2D >> 1) + map_mask->offset_y
-    );
+		(map_mask->width >> 1) - (
+			game->data->player.x * SCALE_2D) - (SCALE_2D >> 1),
+		(map_mask->height >> 1) - (
+			game->data->player.y * SCALE_2D) - (SCALE_2D >> 1)
+		);
 }
 
 static inline void move_along(t_game *game, int side, double new_x, double new_y)
