@@ -2,6 +2,7 @@
 #include "draw.h"
 #include "layer.h"
 #include "utils.h"
+#include "raycast.h"
 
 void debug_print_raycast(t_game_data *raycast)
 {
@@ -9,35 +10,6 @@ void debug_print_raycast(t_game_data *raycast)
 	{
 		printf("Ray %d: distance: %f, percent: %f, face: %d\n", i, raycast->ray[i].distance, raycast->ray[i].percent, raycast->ray[i].face);
 	}
-}
-
-int	animate(t_game *game, int pos, int get)
-{
-	static t_door	door = {-1, 0};
-	long long		time;
-	long long		diff;
-
-	time = current_time();
-	if (door.pos == -1 && !get)
-	{
-		door.pos = pos;
-		door.timestamp = time;
-	}
-	if (door.pos == pos && get)
-	{
-		diff = time - door.timestamp;
-		if (diff <= 500)
-			return (0);
-		else if (diff <= 1000)
-			return (1);
-		else
-		{
-			game->data->map->tiles[pos] = E;
-			door.pos = -1;
-			return (0);
-		}
-	}
-	return (0);
 }
 
 void raycast(t_game *game)

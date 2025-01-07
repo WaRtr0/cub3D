@@ -12,7 +12,7 @@ int game_init(t_game *game)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		return (0);
-	game->win = mlx_new_window(game->mlx, game->width, game->height, game->title); //PACOMPRI
+	game->win = mlx_new_window(game->mlx, game->width, game->height, game->title);
 	if (!game->win)
 		return (0);
 	game->layers = layer_stack_create();

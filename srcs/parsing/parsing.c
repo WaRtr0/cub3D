@@ -6,7 +6,7 @@
 /*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:10:06 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/07 15:18:48 by garivo           ###   ########.fr       */
+/*   Updated: 2025/01/07 19:21:09 by garivo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	extract_textures(t_game *game, char *line)
 		return (prerr("Error\nTexture already declared\n"), 0);
 	layer_add_texture(game->mlx, game->textures, path, dir);
 	if (!layer_stack_get(game->textures, dir))
-		return (0);
+		return (prerr("Error\nFailed to load texture\n"), 0);
 	return (1);
 }
 
@@ -252,16 +252,159 @@ int	convert_parsing(t_game *game, t_parsing *map)
 
 int	set_textures(t_game *game)
 {
+	int i;
+
+	i = 1;
 	layer_add_texture(game->mlx, game->textures,
-		"./assets/textures/d2.xpm", D_FACE);
+		"./assets/textures/dr1.xpm", D_FACE);
 	if (!layer_stack_get(game->textures, D_FACE))
 		return (0);
 	layer_add_texture(game->mlx, game->textures,
-		"./assets/textures/d1.xpm", D_FACE2);
-	if (!layer_stack_get(game->textures, D_FACE2))
-		return (0);						//free
+		"./assets/textures/dr2.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr3.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr4.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr5.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr6.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr7.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr8.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr9.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr10.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr11.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr12.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr13.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr14.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr15.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr16.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr17.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr18.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr19.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr20.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr21.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr22.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr23.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr24.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr25.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr26.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr27.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr28.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr29.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr30.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr31.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr32.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr33.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr34.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr35.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr36.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		"./assets/textures/dr37.xpm", D_FACE + i);
+	if (!layer_stack_get(game->textures, D_FACE + i++))
+		return (0);
 	return (1);
-}
+} // free
 
 int	parse(t_game *game, const char *path)
 {

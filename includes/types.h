@@ -1,7 +1,7 @@
 #ifndef TYPES_H
 # define TYPES_H
 
-# define LAYER_STACK_CAPACITY 16
+# define LAYER_STACK_CAPACITY 80
 
 # include <stdbool.h>
 // # include "raycast.h"
@@ -58,7 +58,6 @@ typedef enum e_face
 	S_FACE = 2,
 	W_FACE = 3,
 	D_FACE = 4,
-	D_FACE2 = 5
 }				t_face;
 
 typedef struct s_ray
