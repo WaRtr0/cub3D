@@ -8,3 +8,4 @@
 ./cub3d
 cub3d
 vgcore.*
+callgrind.out.*
