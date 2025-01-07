@@ -6,7 +6,7 @@
 /*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:10:06 by garivo            #+#    #+#             */
-/*   Updated: 2024/12/17 23:36:47 by garivo           ###   ########.fr       */
+/*   Updated: 2025/01/07 15:18:48 by garivo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,11 +253,11 @@ int	convert_parsing(t_game *game, t_parsing *map)
 int	set_textures(t_game *game)
 {
 	layer_add_texture(game->mlx, game->textures,
-		"./assets/textures/door.xpm", D_FACE);
+		"./assets/textures/d2.xpm", D_FACE);
 	if (!layer_stack_get(game->textures, D_FACE))
 		return (0);
 	layer_add_texture(game->mlx, game->textures,
-		"./assets/textures/00.xpm", D_FACE2);
+		"./assets/textures/d1.xpm", D_FACE2);
 	if (!layer_stack_get(game->textures, D_FACE2))
 		return (0);						//free
 	return (1);

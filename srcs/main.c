@@ -53,7 +53,7 @@ int	main(int argc, char **argv)
 		return (1);
 	game_set_hook_press(game, hook_press);
 	game_set_hook_release(game, hook_release);
-	if (NO_DISPLAY_MOUSE)
+	if (AUTO_CENTER_MOUSE)
 		game_set_hook_mouse_move(game, hook_no_display_mouse_move);
 	else
 		game_set_hook_mouse_move(game, hook_display_mouse_move);
