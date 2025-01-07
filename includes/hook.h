@@ -199,6 +199,7 @@ typedef enum e_keyhook_mask
 	MASK_OWNER_GRAB_BUTTON = 1L<<24
 }	t_keyhook_mask;
 
+# include "types.h"
 typedef struct s_triangle_points
 {
 	t_dvector2	center;
@@ -210,5 +211,6 @@ typedef struct s_triangle_points
 void	hook_no_display_mouse_move(int x, int y, t_game *game);
 void	hook_display_mouse_move(int x, int y, t_game *game);
 void	hook_release(int keycode, t_game *game);
+void	hook_press(int keycode, t_game *game);
 
 #endif

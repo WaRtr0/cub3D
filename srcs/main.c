@@ -22,51 +22,7 @@ void center_offset_player_on_map(t_game *game)
     );
 }
 
-static void	hook(int keycode, t_game *game)
-{
-	if (keycode == KEY_RIGHT)
-	{
-		game->data->player.x += 1;
-		center_offset_player_on_map(game);
-	}
-	if (keycode == KEY_LEFT)
-	{
-		game->data->player.x -= 1;
-		center_offset_player_on_map(game);
-	}
-	if (keycode == KEY_UP)
-	{
-		game->data->player.y -= 1;
-		center_offset_player_on_map(game);
-	}
-	if (keycode == KEY_DOWN)
-	{
-		game->data->player.y += 1;
-		center_offset_player_on_map(game);
-	}
 
-    if (keycode == KEY_W)
-    {
-        player_move(game, 1);
-    }
-
-    if (keycode == KEY_S)
-    {
-        player_move(game, -1);
-    }
-
-	if (keycode == KEY_SPACE)
-    {
-		open_door(game, 1);
-    }
-    if (keycode == KEY_SHIFT)
-    {
-        game->player_state.running = 1;
-    }
-	// stop game
-	if (keycode == KEY_ESC)
-		game_handle_close(game);
-}
 
 static void	update(t_game *game)
 {
@@ -193,7 +149,7 @@ int	main(int argc, char **argv)
         return (1);
     }
     
-	game_set_hook_press(game, hook);
+	game_set_hook_press(game, hook_press);
     game_set_hook_release(game, hook_release);
     // game_set_hook_mouse_move(game, hook_mouse_move);
 	if (NO_DISPLAY_MOUSE)
