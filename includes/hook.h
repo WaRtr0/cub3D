@@ -209,5 +209,6 @@ typedef struct s_triangle_points
 
 void	hook_no_display_mouse_move(int x, int y, t_game *game);
 void	hook_display_mouse_move(int x, int y, t_game *game);
+void	hook_release(int keycode, t_game *game);
 
 #endif

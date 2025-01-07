@@ -46,7 +46,7 @@ SRC_FILE = main.c\
 		   raycast/raycast.c raycast/ray_dda.c\
 		   view/view_create.c\
 		   font.c\
-		   hook/hook_display_mouse_move.c hook/hook_no_display_mouse_move.c\
+		   hook/hook_display_mouse_move.c hook/hook_no_display_mouse_move.c hook/hook/release.c\
 		   player/player_move.c player/door_manager.c\
 		   parsing/parsing.c parsing/parsing_map.c parsing/parsing_checks.c\
 

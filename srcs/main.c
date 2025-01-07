@@ -68,25 +68,18 @@ static void	hook(int keycode, t_game *game)
 		game_handle_close(game);
 }
 
-static void	hook_release(int keycode, t_game *game)
-{
-    if (keycode == KEY_SHIFT)
-    {
-        game->player_state.running = 0;
-    }
-}
 static void	update(t_game *game)
 {
-    raycast(game);
-    draw_view(game, game->data);
-    if (DEBUG)
-    {
-        game->count++;
-        if (game->count >= MAX_FRAME)
-        {
-            game_handle_close(game);
-        }
-    }
+	raycast(game);
+	draw_view(game, game->data);
+	if (DEBUG)
+	{
+		game->count++;
+		if (game->count >= MAX_FRAME)
+		{
+			game_handle_close(game);
+		}
+	}
 }
 
 
