@@ -1,9 +1,6 @@
-#include "cub.h"
 #include "game.h"
-#include "types.h"
 #include "draw.h"
 #include "layer.h"
-#include "math.h"
 #include "utils.h"
 
 void debug_print_raycast(t_game_data *raycast)

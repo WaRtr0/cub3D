@@ -1,13 +1,9 @@
 #include "view.h"
-#include "cub.h"
-#include "game.h"
-#include <float.h>
-#include "utils.h"
 
 void	layer_split(t_layer *layer, t_pixel color1, t_pixel color2)
 {
-    unsigned int x;
-    unsigned int y;
+	unsigned int x;
+	unsigned int y;
 
 	y = 0;
 	while (y < layer->height >> 1)
@@ -33,33 +29,6 @@ t_pixel	texture_pixel(t_layer *xpm, double x_ratio, double y_ratio)
 	pixel = layer_get_pixel(xpm, x_ratio * xpm->width, y_ratio * xpm->height);
 	return (pixel);
 }
-
-// int	set_center(t_game *game, t_game_data *raycast, t_layer *background)
-// {
-// 	long long 	difftime;
-// 	double		jump;
-
-// 	jump = 0;
-// 	raycast->center = game->height / 2 + raycast->pitch * 10;
-// 	if (game->player_state.jumping != 0)
-// 	{
-// 		difftime = current_time() - game->player_state.jumping;  //BONUS
-// 		if (difftime < 500)
-// 			jump = 100 * (1 - pow(2 * (difftime / 500.0 - 0.5), 2));
-// 		else
-// 			game->player_state.jumping = 0;
-// 	}
-// 	raycast->center += jump;
-// 	layer_set_offset(background, 0, SPLIT_HEIGHT + raycast->pitch * 10 + jump);
-// 	return (0);
-// }
-
-#include "math.h"	
-// static inline unsigned int scale_3d(void)
-// {
-// 	unsigned int scale = (((WIDTH / 2) / tan((FOV / 2) * M_PI / 180)) * WALL_HEIGHT);
-// 	return (scale);
-// }
 
 int	draw_view(t_game *game, t_game_data *raycast)
 {

@@ -1,14 +1,6 @@
-#include "cub.h"
-#include "draw.h"
 #include "game.h"
-#include "hook.h"
+#include "draw.h"
 #include "layer.h"
-#include "types.h"
-#include "view.h"
-#include "raycast.h"
-#include "parsing.h"
-#include "player.h"
-#include "utils.h"
 
 static inline void	center_offset_player_on_map(t_game *game)
 {

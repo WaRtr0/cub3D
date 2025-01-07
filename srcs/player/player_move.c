@@ -1,5 +1,4 @@
 #include "game.h"
-#include "cub.h"
 #include "layer.h"
 
 static inline void center_offset_player_on_map(t_game *game)

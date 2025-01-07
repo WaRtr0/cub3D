@@ -1,14 +1,7 @@
-#include "cub.h"
-#include "draw.h"
-#include "game.h"
 #include "hook.h"
 #include "layer.h"
-#include "types.h"
 #include "view.h"
-#include "raycast.h"
 #include "parsing.h"
-#include "player.h"
-#include "utils.h"
 #include "map.h"
 
 static void	update(t_game *game)

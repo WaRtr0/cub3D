@@ -1,4 +1,3 @@
-#include "cub.h"
 #include "game.h"
 #include "hook.h"
 #include "layer.h"
