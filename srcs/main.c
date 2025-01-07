@@ -22,77 +22,6 @@ void center_offset_player_on_map(t_game *game)
     );
 }
 
-void yaw(t_game *game)
-{
-    const int size = (SCALE_2D * HIT_BOX);
-    int deg;
-    t_dvector2 center = {size, size};
-    t_dvector2 pos1 = {(size >> 2), size};             // Point gauche
-    t_dvector2 pos2 = {size, (size >> 2)};             // Point haut
-    t_dvector2 pos3 = {(size * 2) - (size >> 2), size};  // Point droit
-
-    t_layer *cursor = layer_stack_get(game->layers, 3);
-    t_layer *rotate = layer_group_get(cursor, 2);
-    layer_fill(rotate, pixel_create(0, 0, 0, 0));
-    deg = game->data->yaw;
-
-    // Soustraire le centre avant rotation
-    pos1 = dvector2_sub(pos1, center);
-    pos2 = dvector2_sub(pos2, center);
-    pos3 = dvector2_sub(pos3, center);
-
-    // Appliquer la rotation
-    pos1 = dvector2_rotate(pos1, deg);
-    pos2 = dvector2_rotate(pos2, deg);
-    pos3 = dvector2_rotate(pos3, deg);
-
-    // Réajouter le centre
-    pos1 = dvector2_add(pos1, center);
-    pos2 = dvector2_add(pos2, center);
-    pos3 = dvector2_add(pos3, center);
-
-    draw_triangle_fill(rotate, 
-        (t_vector2){pos1.x, pos1.y}, 
-        (t_vector2){pos2.x, pos2.y}, 
-        (t_vector2){pos3.x, pos3.y}, 
-        pixel_create(255, 255, 255, 255));
-}
-
-static void hook_mouse_move(int x, int y, t_game *game)
-{
-     if (game->data->is_warping)
-    {
-        game->data->is_warping = false;
-        return;
-    }
-
-    int center_x = game->width >> 1;
-    int center_y = game->height >> 1;
-    
-    int delta_x = x - center_x;
-    int delta_y = y - center_y;
-    
-    if (delta_x == 0 && delta_y == 0)
-        return;
-
-    game->data->yaw += delta_x * SENTIVITY;
-    game->data->pitch -= delta_y * SENTIVITY;
-    
-    if (game->data->pitch > PITCH_MAX)
-        game->data->pitch = PITCH_MAX;
-    if (game->data->pitch < -PITCH_MAX)
-        game->data->pitch = -PITCH_MAX;
-    
-    if (game->data->yaw > YAW_MAX)
-        game->data->yaw -= YAW_MAX;
-    if (game->data->yaw < YAW_MIN)
-        game->data->yaw += YAW_MAX;
-    
-    yaw(game);
-    game->data->is_warping = true;
-    mlx_mouse_move(game->mlx, game->win, center_x, center_y);
-}
-
 static void	hook(int keycode, t_game *game)
 {
 	if (keycode == KEY_RIGHT)
@@ -125,18 +54,6 @@ static void	hook(int keycode, t_game *game)
     {
         player_move(game, -1);
     }
-	if (keycode == KEY_A)
-	{
-		game->data->yaw-=5;
-		yaw(game);
-		
-	}
-	if (keycode == KEY_D)
-	{
-		game->data->yaw+=5;
-		yaw(game);
-		
-	}
 
 	if (keycode == KEY_SPACE)
     {
@@ -160,8 +77,6 @@ static void	hook_release(int keycode, t_game *game)
 }
 static void	update(t_game *game)
 {
-	// (void)game;
-	// update script
     raycast(game);
     draw_view(game, game->data);
     if (DEBUG)
@@ -228,7 +143,7 @@ static void generate_map(t_map *map_struct, t_game *game)
     draw_circle(circle_map, (t_vector2){MAP_SIZE / 2, MAP_SIZE / 2}, MAP_SIZE / 2, pixel_create(50, 50, 0, 255));
 
 	draw_circle_fill(player, (t_vector2){SCALE_2D * HIT_BOX, SCALE_2D * HIT_BOX}, SCALE_2D * HIT_BOX, pixel_create(255, 0, 0, 255));
-	yaw(game);
+	// yaw(game);
 	layer_set_offset(group, 25, 25);
 	color = pixel_create(0, 0, 0, 255);
 	for (pos.y = 0; pos.y < map_struct->height; pos.y++)
@@ -287,7 +202,11 @@ int	main(int argc, char **argv)
     
 	game_set_hook_press(game, hook);
     game_set_hook_release(game, hook_release);
-    game_set_hook_mouse_move(game, hook_mouse_move);
+    // game_set_hook_mouse_move(game, hook_mouse_move);
+	if (NO_DISPLAY_MOUSE)
+		game_set_hook_mouse_move(game, hook_no_display_mouse_move);
+	else
+		game_set_hook_mouse_move(game, hook_display_mouse_move);
 	game_set_update_callback(game, update);
     generate_map(game->data->map, game);
     
@@ -296,7 +215,8 @@ int	main(int argc, char **argv)
     layer_group_add(group, wall);
     layer_volatile_on(wall);
 
-    mlx_mouse_hide(game->mlx, game->win);
+	if (NO_DISPLAY_MOUSE)
+		mlx_mouse_hide(game->mlx, game->win);
 	game_run(game);
 	game_destroy(game);
 	return (0);

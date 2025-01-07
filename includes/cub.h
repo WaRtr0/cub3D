@@ -32,6 +32,8 @@
 // 2K 2560 x 1440
 // 4K 3840 x 2160
 
+# define NO_DISPLAY_MOUSE 1
+
 # define OUTPUT_HEIGHT 900
 # define OUTPUT_WIDTH 1440
 # define RATIO 2
