@@ -299,11 +299,11 @@ int	parse(t_game *game, const char *path)
 		return (0);
 	free(map.map);
 	background_split = layer_create(game->mlx, WIDTH, HEIGHT * 2, 1);
-    layer_split_fill(background_split, map.ceiling, map.floor);
-    layer_set_offset(background_split, 0, SPLIT_HEIGHT);
+	layer_split_fill(background_split, map.ceiling, map.floor);
+	layer_set_offset(background_split, 0, SPLIT_HEIGHT);
 	group = layer_group_create(WIDTH, HEIGHT, 1);
-    layer_group_add(group, background_split);
-    layer_stack_add(game->layers, group);
+	layer_group_add(group, background_split);
+	layer_stack_add(game->layers, group);
 	return (1);
 }
 
