@@ -19,6 +19,7 @@ INCLUDES = $(INCLUDES_DIR)/game.h\
 		   $(INCLUDES_DIR)/view.h\
 		   $(INCLUDES_DIR)/parsing.h\
 		   $(INCLUDES_DIR)/player.h\
+		   $(INCLUDES_DIR)/map.h\
 
 
 FLAG_OPTI =  -O3 -march=native -flto -ffast-math
@@ -46,6 +47,7 @@ SRC_FILE = main.c\
 		   raycast/raycast.c raycast/ray_dda.c\
 		   view/view_create.c\
 		   font.c\
+		   map/map_init.c\
 		   hook/hook_display_mouse_move.c hook/hook_no_display_mouse_move.c hook/hook_release.c hook/hook_press.c\
 		   player/player_move.c player/door_manager.c\
 		   parsing/parsing.c parsing/parsing_map.c parsing/parsing_checks.c\
