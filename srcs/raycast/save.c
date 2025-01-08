@@ -1,16 +1,3 @@
-#include "game.h"
-#include "draw.h"
-#include "layer.h"
-#include "utils.h"
-#include "raycast.h"
-
-void debug_print_raycast(t_game_data *raycast)
-{
-	for (int i = 0; i < raycast->width; i++)
-	{
-		printf("Ray %d: distance: %f, percent: %f, face: %d\n", i, raycast->ray[i].distance, raycast->ray[i].percent, raycast->ray[i].face);
-	}
-}
 
 void raycast(t_game *game)
 {
@@ -20,9 +7,11 @@ void raycast(t_game *game)
 
     raycast = game->data;
     raycast->width = WIDTH;
-
+    // raycast->ray = malloc(sizeof(t_ray*) * raycast->width);
+    
+    // double ray_angle = (game->data->yaw - 90 - FOV/2.0)
+    // + ((double)i * FOV / raycast->width);
     t_vector2 ray_pos;
-
     double sub_angle = FOV / (double)raycast->width;
     double angle = game->data->yaw - 90 - (FOV >> 1);
     ray_pos.x = game->data->player.x + 0.5;
@@ -38,18 +27,11 @@ void raycast(t_game *game)
         int side;
         
         // double ray_angle = angle + (double)i * sub_angle;
-		
         // double ray_angle = (i - (raycast->width / 2)) * ((1. / raycast->width) * (game->data->yaw - 90));
-        double ray_angle = (angle + ((double)(i) * (sub_angle )));
+        double ray_angle = angle + ((double)i * sub_angle);
         double angle_rad = ray_angle * (M_PI / 180.0);
-		// angle_rad =  * (angle_rad * angle_rad);
         
-		// double correction = ;
-        // angle_rad = normalize * angle_rad * angle_rad;
-        // angle_rad -= (fish_eye * i);
-
-		// double center_offset = i - (raycast->width / 2);
-		// angle_rad *= (0.1 - (fish_eye * fabs(center_offset)));
+        
         
         ray_dir.x = cos(angle_rad);
         ray_dir.y = sin(angle_rad);
@@ -144,8 +126,8 @@ void raycast(t_game *game)
 							+ animate(game, (int)map_check.y * map->width + (int)map_check.x, 1);
                     
                     // fish eye correction
-                    // raycast->ray[i].distance = wall_dist * cos((ray_angle - raycast->yaw + 90) * M_PI / 180.0);
-                    raycast->ray[i].distance = wall_dist * sqrt(1.0 / (1.0 + pow(tan(((ray_angle - raycast->yaw + 90.0) * M_PI / 180.0)), 2)));
+                    raycast->ray[i].distance = wall_dist * cos((ray_angle - raycast->yaw + 90) * M_PI / 180.0);
+                    
                     //  t_layer *map_layer = layer_group_get(group, 0);
                    
                     // t_vector2 start = {
@@ -173,12 +155,3 @@ void raycast(t_game *game)
     draw_circle_fill(map_layer, (t_vector2){game->data->player.x * SCALE_2D + SCALE_2D/2, game->data->player.y * SCALE_2D + SCALE_2D/2}, 5, pixel_create(255, 0, 0, 255));
     // debug_print_raycast(raycast);
 }
-
-// void draw_ray(t_vector2 start, t_vector2 map_check, t_vector2 step, int side)
-// {
-// 	t_vector2 end = {
-// 		(map_check.x + (side == 0 ? (step.x < 0 ? 1 : 0) : wall_x)) * SCALE_2D,
-// 		(map_check.y + (side == 1 ? (step.y < 0 ? 1 : 0) : wall_x)) * SCALE_2D
-// 	};
-// 	draw_line(map_layer, start, end, pixel_create(255, 0, 0, 255));
-// }
