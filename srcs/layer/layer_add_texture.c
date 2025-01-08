@@ -4,27 +4,44 @@
 #include <../minilibx-linux/mlx.h>
 #include <math.h>
 
-static void	copy_texture_line(t_layer *layer, unsigned int *data,
-		t_vector2 position, t_texture_info info)
+// static inline void	copy_texture_line(t_layer *layer, unsigned int *data,
+// 		const t_vector2 position, t_texture_info info)
+// {
+// 	int				x;
+// 	int				src_x;
+// 	unsigned int	color;
+// 	t_pixel			pixel;
+
+// 	x = info.start_x;
+// 	while (x < info.end_x)
+// 	{
+// 		src_x = x - (int)position.x;
+// 		color = data[info.src_offset + src_x];
+// 		pixel = int_to_pixel(color);
+// 		pixel.a = 255 - pixel.a;
+// 		//layer_set_pixel(layer, x, info.y, pixel);
+// 		layer->data[info.y * layer->width + x] = pixel_to_int(pixel);
+// 		x++;
+// 	}
+// }
+
+static inline void	copy_texture_line(t_layer *layer, unsigned int *data,
+		const t_vector2 position, t_texture_info info)
 {
 	int				x;
 	int				src_x;
-	unsigned int	color;
-	t_pixel			pixel;
 
 	x = info.start_x;
 	while (x < info.end_x)
 	{
 		src_x = x - (int)position.x;
-		color = data[info.src_offset + src_x];
-		pixel = int_to_pixel(color);
-		pixel.a = 255 - pixel.a;
-		layer_set_pixel(layer, x, info.y, pixel);
+		// printf("A : %d <==> %d\n", info.y * layer->width + x, info.src_offset + src_x);
+		layer->data[info.y * layer->width + x] =  data[info.y * layer->width + x];
 		x++;
 	}
 }
 
-static int	get_image(t_texture_info *info, void *mlx, char *path)
+static inline int	get_image(t_texture_info *info, void *mlx, char *path)
 {
 	info->img = mlx_xpm_file_to_image(mlx, path, &info->end_x, &info->end_y);
 	if (!info->img)
@@ -69,7 +86,7 @@ t_layer	*layer_add_texture(void *mlx, t_layer_stack *stack, char *path,
 	new_layer = layer_create(mlx, info.end_x, info.end_y, z_index);
 	while (info.y < info.end_y)
 	{
-		info.src_offset = info.y * info.end_x;
+		// info.src_offset = info.y * info.end_x;
 		copy_texture_line(new_layer, info.data, (t_vector2){.x = 0, .y = 0},
 			info);
 		info.y++;

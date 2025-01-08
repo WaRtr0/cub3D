@@ -6,7 +6,7 @@
 /*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:26:44 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/07 19:27:43 by garivo           ###   ########.fr       */
+/*   Updated: 2025/01/08 17:28:27 by garivo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ int	animate(t_game *game, int pos, int get)
 	if (door.pos == pos && get)
 	{
 		diff = time - door.timestamp;
-		if (diff <= 1500)
+		if (diff <= 2000)
 			return ((get_frame() * diff / 100) / 4 % 36);
-		else if (diff <= 1650)
+		else if (diff <= 2200)
 			return (36);
 		else
 		{

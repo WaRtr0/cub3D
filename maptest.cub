@@ -1,7 +1,7 @@
-                      NO                ./assets/textures/00.xpm        
-SO ./assets/textures/10.xpm
-WE ./assets/textures/20.xpm                   
-EA  ./assets/textures/20.xpm  
+                      NO                ./assets/textures/000.xpm        
+SO ./assets/textures/100.xpm
+WE ./assets/textures/200.xpm                  
+EA  ./assets/textures/300.xpm  
 
 
 
@@ -16,7 +16,7 @@ C       30,       30,    30
 111111111111111111111111111111111
 100000001000000000110000000000001
 111111111011000001110000000000001
-        10010000000D0000W00000001
+        10010000000D0000N00000001
 111111111011000001110000000000001
 10000000001100000111D1D11D1111111
 1110111111111011100000010001

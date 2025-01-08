@@ -58,8 +58,11 @@ int	main(int argc, char **argv)
 	else
 		game_set_hook_mouse_move(game, hook_display_mouse_move);
 	game_set_update_callback(game, update);
+	printf("hook\n");
 	map_init(game->data->map, game);
+	printf("map init\n");
 	init_layer(game);
+	printf("layer init\n");
 	if (NO_DISPLAY_MOUSE)
 		mlx_mouse_hide(game->mlx, game->win);
 	game_run(game);
