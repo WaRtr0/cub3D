@@ -42,6 +42,9 @@ void raycast(t_game *game)
         // double ray_angle = (i - (raycast->width / 2)) * ((1. / raycast->width) * (game->data->yaw - 90));
         double ray_angle = (angle + ((double)(i) * (sub_angle )));
         double angle_rad = ray_angle * (M_PI / 180.0);
+
+		double fov_factor = (double)i / raycast->width;  // Position relative dans le FOV (0 à 1)
+		double edge_correction = 1.0 + (0.04 * pow(2 * fov_factor - 1, 2)); 
 		// angle_rad =  * (angle_rad * angle_rad);
         
 		// double correction = ;
@@ -145,7 +148,7 @@ void raycast(t_game *game)
                     
                     // fish eye correction
                     // raycast->ray[i].distance = wall_dist * cos((ray_angle - raycast->yaw + 90) * M_PI / 180.0);
-                    raycast->ray[i].distance = wall_dist * sqrt(1.0 / (1.0 + pow(tan(((ray_angle - raycast->yaw + 90.0) * M_PI / 180.0)), 2)));
+                    raycast->ray[i].distance = wall_dist * sqrt(1.0 / (1.0 + pow(tan(((ray_angle - raycast->yaw + 90.0) * M_PI / 180.0)), 2))) * edge_correction;
                     //  t_layer *map_layer = layer_group_get(group, 0);
                    
                     // t_vector2 start = {
