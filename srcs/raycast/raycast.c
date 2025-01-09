@@ -43,8 +43,8 @@ void raycast(t_game *game)
         double ray_angle = (angle + ((double)(i) * (sub_angle )));
         double angle_rad = ray_angle * (M_PI / 180.0);
 
-		double fov_factor = (double)i / raycast->width;  // Position relative dans le FOV (0 à 1)
-		double edge_correction = 1.0 + (0.04 * pow(2 * fov_factor - 1, 2)); 
+		double fov_factor = (double)i / raycast->width;
+		double edge_correction = 1.0 + (0.0 * pow(2 * fov_factor - 1, 2)); 
 		// angle_rad =  * (angle_rad * angle_rad);
         
 		// double correction = ;
