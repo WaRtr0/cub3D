@@ -14,7 +14,7 @@ void debug_print_raycast(t_game_data *raycast)
 
 void raycast(t_game *game)
 {
-	t_layer *group = layer_stack_get(game->layers, 2);
+	// t_layer *group = layer_stack_get(game->layers, 2);
     t_map *map = game->data->map;
     t_game_data *raycast;
 
@@ -23,10 +23,21 @@ void raycast(t_game *game)
 
     t_vector2 ray_pos;
 
-    double sub_angle = FOV / (double)raycast->width;
-    double angle = game->data->yaw - 90 - (FOV >> 1);
     ray_pos.x = game->data->player.x + 0.5;
     ray_pos.y = game->data->player.y + 0.5;
+
+
+	double halfFovDeg = (double)FOV / 2.0;
+    double halfFovRad = halfFovDeg * (M_PI / 180.0);
+
+    // La moitié de la largeur d'écran :
+    double screenHalf = (double)raycast->width / 2.0;
+
+    double factor = tan(halfFovRad) / screenHalf;
+
+    // Yaw du joueur, en degrés -> converti en radians pour le cos/sin
+    // (On peut rester en degrés, mais on a besoin d'être cohérent)
+    double yawRad = (double)game->data->yaw * (M_PI / 180.0);
     for (int i = 0; i < raycast->width; i++)
     {
         
@@ -37,22 +48,12 @@ void raycast(t_game *game)
         bool hit = false;
         int side;
         
-        // double ray_angle = angle + (double)i * sub_angle;
+
 		
-        // double ray_angle = (i - (raycast->width / 2)) * ((1. / raycast->width) * (game->data->yaw - 90));
-        double ray_angle = (angle + ((double)(i) * (sub_angle )));
-        double angle_rad = ray_angle * (M_PI / 180.0);
+		double cameraX = (double)i - screenHalf;  
+        double offsetAngleRad = atan(cameraX * factor);
+        double angle_rad = yawRad + offsetAngleRad;
 
-		double fov_factor = (double)i / raycast->width;
-		double edge_correction = 1.0 + (0.0 * pow(2 * fov_factor - 1, 2)); 
-		// angle_rad =  * (angle_rad * angle_rad);
-        
-		// double correction = ;
-        // angle_rad = normalize * angle_rad * angle_rad;
-        // angle_rad -= (fish_eye * i);
-
-		// double center_offset = i - (raycast->width / 2);
-		// angle_rad *= (0.1 - (fish_eye * fabs(center_offset)));
         
         ray_dir.x = cos(angle_rad);
         ray_dir.y = sin(angle_rad);
@@ -82,7 +83,6 @@ void raycast(t_game *game)
         }
         
         t_vector2 map_check = {(int)ray_pos.x, (int)ray_pos.y};
-        // raycast->ray[i] = malloc(sizeof(t_ray));
         
         while (!hit)
         {
@@ -146,9 +146,9 @@ void raycast(t_game *game)
 						raycast->ray[i].face = D_FACE
 							+ animate(game, (int)map_check.y * map->width + (int)map_check.x, 1);
                     
-                    // fish eye correction
-                    // raycast->ray[i].distance = wall_dist * cos((ray_angle - raycast->yaw + 90) * M_PI / 180.0);
-                    raycast->ray[i].distance = wall_dist * sqrt(1.0 / (1.0 + pow(tan(((ray_angle - raycast->yaw + 90.0) * M_PI / 180.0)), 2))) * edge_correction;
+                    raycast->ray[i].distance = wall_dist * cos(angle_rad - yawRad);
+
+
                     //  t_layer *map_layer = layer_group_get(group, 0);
                    
                     // t_vector2 start = {
@@ -172,9 +172,8 @@ void raycast(t_game *game)
             raycast->ray[i].face = 0;
         }
     }
-    t_layer *map_layer = layer_group_get(group, 0);
-    draw_circle_fill(map_layer, (t_vector2){game->data->player.x * SCALE_2D + SCALE_2D/2, game->data->player.y * SCALE_2D + SCALE_2D/2}, 5, pixel_create(255, 0, 0, 255));
-    // debug_print_raycast(raycast);
+    // t_layer *map_layer = layer_group_get(group, 0);
+    // draw_circle_fill(map_layer, (t_vector2){game->data->player.x * SCALE_2D + SCALE_2D/2, game->data->player.y * SCALE_2D + SCALE_2D/2}, 5, pixel_create(255, 0, 0, 255));
 }
 
 // void draw_ray(t_vector2 start, t_vector2 map_check, t_vector2 step, int side)
