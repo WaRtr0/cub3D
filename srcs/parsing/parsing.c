@@ -218,7 +218,7 @@ int	convert_parsing(t_game *game, t_parsing *map)
 	game->data->map = malloc(sizeof(t_map));
 	if (!game->data->map)
 		return (0);
-	game->data->yaw = map->player_dir * 90;
+	game->data->yaw = map->player_dir;
 	game->data->map->height = map->height;
 	game->data->map->width = map->width;
 	tiles = malloc(sizeof(t_map_tile) * map->height * (map->width + 1));
