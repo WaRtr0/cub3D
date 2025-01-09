@@ -4,14 +4,6 @@
 #include "utils.h"
 #include "raycast.h"
 
-void debug_print_raycast(t_game_data *raycast)
-{
-	for (int i = 0; i < raycast->width; i++)
-	{
-		printf("Ray %d: distance: %f, percent: %f, face: %d\n", i, raycast->ray[i].distance, raycast->ray[i].percent, raycast->ray[i].face);
-	}
-}
-
 void raycast(t_game *game)
 {
 	// t_layer *group = layer_stack_get(game->layers, 2);
