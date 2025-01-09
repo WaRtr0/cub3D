@@ -27,15 +27,6 @@ t_pixel	texture_pixel(t_layer *xpm, double x_ratio, double y_ratio)
 {
 	t_pixel	pixel;
 
-	if (x_ratio >= 0.998 || x_ratio <= 0.002)
-	{
-		// printf("xpm index : %d\n", xpm->z_index);
-		// printf("x_ratio : %f\n", );
-		// printf("y_ratio : %f\n", y_ratio);
-		//printf("%f <=> %f\n", x_ratio, floor(x_ratio * (double)xpm->width));
-	}
-
-	// printf
 	pixel = layer_get_pixel(xpm, floor(x_ratio * (double)xpm->width), y_ratio * xpm->height);
 	pixel.a = 255;
 	return (pixel);
