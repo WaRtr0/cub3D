@@ -3,9 +3,9 @@
 #include "layer.h"
 #include "utils.h"
 #include "draw.h"
+#include "types.h"
 
-
-static inline t_triangle_points	init_triangle_points(void)
+static inline	t_triangle_points	init_triangle_points(void)
 {
 	static const int			size = (SCALE_2D * HIT_BOX);
 	static t_triangle_points	points = {
@@ -18,7 +18,7 @@ static inline t_triangle_points	init_triangle_points(void)
 	return (points);
 }
 
-static inline void apply_rotation(t_dvector2 *pos, t_dvector2 center, int deg)
+static inline void	apply_rotation(t_dvector2 *pos, t_dvector2 center, int deg)
 {
 	*pos = dvector2_sub(*pos, center);
 	*pos = dvector2_rotate(*pos, deg);

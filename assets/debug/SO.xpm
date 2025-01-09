@@ -1,0 +1,5 @@
+/* XPM */
+static char *so_xpm[] = {
+"1 1 1 1",
+"a c #00FF00",
+"a"};

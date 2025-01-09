@@ -6,7 +6,7 @@
 /*   By: gladius <gladius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:10:06 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/09 22:15:03 by gladius          ###   ########.fr       */
+/*   Updated: 2025/01/09 22:20:44 by gladius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,7 @@ int	convert_parsing(t_game *game, t_parsing *map)
 	game->data->player.y = map->player_y;
 	game->data->yaw = map->player_dir * 90;
 	game->data->map->tiles = NULL;
+	//game->data->yaw = map->player_dir; uh?
 	game->data->map->height = map->height;
 	game->data->map->width = map->width;
 	tiles = malloc(sizeof(t_map_tile) * map->height * (map->width + 1));

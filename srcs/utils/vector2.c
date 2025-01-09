@@ -13,7 +13,7 @@
 t_dvector2	dvector2_rotate(t_dvector2 v, int deg)
 {
 	static const double	factor = (M_PI / 180);
-	const double		rad = deg * factor;
+	const double		rad = (deg + 90) * factor;
 	const double		cosine = cos(rad);
 	const double		sine = sin(rad);
 

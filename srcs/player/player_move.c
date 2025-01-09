@@ -50,8 +50,8 @@ void	player_move(t_game *game, int dir)
 	static const int	check_points[][2] = {{0, -1}, {1, 0}, {0, 1}, {-1, 0}};
 	int					i;
 	int					check_tile;
-	double				new_x = game->data->player.x + (sin((game->data->yaw) * M_PI / 180) * (STEP + game->player_state.running * STEP) * dir) + 0.5;
-	double				new_y = game->data->player.y + ((-cos((game->data->yaw) * M_PI / 180) * (STEP + game->player_state.running * STEP)) * dir) + 0.5;
+	double new_x = game->data->player.x + (cos((game->data->yaw) * M_PI / 180) * (STEP + game->player_state.running * STEP) * dir) + 0.5;
+	double new_y = game->data->player.y + (sin((game->data->yaw) * M_PI / 180) * (STEP + game->player_state.running * STEP) * dir) + 0.5;
 
 	check_tile = map->tiles[(int)new_y * map->width + (int)new_x];
 	if (check_tile == W || check_tile == D)
