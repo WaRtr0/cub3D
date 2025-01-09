@@ -5,17 +5,17 @@
 #include "draw.h"
 #include "types.h"
 
-static inline	t_triangle_points	init_triangle_points(void)
+static inline t_triangle_points init_triangle_points(void)
 {
-	static const int			size = (SCALE_2D * HIT_BOX);
-	static t_triangle_points	points = {
-		.center = (t_dvector2){size, size},
-		.pos1 = (t_dvector2){(size >> 2), size},
-		.pos2 = (t_dvector2){size, (size >> 2)},
-		.pos3 = (t_dvector2){(size * 2) - (size >> 2), size}
-	};
-
-	return (points);
+    static const int size = (SCALE_2D * HIT_BOX);
+    t_triangle_points points;
+    
+    points.center = (t_dvector2){size, size};
+    points.pos1 = (t_dvector2){(size >> 2), size};
+    points.pos2 = (t_dvector2){size, (size >> 2)};
+    points.pos3 = (t_dvector2){(size * 2) - (size >> 2), size};
+    
+    return points;
 }
 
 static inline void	apply_rotation(t_dvector2 *pos, t_dvector2 center, int deg)
