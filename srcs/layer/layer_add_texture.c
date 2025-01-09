@@ -29,12 +29,13 @@ static inline void	copy_texture_line(t_layer *layer, unsigned int *data,
 		const t_vector2 position, t_texture_info info)
 {
 	int				x;
-	int				src_x;
+	//int				src_x;
 
+	(void)position;
 	x = info.start_x;
 	while (x < info.end_x)
 	{
-		src_x = x - (int)position.x;
+		//src_x = x - (int)position.x;
 		// printf("A : %d <==> %d\n", info.y * layer->width + x, info.src_offset + src_x);
 		layer->data[info.y * layer->width + x] =  data[info.y * layer->width + x];
 		x++;

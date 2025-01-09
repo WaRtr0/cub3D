@@ -1,0 +1,8 @@
+/* XPM */
+static const char *c_tes[] = {
+/* columns rows colors chars-per-pixel */
+"1 1 1 1 ",
+"  c #1EB115",
+/* pixels */
+" "
+};
