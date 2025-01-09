@@ -46,7 +46,7 @@ typedef struct s_raycast_data
 	t_vector2	step;
 	t_vector2	map_check;
 	double		wall_dist;
-    double        wall_x;
+    double      wall_x;
 	int			side;
 	bool		hit;
 }				t_raycast_data;

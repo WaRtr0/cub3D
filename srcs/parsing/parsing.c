@@ -6,7 +6,7 @@
 /*   By: gladius <gladius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:10:06 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/09 20:13:49 by gladius          ###   ########.fr       */
+/*   Updated: 2025/01/09 22:15:03 by gladius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ char	**extract_all(const char *path)
 			lines[i][ft_strlen(lines[i]) - 1] = '\0';
 		i++;
 	}
+	close(fd);
 	return (lines);
 }
 
@@ -213,17 +214,18 @@ int	convert_parsing(t_game *game, t_parsing *map)
 	size_t		i;
 	size_t		offset;
 
-	game->data->player.x = map->player_x;
-	game->data->player.y = map->player_y;
 	game->data->map = malloc(sizeof(t_map));
 	if (!game->data->map)
 		return (0);
+	game->data->player.x = map->player_x;
+	game->data->player.y = map->player_y;
 	game->data->yaw = map->player_dir * 90;
+	game->data->map->tiles = NULL;
 	game->data->map->height = map->height;
 	game->data->map->width = map->width;
 	tiles = malloc(sizeof(t_map_tile) * map->height * (map->width + 1));
 	if (!tiles)
-		return (free(game->data->map), 0);
+		return (0);
 	i = 0;
 	offset = 0;
 	while (i + offset < (unsigned int)(map->height * (map->width + 1)))
@@ -277,7 +279,7 @@ int	set_textures(t_game *game)
 	if (!layer_stack_get(game->textures, D_FACE + i++))
 		return (0);
 	layer_add_texture(game->mlx, game->textures,
-		"./assets/textures/c_dr6.xpm", D_FACE + i);
+		"./assets/textures/c_ NULL;dr6.xpm", D_FACE + i);
 	if (!layer_stack_get(game->textures, D_FACE + i++))
 		return (0);
 	layer_add_texture(game->mlx, game->textures,
@@ -403,14 +405,34 @@ int	set_textures(t_game *game)
 	layer_add_texture(game->mlx, game->textures,
 		"./assets/textures/c_dr37.xpm", D_FACE + i);
 	if (!layer_stack_get(game->textures, D_FACE + i++))
-		return (0);;
+		return (0);
 	return (1);
-} // free
+}
+
+static int free_lines(char **lines)
+{
+	size_t i;
+
+	i = 0;
+	while (lines[i])
+	{
+		free(lines[i]);
+		i++;
+	}
+	free(lines);
+	return (0);
+}
+
+static int	destroy_parsing(t_parsing *map)
+{
+	if (map->map)
+		free(map->map);
+	return (0);
+}
 
 int	parse(t_game *game, const char *path)
 {
 	char		**lines;
-	size_t		i;
 	t_parsing	map;
 	int			end_of_header;
 	t_layer		*background_split;
@@ -421,26 +443,20 @@ int	parse(t_game *game, const char *path)
 	map.floor.r = 277;
 	map.ceiling.r = 277;
 	if (!check_extension(path, ".cub"))
-		return (0);
+		return (destroy_parsing(&map));
 	if (!set_textures(game))
-		return (0);
+		return (destroy_parsing(&map));
 	lines = extract_all(path);
 	if (!lines)
-		return (0);
+		return (destroy_parsing(&map));
 	end_of_header = parse_header(game, &map, lines);
 	if (!end_of_header)
-		return (0);
+		return (free_lines(lines), destroy_parsing(&map));
 	if (!parse_map(&map, lines + end_of_header))
-		return (0);
-	i = 0;
-	while (lines[i])
-	{
-		free(lines[i]);
-		i++;
-	}
-	free(lines);
+		return (free_lines(lines), destroy_parsing(&map));
+	free_lines(lines);
 	if (!convert_parsing(game, &map))
-		return (0);
+		return (destroy_parsing(&map));
 	free(map.map);
 	background_split = layer_create(game->mlx, WIDTH, HEIGHT * 2, 1);
 	layer_split_fill(background_split, map.ceiling, map.floor);
@@ -451,4 +467,4 @@ int	parse(t_game *game, const char *path)
 	return (1);
 }
 
-//free la map les pixels et les textures en cas d'erreur
+//free la map
