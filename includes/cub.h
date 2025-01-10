@@ -32,12 +32,15 @@
 // 2K 2560 x 1440
 // 4K 3840 x 2160
 
-# define NO_DISPLAY_MOUSE 0
+# define NO_DISPLAY_MOUSE 1
 # define AUTO_CENTER_MOUSE 1
 
-# define OUTPUT_HEIGHT 900
-# define OUTPUT_WIDTH 1440
+# define OUTPUT_HEIGHT 1080
+# define OUTPUT_WIDTH 1920
 # define RATIO 2
+
+
+# define CEIL_BONUS 1
 
 // Window
 # ifndef HEIGHT
@@ -82,8 +85,10 @@
 
 # define WALL_HEIGHT 1
 # define HIT_BOX 0.25
-# define SPEED 1
-# define STEP 0.03
+// # define SPEED 1
+# define SPEED 0.1
+// # define STEP 0.03
+# define STEP 0.1
 
 # define ENABLE_TRANSPARENCY 1
 
@@ -104,5 +109,9 @@
 
 # define DEBUG 0
 # define MAX_FRAME 180
+
+#define FLOOR_TEXTURE 70
+#define CEILING_TEXTURE 71
+
 
 #endif

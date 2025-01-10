@@ -32,48 +32,95 @@ t_pixel	texture_pixel(t_layer *xpm, double x_ratio, double y_ratio)
 	return (pixel);
 }
 
-int	draw_view(t_game *game, t_game_data *raycast)
+
+int draw_view(t_game *game, t_game_data *raycast)
 {
 	t_layer *group;
 	t_layer *render;
 	t_layer *background;
 	unsigned int scale_3d = game->scale_3d;
-	int		x;
-	int		y;
-	int		perceived_height;
-	int		display_height;
+	double player_x = game->data->player.x + 0.5;
+	double player_y = game->data->player.y + 0.5;
+	int x;
+	int y;
+	int perceived_height;
 
+	double yawRad = (double)game->data->yaw * (M_PI / 180.0);
+	double dirX = cos(yawRad);
+	double dirY = sin(yawRad);
+	double planeX = -dirY * tan(((double)FOV / 2.0) * (M_PI / 180.0));
+	double planeY = dirX * tan(((double)FOV / 2.0) * (M_PI / 180.0));
+
+	double rayDirX0 = dirX - planeX;
+	double rayDirY0 = dirY - planeY;
+	double rayDirX1 = dirX + planeX;
+	double rayDirY1 = dirY + planeY;
 
 	group = layer_stack_get(game->layers, 1);
 	raycast = game->data;
 	render = layer_group_get(group, 2);
 	background = layer_group_get(group, 1);
-	// warning change center get percent / 100. 0 => variable
 	raycast->center = ((HEIGHT >> 1) + (raycast->pitch * HEIGHT_PERC));
 	layer_set_offset(background, 0, SPLIT_HEIGHT + raycast->pitch * HEIGHT_PERC);
-	x = 0;
-	
-	while (x < WIDTH)
+
+	float posZ = 0.5 * HEIGHT;
+	y = 0;
+	while (y < HEIGHT)
 	{
-		perceived_height = (int)(scale_3d / raycast->ray[x].distance) >> 1;
-		y = raycast->center - perceived_height;
-		if (raycast->center - perceived_height < 0)
-			y = 0;
-		if (raycast->center + perceived_height > game->height)
-			display_height = game->height;
-		else
-			display_height = raycast->center + perceived_height;
-		while (y < display_height)
+		int p = y - raycast->center;
+		double rowDistance = posZ / abs(p);
+		double floorStepX = rowDistance * (rayDirX1 - rayDirX0) / WIDTH;
+		double floorStepY = rowDistance * (rayDirY1 - rayDirY0) / WIDTH;
+		double floorX = player_x + rowDistance * rayDirX0;
+		double floorY = player_y + rowDistance * rayDirY0;
+
+		x = 0;
+		while (x < WIDTH)
 		{
-			/*if ((int)raycast->ray[x].percent == 0 || (int)raycast->ray[x].percent == 100)
-				layer_set_pixel(render, x, y, pixel_create(0, 0, 0, 255));*/
-			layer_set_pixel(render, x, y,
+			perceived_height = (int)(scale_3d / raycast->ray[x].distance) >> 1;
+			int wall_start = raycast->center - perceived_height;
+			int wall_end = raycast->center + perceived_height;
+
+			if (wall_start < 0) wall_start = 0;
+			if (wall_end > HEIGHT) wall_end = HEIGHT;
+
+			if (y >= wall_start && y < wall_end)
+			{
+				layer_set_pixel(render, x, y,
 				texture_pixel(layer_stack_get(game->textures, raycast->ray[x].face),
-				raycast->ray[x].percent / 100.,
-				(y - (raycast->center - perceived_height)) / (perceived_height << 1)));
-			y++;
+					raycast->ray[x].percent / 100.,
+					(y - (raycast->center - perceived_height)) / (perceived_height << 1)));
+			}
+			else if (CEIL_BONUS)
+			{
+				int cellX = (int)floorX;
+				int cellY = (int)floorY;
+
+				if (cellX >= 0 && cellX < raycast->map->width && 
+					cellY >= 0 && cellY < raycast->map->height)
+				{
+					double tx = floorX - floor(floorX);
+					double ty = floorY - floor(floorY);
+
+					if (y > raycast->center)
+					{
+						layer_set_pixel(render, x, y,
+							texture_pixel(layer_stack_get(game->textures, CEILING_TEXTURE),
+							tx, ty));
+					}
+					else
+					{
+						layer_set_pixel(render, x, y,
+							texture_pixel(layer_stack_get(game->textures, FLOOR_TEXTURE),
+							tx, ty));
+					}
+				}
+			}
+			floorX += floorStepX;
+			floorY += floorStepY;
+			x++;
 		}
-		x++;
+		y++;
 	}
 	return (0);
 }
