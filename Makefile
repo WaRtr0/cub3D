@@ -1,7 +1,7 @@
 NAME = cub3d
 CC = cc
 
-OPTI = 1
+OPTI = 0
 
 RM = rm -rf
 
@@ -23,7 +23,7 @@ INCLUDES = $(INCLUDES_DIR)/game.h\
 
 
 FLAG_OPTI =  -O3 -march=native -flto -ffast-math
-DEFAULT_FLAG = -g3
+DEFAULT_FLAG = 
 CFLAGS = -Wall -Wextra -Werror
 
 ifeq ($(OPTI), 1)
@@ -32,7 +32,7 @@ else
 	CFLAGS += $(DEFAULT_FLAG)
 endif
 
-MLXFLAGS = -lX11 -lXext -lm -g3
+MLXFLAGS = -lX11 -lXext -lm
 
 SRC_DIR = srcs
 BUILD_DIR = .obj
