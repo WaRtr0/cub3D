@@ -85,10 +85,12 @@
 
 # define WALL_HEIGHT 1
 # define HIT_BOX 0.25
+# define DOOR_HIT_BOX 0.05
 // # define SPEED 1
 # define SPEED 0.1
 // # define STEP 0.03
 # define STEP 0.1
+# define DOOR_STEP 0.05
 
 # define ENABLE_TRANSPARENCY 1
 

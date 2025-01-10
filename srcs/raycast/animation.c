@@ -6,18 +6,18 @@
 /*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:26:44 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/08 17:28:27 by garivo           ###   ########.fr       */
+/*   Updated: 2025/01/10 19:51:11 by garivo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 #include "utils.h"
 
-int	get_frame()
+int	get_frame(void)
 {
 	static long long		timestamp;
-	long long		time;
-	long long		diff;
+	long long				time;
+	long long				diff;
 
 	if (timestamp == 0)
 		timestamp = current_time();
@@ -39,6 +39,11 @@ int	animate(t_game *game, int pos, int get)
 	long long		diff;
 
 	time = current_time();
+	if (door.pos != -1 && time - door.timestamp > 1600)
+	{
+		game->data->map->tiles[door.pos] = E;
+		door.pos = -1;
+	}
 	if (door.pos != pos && get)
 		return (get_frame());
 	if (door.pos == -1 && !get)
@@ -49,16 +54,9 @@ int	animate(t_game *game, int pos, int get)
 	if (door.pos == pos && get)
 	{
 		diff = time - door.timestamp;
-		if (diff <= 2000)
+		if (diff <= 1400)
 			return ((get_frame() * diff / 100) / 4 % 36);
-		else if (diff <= 2200)
-			return (36);
-		else
-		{
-			game->data->map->tiles[pos] = E;
-			door.pos = -1;
-			return (0);
-		}
+		return (36);
 	}
 	return (0);
 }
