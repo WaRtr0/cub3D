@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gladius <gladius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 19:32:42 by garivo            #+#    #+#             */
-/*   Updated: 2024/11/29 02:32:41 by garivo           ###   ########.fr       */
+/*   Updated: 2025/01/09 21:25:23 by gladius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ size_t	get_lines(char **lines)
 	size_t	i;
 
 	i = 0;
-	while (lines[i] && lines[i][0] != '\0') //chenge
+	while (lines[i] && lines[i][0] != '\0')
 		i++;
 	return (i);
 }

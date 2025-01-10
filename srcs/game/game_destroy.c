@@ -9,10 +9,12 @@ void	game_destroy(t_game *game)
 		layer_stack_destroy(game->mlx, game->layers);
 	if (game->textures)
 		layer_stack_destroy(game->mlx, game->textures);
-	if (game->data->map->tiles)
-		free(game->data->map->tiles);
 	if (game->data->map)
+	{
+		if (game->data->map->tiles)
+			free(game->data->map->tiles);
 		free(game->data->map);
+	}
 	if (game->data)
 		free(game->data);
 	if (game->win)

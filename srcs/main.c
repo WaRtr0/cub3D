@@ -50,7 +50,7 @@ int	main(int argc, char **argv)
 
 	game = game_new(OUTPUT_WIDTH, OUTPUT_HEIGHT, GAME_NAME);
 	if (!game || check_and_parse(argc, argv, game))
-		return (1);
+		return (game_destroy(game) ,1);
 	game_set_hook_press(game, hook_press);
 	game_set_hook_release(game, hook_release);
 	if (AUTO_CENTER_MOUSE)

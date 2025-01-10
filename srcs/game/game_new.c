@@ -1,5 +1,6 @@
 #include "game.h"
 #include "math.h"
+#include "../libft/libft.h"
 
 t_game	*game_new(int width, int height, char *title)
 {
