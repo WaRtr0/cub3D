@@ -280,7 +280,7 @@ int	set_textures(t_game *game)
 	if (!layer_stack_get(game->textures, D_FACE + i++))
 		return (0);
 	layer_add_texture(game->mlx, game->textures,
-		"./assets/textures/c_ NULL;dr6.xpm", D_FACE + i);
+		"./assets/textures/c_dr6.xpm", D_FACE + i);
 	if (!layer_stack_get(game->textures, D_FACE + i++))
 		return (0);
 	layer_add_texture(game->mlx, game->textures,
