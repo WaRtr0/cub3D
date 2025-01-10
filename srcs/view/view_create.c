@@ -32,6 +32,15 @@ t_pixel	texture_pixel(t_layer *xpm, double x_ratio, double y_ratio)
 	return (pixel);
 }
 
+t_pixel	texture_pixel_vertical(t_layer *xpm, int x, int y)
+{
+	t_pixel	pixel;
+
+	pixel = layer_get_pixel(xpm, x, y);
+	pixel.a = 255;
+	return (pixel);
+}
+
 
 int draw_view(t_game *game, t_game_data *raycast)
 {
@@ -96,25 +105,25 @@ int draw_view(t_game *game, t_game_data *raycast)
 				int cellX = (int)floorX;
 				int cellY = (int)floorY;
 
-				if (cellX >= 0 && cellX < raycast->map->width && 
-					cellY >= 0 && cellY < raycast->map->height)
-				{
-					double tx = floorX - floor(floorX);
-					double ty = floorY - floor(floorY);
+				// if (cellX >= 0 && cellX < raycast->map->width && 
+				// 	cellY >= 0 && cellY < raycast->map->height)
+				// {
+					int tx = (int)(SIZE_TEXTURE * (floorX - cellX)) & (SIZE_TEXTURE - 1);
+					int ty = (int)(SIZE_TEXTURE * (floorY - cellY)) & (SIZE_TEXTURE - 1);
+					// double tx = fmod(floorX, 1.0);
+					// double ty = fmod(floorY, 1.0);
 
-					if (y > raycast->center)
-					{
-						layer_set_pixel(render, x, y,
-							texture_pixel(layer_stack_get(game->textures, CEILING_TEXTURE),
-							tx, ty));
-					}
-					else
-					{
-						layer_set_pixel(render, x, y,
-							texture_pixel(layer_stack_get(game->textures, FLOOR_TEXTURE),
-							tx, ty));
-					}
-				}
+					if (tx < 0) tx += 1.0;
+					if (ty < 0) ty += 1.0;
+				
+					layer_set_pixel(render, x, y,
+						texture_pixel_vertical(layer_stack_get(game->textures, CEILING_TEXTURE),
+						tx, ty));
+				
+					layer_set_pixel(render, x, y,
+						texture_pixel_vertical(layer_stack_get(game->textures, FLOOR_TEXTURE),
+						tx, ty));
+			// }
 			}
 			floorX += floorStepX;
 			floorY += floorStepY;

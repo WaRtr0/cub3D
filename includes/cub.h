@@ -112,6 +112,7 @@
 
 #define FLOOR_TEXTURE 70
 #define CEILING_TEXTURE 71
+#define SIZE_TEXTURE 64
 
 
 #endif
