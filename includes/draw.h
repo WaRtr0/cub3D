@@ -15,6 +15,14 @@ typedef struct s_draw_triangle_fill
 	float		area3;
 }				t_draw_triangle_fill;
 
+
+typedef struct s_triangle_vector
+{
+	t_vector2	a;
+	t_vector2	b;
+	t_vector2	c;
+}				t_triangle_vector;
+
 typedef struct s_mlx_data
 {
 	int			bpp;
@@ -55,10 +63,11 @@ void			draw_rect_fill(t_layer *layer, t_vector2 start, t_vector2 end,
 void			draw_rect(t_layer *layer, t_vector2 start, t_vector2 end,
 					t_pixel color);
 
-void			draw_triangle(t_layer *layer, t_vector2 a, t_vector2 b,
-					t_vector2 c, t_pixel color);
-void			draw_triangle_fill(t_layer *layer, t_vector2 a, t_vector2 b,
-					t_vector2 c, t_pixel color);
+void			draw_triangle(t_layer *layer, t_triangle_vector vector,
+					t_pixel color);
+
+void			draw_triangle_fill(t_layer *layer, t_triangle_vector vector,
+					t_pixel color);
 
 void			draw_xpm_texture(void *mlx, t_layer *layer, t_vector2 position,
 					char *xpm_path);

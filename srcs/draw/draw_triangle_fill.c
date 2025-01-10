@@ -4,33 +4,44 @@
 
 static float	calc_area(t_vector2 p1, t_vector2 p2, t_vector2 p3)
 {
-	return (p2.x - p1.x) * (p3.y - p1.y) - (p2.y - p1.y) * (p3.x - p1.x);
+	return ((p2.x - p1.x) * (p3.y - p1.y) - (p2.y - p1.y) * (p3.x - p1.x));
 }
 
-void	draw_triangle_fill(t_layer *layer, t_vector2 a, t_vector2 b,
-		t_vector2 c, t_pixel color)
+static t_draw_triangle_fill	init_triangle_fill(t_triangle_vector vector)
 {
-	t_draw_triangle_fill	triangle;
+	t_draw_triangle_fill	tri;
 
-	triangle.min.x = floorf(fminf(fminf(a.x, b.x), c.x));
-	triangle.min.y = floorf(fminf(fminf(a.y, b.y), c.y));
-	triangle.max.x = ceilf(fmaxf(fmaxf(a.x, b.x), c.x));
-	triangle.max.y = ceilf(fmaxf(fmaxf(a.y, b.y), c.y));
-	triangle.area = calc_area(a, b, c);
-	for (triangle.p.x = triangle.min.x; triangle.p.x <= triangle.max.x; triangle.p.x++)
+	tri.min.x = floorf(fminf(fminf(vector.a.x, vector.b.x), vector.c.x));
+	tri.min.y = floorf(fminf(fminf(vector.a.y, vector.b.y), vector.c.y));
+	tri.max.x = ceilf(fmaxf(fmaxf(vector.a.x, vector.b.x), vector.c.x));
+	tri.max.y = ceilf(fmaxf(fmaxf(vector.a.y, vector.b.y), vector.c.y));
+	tri.area = calc_area(vector.a, vector.b, vector.c);
+	return (tri);
+}
+
+void	draw_triangle_fill(t_layer *layer, t_triangle_vector vector,
+		t_pixel color)
+{
+	t_draw_triangle_fill	tri;
+
+	tri = init_triangle_fill(vector);
+	while (tri.p.x <= tri.max.x)
 	{
-		for (triangle.p.y = triangle.min.y; triangle.p.y <= triangle.max.y; triangle.p.y++)
+		tri.p.y = tri.min.y;
+		while (tri.p.y <= tri.max.y)
 		{
-			triangle.area1 = calc_area(triangle.p, a, b);
-			triangle.area2 = calc_area(triangle.p, b, c);
-			triangle.area3 = calc_area(triangle.p, c, a);
-			if ((triangle.area >= 0 && triangle.area1 >= 0
-					&& triangle.area2 >= 0 && triangle.area3 >= 0)
-				|| (triangle.area <= 0 && triangle.area1 <= 0
-					&& triangle.area2 <= 0 && triangle.area3 <= 0))
+			tri.area1 = calc_area(tri.p, vector.a, vector.b);
+			tri.area2 = calc_area(tri.p, vector.b, vector.c);
+			tri.area3 = calc_area(tri.p, vector.c, vector.a);
+			if ((tri.area >= 0 && tri.area1 >= 0
+					&& tri.area2 >= 0 && tri.area3 >= 0)
+				|| (tri.area <= 0 && tri.area1 <= 0
+					&& tri.area2 <= 0 && tri.area3 <= 0))
 			{
-				layer_set_pixel(layer, triangle.p.x, triangle.p.y, color);
+				layer_set_pixel(layer, tri.p.x, tri.p.y, color);
 			}
+			tri.p.y++;
 		}
+		tri.p.x++;
 	}
 }
