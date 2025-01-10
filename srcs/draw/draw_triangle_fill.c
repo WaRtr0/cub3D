@@ -11,11 +11,15 @@ static t_draw_triangle_fill	init_triangle_fill(t_triangle_vector vector)
 {
 	t_draw_triangle_fill	tri;
 
+
 	tri.min.x = floorf(fminf(fminf(vector.a.x, vector.b.x), vector.c.x));
 	tri.min.y = floorf(fminf(fminf(vector.a.y, vector.b.y), vector.c.y));
 	tri.max.x = ceilf(fmaxf(fmaxf(vector.a.x, vector.b.x), vector.c.x));
 	tri.max.y = ceilf(fmaxf(fmaxf(vector.a.y, vector.b.y), vector.c.y));
 	tri.area = calc_area(vector.a, vector.b, vector.c);
+
+	tri.p.x = tri.min.x;
+	tri.p.y = tri.min.y;
 	return (tri);
 }
 

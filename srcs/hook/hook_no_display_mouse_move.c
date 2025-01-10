@@ -38,9 +38,10 @@ static void	yaw(t_game *game)
 	apply_rotation(&points.pos2, points.center, game->data->yaw);
 	apply_rotation(&points.pos3, points.center, game->data->yaw);
 	draw_triangle_fill(rotate,
+		(t_triangle_vector){
 		(t_vector2){points.pos1.x, points.pos1.y},
 		(t_vector2){points.pos2.x, points.pos2.y},
-		(t_vector2){points.pos3.x, points.pos3.y},
+		(t_vector2){points.pos3.x, points.pos3.y}},
 		pixel_create(255, 255, 255, 255));
 }
 
