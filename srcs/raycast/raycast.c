@@ -103,6 +103,8 @@ static int wall_hit(t_vector2 *ray_pos, t_vector2 *ray_dir,
 				if (map->tiles[(int)map_check.y * map->width + (int)map_check.x] == D)
 					ray[i].face = D_FACE
 						+ animate(game, (int)map_check.y * map->width + (int)map_check.x, 1);
+				else
+					animate(game, -1, 2);
 				
 				ray[i].distance = wall_dist * cos(angle_rad - yawRad);
 				return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gladius <gladius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:26:44 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/10 19:51:11 by garivo           ###   ########.fr       */
+/*   Updated: 2025/01/12 19:35:07 by gladius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ int	animate(t_game *game, int pos, int get)
 		game->data->map->tiles[door.pos] = E;
 		door.pos = -1;
 	}
-	if (door.pos != pos && get)
+	if (door.pos != pos && get == 1)
 		return (get_frame());
 	if (door.pos == -1 && !get)
 	{
 		door.pos = pos;
 		door.timestamp = time;
 	}
-	if (door.pos == pos && get)
+	if (door.pos == pos && get == 1)
 	{
 		diff = time - door.timestamp;
 		if (diff <= 1400)
