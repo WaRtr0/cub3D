@@ -113,11 +113,11 @@
 # define PITCH_MAX 50
 # define SENTIVITY 0.25
 
-# define DEBUG 1
+# define DEBUG 0
 # define MAX_FRAME 1800
 
-#define FLOOR_TEXTURE 70
-#define CEILING_TEXTURE 71
+#define FLOOR_TEXTURE 71
+#define CEILING_TEXTURE 70
 #define SIZE_TEXTURE 64
 
 
