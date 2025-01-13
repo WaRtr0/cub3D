@@ -76,6 +76,10 @@
 #  define FOV 30
 # endif
 
+// map
+# define MAP_OFFSET 25
+# define MIN_WIDTH 550
+
 # define SPLIT_HEIGHT (-(HEIGHT / 2))
 
 # define HEIGHT_PERC ( HEIGHT / 100)

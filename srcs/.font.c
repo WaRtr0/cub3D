@@ -24,102 +24,102 @@ void	free_glyph(t_glyph *glyph)
 
 t_bdf   *font_init_bdf(void)
 {
-    t_bdf   *bdf;
+	t_bdf   *bdf;
 
-    bdf = (t_bdf *)malloc(sizeof(t_bdf));
-    if (!bdf)
-        return (NULL);
-    bdf->glyphs = (t_glyph *)malloc(sizeof(t_glyph) * INITIAL_GLYPH_CAPACITY);
-    if (!bdf->glyphs)
-    {
-        free(bdf);
-        return (NULL);
-    }
-    bdf->glyph_count = 0;
-    bdf->glyph_capacity = INITIAL_GLYPH_CAPACITY;
-    return (bdf);
+	bdf = (t_bdf *)malloc(sizeof(t_bdf));
+	if (!bdf)
+		return (NULL);
+	bdf->glyphs = (t_glyph *)malloc(sizeof(t_glyph) * INITIAL_GLYPH_CAPACITY);
+	if (!bdf->glyphs)
+	{
+		free(bdf);
+		return (NULL);
+	}
+	bdf->glyph_count = 0;
+	bdf->glyph_capacity = INITIAL_GLYPH_CAPACITY;
+	return (bdf);
 }
 
 int hex_char_to_int(char c)
 {
-    if (c >= '0' && c <= '9')
-        return c - '0';
-    else if (c >= 'A' && c <= 'F')
-        return c - 'A' + 10;
-    else if (c >= 'a' && c <= 'f')
-        return c - 'a' + 10;
-    else
-        return -1;
+	if (c >= '0' && c <= '9')
+		return c - '0';
+	else if (c >= 'A' && c <= 'F')
+		return c - 'A' + 10;
+	else if (c >= 'a' && c <= 'f')
+		return c - 'a' + 10;
+	else
+		return -1;
 }
 
 #include <stdio.h>
 unsigned char *hex_to_bytes(const char *hex_str, int *out_len)
 {
-    int len = ft_strlen(hex_str);
-    int byte_len = (len + 1) / 2; // Arrondi vers le haut pour les longueurs impaires
-    unsigned char *bytes = malloc(byte_len);
-    int i = 0;
-    int j = 0;
+	int len = ft_strlen(hex_str);
+	int byte_len = (len + 1) / 2; // Arrondi vers le haut pour les longueurs impaires
+	unsigned char *bytes = malloc(byte_len);
+	int i = 0;
+	int j = 0;
 
-    if (!bytes)
-        return NULL;
+	if (!bytes)
+		return NULL;
 
     // Si la longueur est impaire, on traite le premier caractère séparément
-    if (len % 2 != 0)
-    {
-        int val = hex_char_to_int(hex_str[0]);
-        if (val == -1)
-        {
-            free(bytes);
-            return NULL; // Caractère hexadécimal invalide
-        }
-        bytes[j++] = val;
-        i = 1;
-    }
+	if (len % 2 != 0)
+	{
+		int val = hex_char_to_int(hex_str[0]);
+		if (val == -1)
+		{
+			free(bytes);
+			return NULL; // Caractère hexadécimal invalide
+		}
+		bytes[j++] = val;
+		i = 1;
+	}
 
-    for (; i < len; i += 2)
-    {
-        int high = hex_char_to_int(hex_str[i]);
-        int low = hex_char_to_int(hex_str[i + 1]);
+	for (; i < len; i += 2)
+	{
+		int high = hex_char_to_int(hex_str[i]);
+		int low = hex_char_to_int(hex_str[i + 1]);
 
-        if (high == -1 || low == -1)
-        {
-            free(bytes);
-            printf("high: %d, low: %d\n", high, low);
-            return NULL; // Caractère hexadécimal invalide
-        }
+		if (high == -1 || low == -1)
+		{
+			free(bytes);
+			printf("high: %d, low: %d\n", high, low);
+			return NULL; // Caractère hexadécimal invalide
+		}
         bytes[j++] = (high << 4) | low;
-    }
-    *out_len = byte_len;
-    return bytes;
+	}
+	*out_len = byte_len;
+	return bytes;
 }
 
 
 void    font_free_bdf(t_bdf *bdf)
 {
-    int i;
+	int i;
 
-    if (!bdf)
-        return;
-    i = 0;
-    while (i < bdf->glyph_count)
-    {
-        free_glyph(&(bdf->glyphs[i]));
-        i++;
-    }
-    free(bdf->glyphs);
-    free(bdf);
+	if (!bdf)
+		return;
+	i = 0;
+	while (i < bdf->glyph_count)
+	{
+		free_glyph(&(bdf->glyphs[i]));
+		i++;
+	}
+	free(bdf->glyphs);
+	free(bdf);
 }
 
 void    add_glyph(t_bdf *bdf, t_glyph glyph)
 {
-    t_glyph *new_glyphs;
-    int     i;
+	t_glyph *new_glyphs;
+	int	i;
 
-    if (bdf->glyph_count >= bdf->glyph_capacity)
-    {
-        bdf->glyph_capacity *= 2;
-        new_glyphs = (t_glyph *)malloc(sizeof(t_glyph) * bdf->glyph_capacity);
+	if (bdf->glyph_count >= bdf->glyph_capacity)
+	{
+		bdf->glyph_capacity *= 2;
+		new_glyphs = (t_glyph *)malloc(sizeof(t_glyph) * bdf->glyph_capacity);
         if (!new_glyphs)
         {
             // printf("Failed to allocate memory for glyphs");
