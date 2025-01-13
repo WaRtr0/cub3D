@@ -8,7 +8,7 @@
 # include "types.h"
 # include "cub.h"
 
-typedef enum e_dir 
+typedef enum e_dir
 {
 	NORTH,
 	EAST,
@@ -22,7 +22,7 @@ typedef enum e_map_tile
 	P = 1, // player
 	W = 2, // wall
 	D = 3 // door
-} t_map_tile;
+}	t_map_tile;
 
 typedef struct s_vector2
 {
@@ -46,7 +46,7 @@ typedef struct s_raycast_data
 	t_vector2	step;
 	t_vector2	map_check;
 	double		wall_dist;
-    double      wall_x;
+	double		wall_x;
 	int			side;
 	bool		hit;
 }				t_raycast_data;
@@ -65,13 +65,15 @@ typedef struct s_ray
 	double		distance;
 	double		percent;
 	int			face;
+	double		offset_angle_rad;								
 }				t_ray;
 
-typedef struct s_map {
+typedef struct s_map
+{
 	t_map_tile	*tiles;
 	int			width;
 	int			height;
-} t_map;
+}	t_map;
 
 typedef struct s_pixel
 {
@@ -89,25 +91,25 @@ typedef enum e_layer_type
 
 typedef struct s_layer
 {
-	t_layer_type   			type;
-    void           			*img;
-	unsigned int   			*data;
+	t_layer_type			type;
+	void					*img;
+	unsigned int			*data;
 	struct s_layer_stack	*layers;
-    unsigned int            width;
-    unsigned int            height;
-    int            			offset_x;
-    int            			offset_y;
-    int             		z_index;
-    int            			bits_per_pixel;
-    int            			line_length;
-    int            			endian;
+	unsigned int			width;
+	unsigned int			height;
+	int						offset_x;
+	int						offset_y;
+	int						z_index;
+	int						bits_per_pixel;
+	int						line_length;
+	int						endian;
 	bool					visible;
 	bool					is_volatile;
 	bool					*volatile_update;
 	unsigned int			*volatile_data;
 	bool					mask;
-    t_pixel       			 clear_color;
-} t_layer;
+	t_pixel					clear_color;
+}	t_layer;
 
 
 // typedef struct s_render_data
@@ -170,7 +172,7 @@ typedef struct s_game
 	double			delta_time;
 	double			last_frame;
 	t_layer_stack	*layers;
-	t_layer_stack   *textures;
+	t_layer_stack	*textures;
 	void			*update_callback;
 	int				count;
 	t_player_state	player_state;
