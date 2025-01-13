@@ -24,8 +24,8 @@ INCLUDES = $(INCLUDES_DIR)/game.h\
 
 FLAG_OPTI =  -O3 -march=native -flto -ffast-math
 FLAG_ASAN = -fsanitize=address -g3
-DEFAULT_FLAG = 
-CFLAGS = -Wall -Wextra -Werror
+DEFAULT_FLAG =
+CFLAGS = -Wall -Wextra -Werror -g3
 
 ifeq ($(OPTI), 1)
 	CFLAGS += $(FLAG_OPTI)
@@ -53,7 +53,7 @@ SRC_FILE = main.c\
 		   map/map_init.c map/map_draw_init.c\
 		   hook/hook_display_mouse_move.c hook/hook_no_display_mouse_move.c hook/hook_release.c hook/hook_press.c\
 		   player/player_move.c player/door_manager.c\
-		   parsing/parsing.c parsing/parsing_map.c parsing/parsing_checks.c\
+		   parsing/parsing.c parsing/parsing_map.c parsing/parsing_checks.c parsing/parsing_checks_utils.c parsing/set_textures.c parsing/convert_parsing.c parsing/parsing_header.c parsing/parsing_header_text_pix.c parsing/parsing_map_utils.c\
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILE))
 

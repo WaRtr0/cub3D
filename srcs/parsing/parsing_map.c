@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gladius <gladius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 19:32:42 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/09 21:25:23 by gladius          ###   ########.fr       */
+/*   Updated: 2025/01/13 19:52:24 by garivo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
-size_t	get_max_line(char **lines)
-{
-	size_t	i;
-	size_t	max;
-
-	i = 0;
-	max = 0;
-	while (lines[i])
-	{
-		if (ft_strlen(lines[i]) > max)
-			max = ft_strlen(lines[i]);
-		i++;
-	}
-	return (max);
-}
 
 size_t	get_lines(char **lines)
 {
