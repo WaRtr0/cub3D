@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gladius <gladius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmorot <mmorot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:10:06 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/09 22:20:44 by gladius          ###   ########.fr       */
+/*   Updated: 2025/01/13 20:24:53 by mmorot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -414,7 +414,7 @@ int	set_textures(t_game *game)
 		return (0);
 
 	layer_add_texture(game->mlx, game->textures,
-		"./assets/textures/ceiling.xpm", CEILING_TEXTURE);
+		"./assets/textures/floor.xpm", CEILING_TEXTURE);
 	if (!layer_stack_get(game->textures,CEILING_TEXTURE))
 		return (0);
 

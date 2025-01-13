@@ -13,7 +13,6 @@ INCLUDES = $(INCLUDES_DIR)/game.h\
 		   $(INCLUDES_DIR)/types.h\
 		   $(INCLUDES_DIR)/hook.h\
 		   $(INCLUDES_DIR)/draw.h\
-		   $(INCLUDES_DIR)/font.h\
 		   $(INCLUDES_DIR)/cub.h\
 		   $(INCLUDES_DIR)/raycast.h\
 		   $(INCLUDES_DIR)/utils.h\
@@ -51,7 +50,6 @@ SRC_FILE = main.c\
 		   utils/int_to_pixel.c utils/pixel_create.c utils/pixel_to_int.c utils/prerr.c utils/math_utils_bonus.c utils/vector2.c\
 		   raycast/ray.c raycast/ray_wall_hit.c raycast/animation.c\
 		   view/view_create.c\
-		   font.c\
 		   map/map_init.c map/map_draw_init.c\
 		   hook/hook_display_mouse_move.c hook/hook_no_display_mouse_move.c hook/hook_release.c hook/hook_press.c\
 		   player/player_move.c player/door_manager.c\

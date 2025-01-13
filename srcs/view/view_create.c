@@ -68,6 +68,17 @@ int draw_view(t_game *game, t_game_data *raycast)
 	group = layer_stack_get(game->layers, 1);
 	raycast = game->data;
 	render = layer_group_get(group, 2);
+	// printf("scale3d: %d\n", scale_3d);
+	// printf("rayDirX0: %f\n", rayDirX0);
+	// printf("rayDirY0: %f\n", rayDirY0);
+	// printf("rayDirX1: %f\n", rayDirX1);
+	// printf("rayDirY1: %f\n", rayDirY1);
+	// printf("player_x: %f\n", player_x);
+	// printf("player_y: %f\n", player_y);
+	// printf("dirX: %f\n", dirX);
+	// printf("dirY: %f\n", dirY);
+	// printf("planeX: %f\n", planeX);
+	// printf("planeY: %f\n", planeY);
 	background = layer_group_get(group, 1);
 	raycast->center = ((HEIGHT >> 1) + (raycast->pitch * HEIGHT_PERC));
 	layer_set_offset(background, 0, SPLIT_HEIGHT + raycast->pitch * HEIGHT_PERC);
@@ -83,10 +94,13 @@ int draw_view(t_game *game, t_game_data *raycast)
 		double floorX = player_x + rowDistance * rayDirX0;
 		double floorY = player_y + rowDistance * rayDirY0;
 
+
 		x = 0;
 		while (x < WIDTH)
 		{
-			perceived_height = (int)(scale_3d / raycast->ray[x].distance) >> 1;
+			perceived_height = scale_3d / raycast->ray[x].distance / 2;
+			// printf("perceived_height: %d\n", perceived_height);
+			// perceived_height = (int)(scale_3d / raycast->ray[x].distance) >> 1;
 			int wall_start = raycast->center - perceived_height;
 			int wall_end = raycast->center + perceived_height;
 
@@ -102,27 +116,48 @@ int draw_view(t_game *game, t_game_data *raycast)
 			}
 			else if (CEIL_BONUS)
 			{
-				int cellX = (int)floorX;
-				int cellY = (int)floorY;
+				// int cellX = (int)floorX;
+				// int cellY = (int)floorY;
 
 				// if (cellX >= 0 && cellX < raycast->map->width && 
 				// 	cellY >= 0 && cellY < raycast->map->height)
 				// {
-					int tx = (int)(SIZE_TEXTURE * (floorX - cellX)) & (SIZE_TEXTURE - 1);
-					int ty = (int)(SIZE_TEXTURE * (floorY - cellY)) & (SIZE_TEXTURE - 1);
+					// int tx = ((int)(SIZE_TEXTURE * (floorX - cellX)) & (SIZE_TEXTURE - 1));
+					// int ty = ((int)(SIZE_TEXTURE * (floorY - cellY)) & (SIZE_TEXTURE - 1)) ;
+
+		// 			  double weight = (currentDist - distPlayer) / (distWall - distPlayer);
+
+        // double currentFloorX = weight * floorXWall + (1.0 - weight) * posX;
+        // double currentFloorY = weight * floorYWall + (1.0 - weight) * posY;
+
+        // int floorTexX, floorTexY;
+        // floorTexX = int(currentFloorX * texWidth) % texWidth;
+        // floorTexY = int(currentFloorY * texHeight) % texHeight;
+
+
+					double merde = 0.67;
+					double weight = (raycast->ray[x].distance - posZ) / (rowDistance - posZ);
+					double currentFloorX = weight * floorX + (merde - weight) * player_x;
+					double currentFloorY = weight * floorY + (merde - weight) * player_y;
+
+					int floorTexX = (int)(currentFloorX * SIZE_TEXTURE) % SIZE_TEXTURE;
+					int floorTexY = (int)(currentFloorY * SIZE_TEXTURE) % SIZE_TEXTURE;
+
 					// double tx = fmod(floorX, 1.0);
 					// double ty = fmod(floorY, 1.0);
 
-					if (tx < 0) tx += 1.0;
-					if (ty < 0) ty += 1.0;
+					// if (tx < 0) tx += 0.5;
+					// if (ty < 0) ty += 0.5;
 				
-					layer_set_pixel(render, x, y,
-						texture_pixel_vertical(layer_stack_get(game->textures, CEILING_TEXTURE),
-						tx, ty));
+					// layer_set_pixel(render, x, y,
+					// 	texture_pixel_vertical(layer_stack_get(game->textures, CEILING_TEXTURE),
+					// 	tx, ty));
 				
+
 					layer_set_pixel(render, x, y,
-						texture_pixel_vertical(layer_stack_get(game->textures, FLOOR_TEXTURE),
-						tx, ty));
+						texture_pixel(layer_stack_get(game->textures, CEILING_TEXTURE),
+						floorTexX / (double)SIZE_TEXTURE,
+						floorTexY / (double)SIZE_TEXTURE));
 			// }
 			}
 			floorX += floorStepX;
