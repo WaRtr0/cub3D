@@ -5,26 +5,24 @@
 #include "utils.h"
 #include "draw.h"
 
-static inline t_triangle_points init_triangle_points(void)
+static inline t_triangle_points	init_triangle_points(void)
 {
-    static const int size = (SCALE_2D * HIT_BOX);
-    t_triangle_points points;
-    
-    points.center = (t_dvector2){size, size};
-    points.pos1 = (t_dvector2){(size >> 2), size};
-    points.pos2 = (t_dvector2){size, (size >> 2)};
-    points.pos3 = (t_dvector2){(size * 2) - (size >> 2), size};
-    
-    return points;
+	static const int	size = (SCALE_2D * HIT_BOX);
+	t_triangle_points	points;
+
+	points.center = (t_dvector2){size, size};
+	points.pos1 = (t_dvector2){(size >> 2), size};
+	points.pos2 = (t_dvector2){size, (size >> 2)};
+	points.pos3 = (t_dvector2){(size * 2) - (size >> 2), size};
+	return (points);
 }
 
-static inline void apply_rotation(t_dvector2 *pos, t_dvector2 center, int deg)
+static inline void	apply_rotation(t_dvector2 *pos, t_dvector2 center, int deg)
 {
 	*pos = dvector2_sub(*pos, center);
 	*pos = dvector2_rotate(*pos, deg);
 	*pos = dvector2_add(*pos, center);
 }
-
 
 static void	yaw(t_game *game)
 {

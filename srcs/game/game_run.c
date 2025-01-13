@@ -4,11 +4,11 @@
 static int	game_render(t_game *game)
 {
 	if (!game || !game->layers)
-		return 0;
+		return (0);
 	if (game->update_callback)
 		((void (*)(t_game *))game->update_callback)(game);
 	layer_stack_render(game->layers, game->mlx, game->win);
-	return 1;
+	return (1);
 }
 
 int	game_run(t_game *game)

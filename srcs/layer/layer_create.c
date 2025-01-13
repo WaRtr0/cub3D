@@ -1,7 +1,7 @@
 #include "layer.h"
 #include <stdlib.h>
 #include <../minilibx-linux/mlx.h>
-
+#include "../libft/libft.h"
 
 t_layer	*layer_create(void *mlx, int width, int height, int z_index)
 {
@@ -13,17 +13,12 @@ t_layer	*layer_create(void *mlx, int width, int height, int z_index)
 	layer = (t_layer *)malloc(sizeof(t_layer));
 	if (!layer)
 		return (NULL);
+	ft_bzero(layer, sizeof(t_layer));
 	layer->width = width;
 	layer->height = height;
 	layer->z_index = z_index;
-	layer->offset_x = 0;
-	layer->offset_y = 0;
 	layer->type = LAYER;
-	layer->mask = false;
 	layer->visible = true;
-	layer->is_volatile = false;
-	layer->volatile_update = NULL;
-	layer->volatile_data = NULL;
 	layer->img = mlx_new_image(mlx, width, height);
 	if (!layer->img)
 	{
