@@ -6,7 +6,7 @@
 /*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:08:15 by garivo            #+#    #+#             */
-/*   Updated: 2024/12/09 18:24:59 by garivo           ###   ########.fr       */
+/*   Updated: 2025/01/13 19:56:57 by garivo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,19 @@ int		parse(t_game *game, const char *path);
 int		parse_map(t_parsing *map, char **lines);
 int		check_map(t_parsing *map);
 char	*get_line(t_parsing *map, size_t i);
+int		check_extension(const char *path, const char *ext);
+int		set_textures(t_game *game);
+int		convert_parsing(t_game *game, t_parsing *map);
+int		extract_textures(t_game *game, char *line);
+int		parse_header(t_game *game, t_parsing *map, char **lines);
+void	set_background(t_game *game, t_parsing map);
+int		extract_pixel(char *line, t_pixel *pixel);
+char	*skip_sp(char *line);
+char	*skip_digits(char *line);
+size_t	get_max_line(char **lines);
 int		check_extension(const char *path , const char *ext);
+int		get_dir(char c);
+int		check_dir(t_parsing *map, char *cmap, size_t i, size_t j);
+
 
 #endif
