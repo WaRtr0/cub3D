@@ -10,10 +10,10 @@ static void	fill_remaining(t_layer *layer, unsigned int fill_color)
 void	layer_fill(t_layer *layer, t_pixel color)
 {
 	unsigned int	fill_color;
-	uint64_t	fill_color64;
-	uint64_t	*data64;
-	size_t		count64;
-	size_t		i;
+	uint64_t		fill_color64;
+	uint64_t		*data64;
+	size_t			count64;
+	size_t			i;
 
 	if (!layer)
 		return ;

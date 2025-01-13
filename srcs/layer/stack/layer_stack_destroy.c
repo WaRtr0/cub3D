@@ -29,6 +29,15 @@
 //     free(stack);
 // }
 
+static void	wrapper_output_layer_destroy(void *mlx, t_layer **output_layer)
+{
+	if (*output_layer)
+	{
+		layer_destroy(mlx, *output_layer);
+		*output_layer = NULL;
+	}
+}
+
 void	layer_stack_destroy(void *mlx, t_layer_stack *stack)
 {
 	int		i;
@@ -51,11 +60,7 @@ void	layer_stack_destroy(void *mlx, t_layer_stack *stack)
 		}
 		i++;
 	}
-	if (output_layer)
-	{
-		layer_destroy(mlx, output_layer);
-		stack->output_layer = NULL;
-	}
+	wrapper_output_layer_destroy(mlx, &output_layer);
 	free(stack);
 	stack = NULL;
 }

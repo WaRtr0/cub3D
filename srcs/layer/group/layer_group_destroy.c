@@ -26,4 +26,3 @@ void	layer_group_destroy(void *mlx, t_layer *group)
 	free(group);
 	group = NULL;
 }
-

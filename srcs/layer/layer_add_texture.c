@@ -4,10 +4,9 @@
 #include <../minilibx-linux/mlx.h>
 #include <math.h>
 
-
-static inline void	copy_texture_line(t_layer *layer, unsigned int *data, t_texture_info info)
+static inline void	copy_texture_line(t_layer *layer,
+	unsigned int *data, t_texture_info info)
 {
-
 	unsigned int	x;
 	unsigned int	y;
 	unsigned int	pos;
