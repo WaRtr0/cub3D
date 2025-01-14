@@ -27,19 +27,19 @@ static void	set_zero(t_layer *output)
 
 static void	ratio_transform(unsigned int *data)
 {
-	unsigned int	x;
-	unsigned int	y;
+	int	x;
+	int	y;
 	unsigned int	dest_x;
 	unsigned int	dest_y;
 	unsigned int	src_y;
 
 	y = HEIGHT;
-	while (y > 0)
+	while (y >= 0)
 	{
 		x = WIDTH;
 		src_y = y * OUTPUT_WIDTH;
 		dest_y = y << 1;
-		while (x > 0)
+		while (x >= 0)
 		{
 			dest_x = x << 1;
 			data[dest_y * OUTPUT_WIDTH + dest_x] = data[src_y + x];
