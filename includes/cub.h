@@ -36,7 +36,7 @@
 # define AUTO_CENTER_MOUSE 1
 
 # define OUTPUT_HEIGHT 1080
-# define OUTPUT_WIDTH 1920
+# define OUTPUT_WIDTH 1440
 # define RATIO 2
 
 
@@ -85,15 +85,20 @@
 # define HEIGHT_PERC ( HEIGHT / 100)
 // Math
 # define M_PI 3.14159265358979323846
+# define M_RAD 0.017453292519943295
+
+// 0.017453292519943295
 // # define M_PI 3.14
 
-# define WALL_HEIGHT 1
+# define STEP 0.1
+# define SPEED 0.1
+
+# define WALL_HEIGHT 1.0
+# define WALL_PROP ( (HEIGHT * 1.0) / (WIDTH * 1.0) + STEP)
 # define HIT_BOX 0.25
 # define DOOR_HIT_BOX 0.05
 // # define SPEED 1
-# define SPEED 0.1
 // # define STEP 0.03
-# define STEP 0.1
 # define DOOR_STEP 0.05
 
 # define ENABLE_TRANSPARENCY 1
@@ -116,9 +121,7 @@
 # define DEBUG 0
 # define MAX_FRAME 1800
 
-#define FLOOR_TEXTURE 71
 #define CEILING_TEXTURE 70
-#define SIZE_TEXTURE 64
 
 
 #endif

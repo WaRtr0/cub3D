@@ -63,9 +63,8 @@ static inline t_ray_const	ray_const(t_game_data *raycast)
 	if (!i)
 	{
 		cached_ray_const.screen_half = (double)WIDTH / 2.0;
-		cached_ray_const.angle_deg = (M_PI / 180.0);
 		cached_ray_const.factor = tan(((double)FOV / 2.0)
-				* cached_ray_const.angle_deg) / cached_ray_const.screen_half ;
+				* M_RAD) / cached_ray_const.screen_half ;
 		ray = raycast->ray;
 		while (i < WIDTH)
 		{
@@ -91,7 +90,7 @@ void	raycast(t_game *game)
 	raycast_init.ray_pos.x = game->data->player.x + 0.5;
 	raycast_init.ray_pos.y = game->data->player.y + 0.5;
 	raycast_init.yaw_rad = (double)game->data->yaw
-		* raycast_init.ray_const.angle_deg;
+		* M_RAD;
 	i = 0;
 	while (i < WIDTH)
 	{

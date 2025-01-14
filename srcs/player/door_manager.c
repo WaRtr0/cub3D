@@ -56,9 +56,9 @@ int	ray_door(t_game *game, int dir, int i)
 	map = game->data->map;
 	while (i++ < 150)
 	{
-		new_x = game->data->player.x + (cos((game->data->yaw) * M_PI / 180)
+		new_x = game->data->player.x + (cos((game->data->yaw) * M_RAD)
 				* DOOR_STEP * i * dir) + 0.5;
-		new_y = game->data->player.y + (sin((game->data->yaw) * M_PI / 180)
+		new_y = game->data->player.y + (sin((game->data->yaw) * M_RAD)
 				* DOOR_STEP * i * dir) + 0.5;
 		pos = (int)new_y * map->width + (int)new_x;
 		if (map->tiles[pos] == D)

@@ -63,9 +63,9 @@ void	player_move(t_game *game, int dir)
 	double				new_x;
 	double				new_y;
 
-	new_x = game->data->player.x + (cos((game->data->yaw) * M_PI / 180)
+	new_x = game->data->player.x + (cos((game->data->yaw) * M_RAD)
 			* (STEP + game->player_state.running * STEP) * dir) + 0.5;
-	new_y = game->data->player.y + (sin((game->data->yaw) * M_PI / 180)
+	new_y = game->data->player.y + (sin((game->data->yaw) * M_RAD)
 			* (STEP + game->player_state.running * STEP) * dir) + 0.5;
 	check_tile = map->tiles[(int)new_y * map->width + (int)new_x];
 	if (check_tile == W || check_tile == D)
