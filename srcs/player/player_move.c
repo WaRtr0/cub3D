@@ -10,7 +10,6 @@ static inline void	center_offset_player_on_map(t_game *game)
 	group = layer_stack_get(game->layers, 2);
 	map = layer_group_get(group, 0);
 	map_mask = layer_group_get(group, 1);
-
 	layer_set_offset(map,
 		(map_mask->width >> 1) - (
 			game->data->player.x * SCALE_2D) - (SCALE_2D >> 1),

@@ -4,12 +4,6 @@
 #include "utils.h"
 #include "raycast.h"
 
-
-
-
-
-//** rays */
-
 static inline void	setup_raystep(t_raycast_init *r)
 {
 	r->delta_dist.x = fabs(1.0 / r->ray_dir.x);
@@ -45,7 +39,6 @@ static inline void	rays(int i, t_map *map,
 
 	ray = raycast->ray;
 	setup_raystep(raycast);
-
 	if (wall_hit(*raycast, map, game, i))
 	{
 		ray[i].distance = -1;
@@ -76,7 +69,6 @@ static inline t_ray_const	ray_const(t_game_data *raycast)
 	}
 	return (cached_ray_const);
 }
-
 
 void	raycast(t_game *game)
 {

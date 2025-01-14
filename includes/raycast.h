@@ -36,9 +36,11 @@ typedef struct s_raycast_init
 }				t_raycast_init;
 
 
-void raycast(t_game *game);
-int	animate(t_game *game, int pos, int get);
-int	wall_hit(t_raycast_init raycast, t_map *map, t_game *game, int i);
+void	raycast(t_game *game);
+int		animate(t_game *game, int pos, int get);
+int		wall_hit(t_raycast_init raycast, t_map *map, t_game *game, int i);
+void	check_side(t_raycast_init *raycast,
+			t_map *map, t_game *game, int i);
 // typedef struct s_raycast
 // {
 // 	t_ray		*ray[1920];

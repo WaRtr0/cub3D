@@ -7,7 +7,10 @@
 static void	update(t_game *game)
 {
 	raycast(game);
-	draw_view(game, game->data);
+	if (CEIL_BONUS)
+		draw_view_bonus(game, game->data);
+	else
+		draw_view(game, game->data);
 	if (DEBUG)
 	{
 		game->count++;

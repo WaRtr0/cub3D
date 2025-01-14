@@ -25,7 +25,7 @@ INCLUDES = $(INCLUDES_DIR)/game.h\
 FLAG_OPTI =  -O3 -march=native -flto -ffast-math
 FLAG_ASAN = -fsanitize=address -g3
 DEFAULT_FLAG =
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror
 
 ifeq ($(OPTI), 1)
 	CFLAGS += $(FLAG_OPTI)
@@ -45,11 +45,11 @@ SRC_FILE = main.c\
            game/game_new.c game/game_init.c game/game_run.c game/game_destroy.c game/game_time.c game/game_handle.c  game/game_set.c\
 		   layer/layer_clear.c layer/layer_create.c layer/layer_destroy.c layer/layer_dupe.c layer/layer_fill.c layer/layer_get_offset.c layer/layer_get_pixel.c layer/layer_set_offset.c layer/layer_set_pixel.c layer/layer_rotate.c layer/layer_volatile.c layer/layer_split_fill.c layer/layer_add_texture.c\
 		   layer/stack/layer_stack_add.c layer/stack/layer_stack_create.c layer/stack/layer_stack_destroy.c layer/stack/layer_stack_get.c layer/stack/layer_stack_render.c\
-		   layer/group/layer_group_create.c layer/group/layer_group_destroy.c layer/group/layer_group_add.c layer/group/layer_group_get.c\
+		   layer/group/layer_group_create.c layer/group/layer_group_destroy.c layer/group/layer_group_add.c layer/group/layer_group_get.c layer/group/layer_group_render.c layer/group/layer_group_get_depth.c\
 		   draw/draw_circle_fill.c draw/draw_circle.c draw/draw_line.c draw/draw_rect_fill.c draw/draw_rect.c draw/draw_triangle_fill.c draw/draw_triangle.c draw/draw_xpm_texture.c draw/draw_text.c\
 		   utils/int_to_pixel.c utils/pixel_create.c utils/pixel_to_int.c utils/prerr.c utils/math_utils_bonus.c utils/vector2.c\
-		   raycast/ray.c raycast/ray_wall_hit.c raycast/animation.c\
-		   view/view_create.c\
+		   raycast/ray.c raycast/ray_wall_hit.c raycast/ray_check_side.c  raycast/ray_animation.c\
+		   view/view_create.c view/view_create_bonus.c view/view_init_bonus.c\
 		   map/map_init.c map/map_draw_init.c\
 		   hook/hook_display_mouse_move.c hook/hook_no_display_mouse_move.c hook/hook_release.c hook/hook_press.c\
 		   player/player_move.c player/door_manager.c\

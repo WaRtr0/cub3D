@@ -5,6 +5,23 @@
 # include <../minilibx-linux/mlx.h>
 # include <stdlib.h>
 
+
+typedef struct s_layer_group
+{
+	unsigned int	start_x;
+	unsigned int	start_y;
+	unsigned int	end_x;
+	unsigned int	end_y;
+}	t_layer_group;
+
+typedef struct s_handle_depth
+{
+	t_layer			*layer;
+	unsigned int	pos;
+	int				i;
+	t_dvector2		src;
+}	t_handle_depth;
+
 t_layer			*layer_create(void *mlx, int width, int height, int z_index);
 void			layer_destroy(void *mlx, t_layer *layer);
 void			layer_clear(t_layer *layer);
@@ -37,6 +54,9 @@ int				layer_group_add(t_layer *group, t_layer *layer);
 t_layer			*layer_group_get(t_layer *group, int z_index);
 void			layer_group_destroy(void *mlx, t_layer *group);
 
+void			get_depth_layer_color(t_layer_stack *stack, unsigned int x,
+					unsigned int y, unsigned int *color);
+void			layer_group_render(t_layer *group, t_layer *output);
 // Layer volatile
 
 void			layer_volatile_on(t_layer *layer);
@@ -53,9 +73,13 @@ void			layer_stack_remove(void *mlx, t_layer_stack *stack,
 void			layer_stack_render(t_layer_stack *stack, void *mlx, void *win);
 t_layer			*layer_stack_get(t_layer_stack *stack, int z_index);
 
+void			layer_stack_render(t_layer_stack *stack, void *mlx, void *win);
+
 // Utility functions
 t_pixel			pixel_create(int r, int g, int b, int a);
 unsigned int	pixel_to_int(t_pixel pixel);
 t_pixel			int_to_pixel(unsigned int color);
+
+
 
 #endif

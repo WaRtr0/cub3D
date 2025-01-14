@@ -17,7 +17,7 @@
 
 // int		create_view(t_game *game);
 // t_view	get_view(t_game *game, t_raycast raycasts);
-int	draw_view(t_game *game, t_game_data *raycast);
+
 
 typedef struct s_floor
 {
@@ -79,5 +79,8 @@ typedef struct s_view
 // tex_y = (int)((WALL_HEIGHT * floorY + pos_y)
 //	* texture->height) % texture->height;
 
+int		draw_view(t_game *game, t_game_data *raycast);
+int		draw_view_bonus(t_game *game, t_game_data *raycast);
+void	view_init_bonus(t_game *game, t_game_data *raycast, t_view *view);
 
 #endif
