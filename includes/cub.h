@@ -35,8 +35,8 @@
 # define NO_DISPLAY_MOUSE 1
 # define AUTO_CENTER_MOUSE 1
 
-# define OUTPUT_HEIGHT 1080
-# define OUTPUT_WIDTH 1440
+# define OUTPUT_HEIGHT 2160
+# define OUTPUT_WIDTH 3840
 # define RATIO 2
 
 

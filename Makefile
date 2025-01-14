@@ -1,7 +1,7 @@
 NAME = cub3d
 CC = cc
 
-OPTI = 0
+OPTI = 1
 ASAN = 0
 
 RM = rm -rf

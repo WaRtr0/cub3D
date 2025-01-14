@@ -6,7 +6,7 @@
 /*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:03:06 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/13 19:12:01 by garivo           ###   ########.fr       */
+/*   Updated: 2025/01/14 16:01:46 by garivo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	door_textures(t_game *game)
 		id = ft_itoa(i + 1);
 		if (!id)
 			return (0);
-		if (i < 10)
+		if (i < 9)
 			path[23] = id[0];
 		else
 		{
