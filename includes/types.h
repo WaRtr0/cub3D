@@ -152,7 +152,8 @@ typedef struct s_game_data
 
 typedef struct s_player_state
 {
-	long	running;	
+	bool	running;
+	int		move_dir;
 }				t_player_state;
 
 typedef struct s_game

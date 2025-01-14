@@ -10,6 +10,7 @@ t_game	*game_new(int width, int height, char *title)
 	if (!game)
 		return (NULL);
 	ft_bzero(game, sizeof(t_game));
+	ft_bzero(&game->player_state, sizeof(t_player_state));
 	game->data = (t_game_data *)malloc(sizeof(t_game_data));
 	if (!game->data)
 	{

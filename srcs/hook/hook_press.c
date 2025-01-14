@@ -33,9 +33,9 @@ void	hook_press(int keycode, t_game *game)
 	if ((keycode >= KEY_LEFT) | (keycode <= KEY_DOWN))
 		center_offset_player_on_map(game);
 	if (keycode == KEY_W)
-		player_move(game, 1);
+		game->player_state.move_dir = 1;
 	if (keycode == KEY_S)
-		player_move(game, -1);
+		game->player_state.move_dir = -1;
 	if (keycode == KEY_SPACE)
 		open_door(game, 1);
 	if (keycode == KEY_SHIFT)

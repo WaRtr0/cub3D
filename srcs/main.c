@@ -3,9 +3,12 @@
 #include "view.h"
 #include "parsing.h"
 #include "map.h"
+#include "player.h"
 
 static void	update(t_game *game)
 {
+	if (game->player_state.move_dir)
+		player_move(game, game->player_state.move_dir);
 	raycast(game);
 	if (CEIL_BONUS)
 		draw_view_bonus(game, game->data);
