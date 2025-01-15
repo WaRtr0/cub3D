@@ -50,7 +50,7 @@ SRC_FILE = main.c\
 		   utils/int_to_pixel.c utils/pixel_create.c utils/pixel_to_int.c utils/prerr.c utils/math_utils_bonus.c utils/vector2.c\
 		   raycast/ray.c raycast/ray_wall_hit.c raycast/ray_check_side.c  raycast/ray_animation.c\
 		   view/view_create.c view/view_create_bonus.c view/view_init_bonus.c\
-		   map/map_init.c map/map_draw_init.c\
+		   map/map_init.c map/map_draw_init.c map/map_init_pos.c\
 		   hook/hook_display_mouse_move.c hook/hook_no_display_mouse_move.c hook/hook_release.c hook/hook_press.c\
 		   player/player_move.c player/door_manager.c\
 		   parsing/parsing.c parsing/parsing_map.c parsing/parsing_checks.c parsing/parsing_checks_utils.c parsing/set_textures.c parsing/convert_parsing.c parsing/parsing_header.c parsing/parsing_header_text_pix.c parsing/parsing_map_utils.c\
