@@ -17,6 +17,7 @@
 
 # define RAYSTEP 4
 
+# define DEPTH_COLOR 1
 
 // resolution size
 // QQVGA 160 x 120
@@ -35,9 +36,25 @@
 # define NO_DISPLAY_MOUSE 1
 # define AUTO_CENTER_MOUSE 1
 
-# define OUTPUT_HEIGHT 2160
-# define OUTPUT_WIDTH 3840
-# define RATIO 2
+# ifndef OUTPUT_HEIGHT
+#  define OUTPUT_HEIGHT 1440
+# endif
+
+# ifndef OUTPUT_WIDTH
+#  define OUTPUT_WIDTH 1440
+# endif
+
+# ifndef RATIO
+#  define RATIO 3
+# endif
+
+# if OUTPUT_HEIGHT % RATIO != 0
+# error "OUTPUT_HEIGHT must be a multiple of RATIO"
+# endif
+
+# if OUTPUT_WIDTH % RATIO != 0
+# error "OUTPUT_WIDTH must be a multiple of RATIO"
+# endif
 
 
 # define CEIL_BONUS 1
@@ -121,7 +138,11 @@
 # define DEBUG 0
 # define MAX_FRAME 1800
 
-#define CEILING_TEXTURE 70
-
+# define CEILING_TEXTURE 70
+# define FLOOR_TEXTURE 71
+// # define CEIL "./assets/textures/ceiling.xpm"
+# define CEIL "./assets/doom/ceil.xpm"
+// # define FLOOR "./assets/textures/ceiling.xpm"
+# define FLOOR "./assets/doom/floor.xpm"
 
 #endif

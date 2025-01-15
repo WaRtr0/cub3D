@@ -23,7 +23,10 @@ static inline void	texture_pixel_vertical(t_view *view)
 	t_layer	*xpm;
 
 	floor_v = &view->floor;
-	xpm = layer_stack_get(view->textures, CEILING_TEXTURE);
+	if (view->p < 0)
+		xpm = layer_stack_get(view->textures, CEILING_TEXTURE);
+	else
+		xpm = layer_stack_get(view->textures, FLOOR_TEXTURE);
 	pixel = layer_get_pixel(xpm, ((int)((WALL_HEIGHT
 						* floor_v->floor_x + floor_v->pos_x) * floor_v->width)
 				% floor_v->width) / (double)floor_v->width * xpm->width,

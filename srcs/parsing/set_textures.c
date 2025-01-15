@@ -47,8 +47,12 @@ int	set_textures(t_game *game)
 	if (!door_textures(game))
 		return (0);
 	layer_add_texture(game->mlx, game->textures,
-		"./assets/textures/ceiling.xpm", CEILING_TEXTURE);
+		CEIL, CEILING_TEXTURE);
 	if (!layer_stack_get(game->textures, CEILING_TEXTURE))
+		return (0);
+	layer_add_texture(game->mlx, game->textures,
+		FLOOR, FLOOR_TEXTURE);
+	if (!layer_stack_get(game->textures, FLOOR_TEXTURE))
 		return (0);
 	return (1);
 }
