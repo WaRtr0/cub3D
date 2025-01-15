@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   convert_parsing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gladius <gladius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 19:15:20 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/13 19:15:55 by garivo           ###   ########.fr       */
+/*   Updated: 2025/01/15 15:23:58 by gladius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-static t_map_tile	*convert_map(t_map_tile *tiles, t_parsing *map, size_t i, size_t offset)
+static t_map_tile	*convert_map(t_map_tile *tiles, t_parsing *map,
+	size_t i, size_t offset)
 {
 	while (i + offset < (unsigned int)(map->height * (map->width + 1)))
 	{
