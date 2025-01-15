@@ -37,7 +37,7 @@ void	hook_press(int keycode, t_game *game)
 	if (keycode == KEY_S)
 		game->player_state.move_dir = -1;
 	if (keycode == KEY_SPACE)
-		open_door(game, 1);
+		interact_door(game, 1);
 	if (keycode == KEY_SHIFT)
 		game->player_state.running = 1;
 	if (keycode == KEY_ESC)

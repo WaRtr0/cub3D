@@ -19,9 +19,11 @@ typedef enum e_dir
 typedef enum e_map_tile
 {
 	E = 0, // empty
-	P = 1, // player
-	W = 2, // wall
-	D = 3 // door
+	H = 1, // hidden door
+	P = 2, // player
+	W = 3, // wall
+	D = 4, // door
+	C = 5 // closing door
 }	t_map_tile;
 
 typedef struct s_vector2
@@ -134,6 +136,7 @@ typedef struct s_door
 {
 	int			pos;
 	long long	timestamp;
+	int			start;
 }				t_door;
 
 typedef struct s_game_data

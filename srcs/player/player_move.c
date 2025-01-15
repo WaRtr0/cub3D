@@ -48,7 +48,7 @@ void	check_new(t_game *game, int check_tile, double new_x, double new_y)
 			| (check_y >= 0) | (check_y < map->height))
 		{
 			check_tile = map->tiles[(int)check_y * map->width + (int)check_x];
-			if (check_tile != W && check_tile != D)
+			if (check_tile != W && check_tile != D && check_tile != C)
 				move_along(game, i, new_x, new_y);
 		}
 		i++;
@@ -67,7 +67,7 @@ void	player_move(t_game *game, int dir)
 	new_y = game->data->player.y + (sin((game->data->yaw) * M_RAD)
 			* (STEP + game->player_state.running * STEP) * dir) + 0.5;
 	check_tile = map->tiles[(int)new_y * map->width + (int)new_x];
-	if (check_tile == W || check_tile == D)
+	if (check_tile == W || check_tile == D || check_tile == C)
 		return ;
 	check_new(game, check_tile, new_x, new_y);
 	center_offset_player_on_map(game);

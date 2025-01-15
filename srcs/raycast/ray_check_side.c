@@ -72,7 +72,7 @@ void	check_side(t_raycast_init *raycast,
 	else
 		ray_side_one(raycast, ray, i);
 	if (map->tiles[(int)raycast->map_check.y
-			* map->width + (int)raycast->map_check.x] == D)
+			* map->width + (int)raycast->map_check.x] >= D)
 		ray[i].face = D_FACE
 			+ animate(game, (int)raycast->map_check.y
 				* map->width + (int)raycast->map_check.x, 1);
