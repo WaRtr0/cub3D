@@ -46,6 +46,13 @@ static int	check_hitbox_door(t_game *game, int pos, double new_x, double new_y)
 	return (hold_wall(-1));
 }
 
+int	check_player(int pos, int i)
+{
+	if (i == 1)
+		return (-1);
+	return (pos);
+}
+
 int	ray_door(t_game *game, int dir, int i)
 {
 	int			pos;
@@ -62,12 +69,12 @@ int	ray_door(t_game *game, int dir, int i)
 				* DOOR_STEP * i * dir) + 0.5;
 		pos = (int)new_y * map->width + (int)new_x;
 		if (map->tiles[pos] == D || map->tiles[pos] == H)
-			return (pos);
+			return (check_player(pos, i));
 		pos = check_hitbox_door(game, 0, new_x, new_y);
 		if (pos != -1)
 		{
 			if (map->tiles[pos] == D || map->tiles[pos] == H)
-				return (pos);
+				return (check_player(pos, i));
 			break ;
 		}
 	}
