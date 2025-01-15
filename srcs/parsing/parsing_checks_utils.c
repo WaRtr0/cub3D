@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_checks_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gladius <gladius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 19:56:07 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/13 19:56:14 by garivo           ###   ########.fr       */
+/*   Updated: 2025/01/15 15:24:59 by gladius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	check_extension(const char *path , const char *ext)
+int	check_extension(const char *path, const char *ext)
 {
 	size_t	len;
 	size_t	ext_len;

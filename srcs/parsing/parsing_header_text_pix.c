@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_header_textures.c                          :+:      :+:    :+:   */
+/*   parsing_header_text_pix.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gladius <gladius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 19:22:09 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/13 19:35:39 by garivo           ###   ########.fr       */
+/*   Updated: 2025/01/15 15:23:19 by gladius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	extract_pixel(char *line, t_pixel *pixel)
 	if (*line != '\0')
 		return (prerr("Error\nInvalid character after RGB declaration\n"), 0);
 	pixel->a = 255;
-	if ( pixel->r > 255 || pixel->g > 255
+	if (pixel->r > 255 || pixel->g > 255
 		|| pixel->b > 255)
 		return (prerr("Error\nRGB values must be between 0 and 255\n"), 0);
 	return (1);

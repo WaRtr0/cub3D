@@ -6,13 +6,14 @@
 /*   By: mmorot <mmorot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 19:15:20 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/15 15:23:16 by mmorot           ###   ########.fr       */
+/*   Updated: 2025/01/15 16:13:53 by mmorot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-static t_map_tile	*convert_map(t_map_tile *tiles, t_parsing *map, size_t i, size_t offset)
+static t_map_tile	*convert_map(t_map_tile *tiles, t_parsing *map,
+	size_t i, size_t offset)
 {
 	while (i + offset < (unsigned int)(map->height * (map->width + 1)))
 	{

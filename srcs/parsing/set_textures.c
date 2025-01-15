@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   set_textures.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gladius <gladius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:03:06 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/14 16:01:46 by garivo           ###   ########.fr       */
+/*   Updated: 2025/01/15 15:23:32 by gladius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
 
 static int	door_textures(t_game *game)
 {
