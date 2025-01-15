@@ -25,6 +25,5 @@ int	game_init(t_game *g)
 		game_handle_mouse_move, g);
 	mlx_hook(g->win, ON_MOUSE_DOWN, MASK_BUTTON_PRESS,
 		game_handle_mouse_press, g);
-	g->last_frame = game_get_time();
 	return (1);
 }

@@ -42,7 +42,7 @@ SRC_DIR = srcs
 BUILD_DIR = .obj
 
 SRC_FILE = main.c\
-           game/game_new.c game/game_init.c game/game_run.c game/game_destroy.c game/game_time.c game/game_handle.c  game/game_set.c\
+           game/game_new.c game/game_init.c game/game_run.c game/game_destroy.c game/game_handle.c  game/game_set.c\
 		   layer/layer_clear.c layer/layer_create.c layer/layer_destroy.c layer/layer_dupe.c layer/layer_fill.c layer/layer_get_offset.c layer/layer_get_pixel.c layer/layer_set_offset.c layer/layer_set_pixel.c layer/layer_rotate.c layer/layer_volatile.c layer/layer_split_fill.c layer/layer_add_texture.c\
 		   layer/stack/layer_stack_add.c layer/stack/layer_stack_create.c layer/stack/layer_stack_destroy.c layer/stack/layer_stack_get.c layer/stack/layer_stack_render.c\
 		   layer/group/layer_group_create.c layer/group/layer_group_destroy.c layer/group/layer_group_add.c layer/group/layer_group_get.c layer/group/layer_group_render.c layer/group/layer_group_get_depth.c\

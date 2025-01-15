@@ -21,7 +21,7 @@ t_game	*game_new(int width, int height, char *title)
 	game->width = width;
 	game->height = height;
 	game->title = title;
-	game->scale_3d = (((WIDTH >> 1) / tan(
+	game->scale_3d = ((((OUTPUT_WIDTH / RATIO) >> 1) / tan(
 					(FOV >> 1) * M_PI / 180)) * WALL_HEIGHT);
 	if (game_init(game) == 0)
 	{

@@ -22,7 +22,10 @@
 typedef struct s_floor
 {
 	t_layer			*texture;
+	unsigned int	height;
 	unsigned int	width;
+	unsigned int	width_tex;
+	double			wall_prop;
 	double			player_x;
 	double			player_y;
 	double			dir_x;
@@ -50,6 +53,8 @@ typedef struct s_view
 	t_layer_stack	*textures;
 	int				scale_3d;
 	double			center;
+	unsigned int	width;
+	unsigned int	height;
 	unsigned int	x;
 	unsigned int	y;
 	int				p;

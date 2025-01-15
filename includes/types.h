@@ -142,7 +142,7 @@ typedef struct s_game_data
 	t_vector2	player;
 	double		yaw;
 	double		pitch;
-	t_ray		ray[WIDTH];
+	t_ray		ray[(OUTPUT_WIDTH / RATIO)];
 	bool		is_warping;
 	int			fov;
 	int			width;

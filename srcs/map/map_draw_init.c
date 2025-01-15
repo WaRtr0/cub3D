@@ -4,7 +4,7 @@
 
 static void	draw_all_circle(t_layer *circle_map, t_layer *map_mask)
 {
-	const unsigned int	half_map = MAP_SIZE >> 1;
+	const unsigned int	half_map = ((250 * MAP_SIZE_RATIO) / RATIO) >> 1;
 
 	draw_circle_fill(map_mask, (t_vector2){half_map, half_map},
 		half_map, pixel_create(0, 0, 0, 255));
@@ -40,12 +40,22 @@ static t_layer	*add_player(t_game *game)
 	draw_circle_fill(player, (t_vector2){SCALE_2D * HIT_BOX,
 		SCALE_2D * HIT_BOX}, SCALE_2D * HIT_BOX,
 		pixel_create(255, 0, 0, 255));
-	if (WIDTH < 550 || HEIGHT < 550)
+	if ((OUTPUT_WIDTH / RATIO) < 550 || (OUTPUT_HEIGHT / RATIO) < 550)
 	{
 		player->visible = false;
 		rotate->visible = false;
 	}
 	return (cursor);
+}
+
+static void	check(t_layer *circle_map, t_layer *map_mask)
+{
+	if ((OUTPUT_WIDTH / RATIO) < MIN_WIDTH
+		|| (OUTPUT_HEIGHT / RATIO) < MIN_WIDTH)
+	{
+		circle_map->visible = false;
+		map_mask->visible = false;
+	}
 }
 
 void	map_draw_init(t_game *game, t_layer *group, t_map *map_struct)
@@ -57,9 +67,11 @@ void	map_draw_init(t_game *game, t_layer *group, t_map *map_struct)
 
 	raycast_debug = layer_create(game->mlx,
 			map_struct->width * SCALE_2D, map_struct->height * SCALE_2D, 5);
-	map_mask = layer_create(game->mlx, MAP_SIZE, MAP_SIZE, 1);
+	map_mask = layer_create(game->mlx, ((250 * MAP_SIZE_RATIO) / RATIO),
+			((250 * MAP_SIZE_RATIO) / RATIO), 1);
 	map_mask->mask = true;
-	circle_map = layer_create(game->mlx, MAP_SIZE, MAP_SIZE, 3);
+	circle_map = layer_create(game->mlx, ((250 * MAP_SIZE_RATIO) / RATIO),
+			((250 * MAP_SIZE_RATIO) / RATIO), 3);
 	layer_group_add(group, circle_map);
 	layer_group_add(group, map_mask);
 	layer_group_add(group, raycast_debug);
@@ -69,9 +81,5 @@ void	map_draw_init(t_game *game, t_layer *group, t_map *map_struct)
 		(map_mask->width / 2) - SCALE_2D * HIT_BOX + MAP_OFFSET,
 		(map_mask->width / 2) - SCALE_2D * HIT_BOX + MAP_OFFSET
 		);
-	if (WIDTH < MIN_WIDTH || HEIGHT < MIN_WIDTH)
-	{
-		circle_map->visible = false;
-		map_mask->visible = false;
-	}
+	check(circle_map, map_mask);
 }

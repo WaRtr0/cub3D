@@ -26,11 +26,13 @@ static void	update(t_game *game)
 
 static void	init_layer(t_game *game)
 {
-	t_layer	*group;
-	t_layer	*wall;
+	t_layer				*group;
+	t_layer				*wall;
+	const unsigned int	height = (OUTPUT_HEIGHT / RATIO);
+	const unsigned int	width = (OUTPUT_WIDTH / RATIO);
 
 	group = layer_stack_get(game->layers, 1);
-	wall = layer_create(game->mlx, WIDTH, HEIGHT, 2);
+	wall = layer_create(game->mlx, width, height, 2);
 	layer_group_add(group, wall);
 	layer_volatile_on(wall);
 }

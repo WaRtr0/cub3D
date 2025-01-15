@@ -18,17 +18,19 @@ static inline void	texture_pixel_horizontal(t_view *view)
 
 static inline void	view_init(t_game *game, t_game_data *raycast, t_view *view)
 {
-	t_layer	*group;
-	t_layer	*background;
+	t_layer						*group;
+	t_layer						*background;
+	static const unsigned int	height = (OUTPUT_HEIGHT / RATIO);
+	static const unsigned int	split = (-(height / 2));
 
 	group = layer_stack_get(game->layers, 1);
 	background = layer_group_get(group, 1);
-	layer_set_offset(background, 0, SPLIT_HEIGHT
-		+ raycast->pitch * HEIGHT_PERC);
+	layer_set_offset(background, 0, split
+		+ raycast->pitch * (height / 100));
 	view->render = layer_group_get(group, 2);
 	view->ray = raycast->ray;
 	view->scale_3d = game->scale_3d;
-	raycast->center = ((HEIGHT >> 1) + (raycast->pitch * HEIGHT_PERC));
+	raycast->center = ((height >> 1) + (raycast->pitch * (height / 100)));
 	view->center = raycast->center;
 	view->x = 0;
 	view->y = 0;
@@ -37,14 +39,16 @@ static inline void	view_init(t_game *game, t_game_data *raycast, t_view *view)
 
 int	draw_view(t_game *game, t_game_data *raycast)
 {
-	t_view	view;
+	t_view						view;
+	static const unsigned int	height = (OUTPUT_HEIGHT / RATIO);
+	static const unsigned int	width = (OUTPUT_WIDTH / RATIO);
 
 	view_init(game, raycast, &view);
-	while (view.y < HEIGHT)
+	while (view.y < height)
 	{
 		view.p = view.y - raycast->center;
 		view.x = 0;
-		while (view.x < WIDTH)
+		while (view.x < width)
 		{
 			view.perceived_height = view.scale_3d
 				/ view.ray[view.x].distance / 2;

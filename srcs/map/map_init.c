@@ -54,7 +54,8 @@ void	map_init(t_map *map_struct, t_game *game)
 	t_layer			*group;
 	t_layer			*map;
 
-	group = layer_group_create(MAP_SIZE, MAP_SIZE, 2);
+	group = layer_group_create(((250 * MAP_SIZE_RATIO) / RATIO),
+			((250 * MAP_SIZE_RATIO) / RATIO), 2);
 	layer_stack_add(game->layers, group);
 	map = layer_create(game->mlx, map_struct->width * SCALE_2D,
 			map_struct->height * SCALE_2D, 0);
@@ -65,6 +66,7 @@ void	map_init(t_map *map_struct, t_game *game)
 	build_map(map_struct, game, map);
 	center_offset_player_on_map(game);
 	layer_volatile_on(map);
-	if (WIDTH < MIN_WIDTH || HEIGHT < MIN_WIDTH)
+	if ((OUTPUT_WIDTH / RATIO) < MIN_WIDTH
+		|| (OUTPUT_HEIGHT / RATIO) < MIN_WIDTH)
 		map->visible = false;
 }

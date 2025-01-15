@@ -52,14 +52,15 @@ static inline t_ray_const	ray_const(t_game_data *raycast)
 	static t_ray_const	cached_ray_const;
 	static unsigned int	i = 0;
 	t_ray				*ray;
+	static unsigned int	width = (OUTPUT_WIDTH / RATIO);
 
 	if (!i)
 	{
-		cached_ray_const.screen_half = (double)WIDTH / 2.0;
+		cached_ray_const.screen_half = (double)width / 2.0;
 		cached_ray_const.factor = tan(((double)FOV / 2.0)
 				* M_RAD) / cached_ray_const.screen_half ;
 		ray = raycast->ray;
-		while (i < WIDTH)
+		while (i < width)
 		{
 			ray[i].offset_angle_rad = atan(
 					(i - cached_ray_const.screen_half)
@@ -75,6 +76,7 @@ void	raycast(t_game *game)
 	t_map					*map;
 	static t_raycast_init	raycast_init;
 	unsigned int			i;
+	static unsigned int		width = (OUTPUT_WIDTH / RATIO);
 
 	map = game->data->map;
 	raycast_init.ray = ((t_game_data *)game->data)->ray;
@@ -84,7 +86,7 @@ void	raycast(t_game *game)
 	raycast_init.yaw_rad = (double)game->data->yaw
 		* M_RAD;
 	i = 0;
-	while (i < WIDTH)
+	while (i < width)
 	{
 		raycast_init.angle_rad = raycast_init.yaw_rad
 			+ raycast_init.ray[i].offset_angle_rad;
@@ -94,12 +96,3 @@ void	raycast(t_game *game)
 		i++;
 	}
 }
-
-// void draw_ray(t_vector2 start, t_vector2 map_check, t_vector2 step, int side)
-// {
-// 	t_vector2 end = {
-// 		(map_check.x + (side == 0 ? (step.x < 0 ? 1 : 0) : wall_x)) * SCALE_2D,
-// 		(map_check.y + (side == 1 ? (step.y < 0 ? 1 : 0) : wall_x)) * SCALE_2D
-// 	};
-// 	draw_line(map_layer, start, end, pixel_create(255, 0, 0, 255));
-// }

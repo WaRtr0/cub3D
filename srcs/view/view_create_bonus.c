@@ -28,11 +28,12 @@ static inline void	texture_pixel_vertical(t_view *view)
 	else
 		xpm = layer_stack_get(view->textures, FLOOR_TEXTURE);
 	pixel = layer_get_pixel(xpm, ((int)((WALL_HEIGHT
-						* floor_v->floor_x + floor_v->pos_x) * floor_v->width)
-				% floor_v->width) / (double)floor_v->width * xpm->width,
+						* floor_v->floor_x + floor_v->pos_x)
+					* floor_v->width_tex)
+				% floor_v->width_tex) / (double)floor_v->width_tex * xpm->width,
 			((int)((WALL_HEIGHT * floor_v->floor_y + floor_v->pos_y)
-					* floor_v->width) % floor_v->width)
-			/ (double)floor_v->width * xpm->height);
+					* floor_v->width_tex) % floor_v->width_tex)
+			/ (double)floor_v->width_tex * xpm->height);
 	pixel.a = 255;
 	if ((pixel.r | pixel.g | pixel.b) == 0)
 		pixel.a = 0;
@@ -59,12 +60,12 @@ int	draw_view_bonus(t_game *game, t_game_data *raycast)
 	t_view	view;
 
 	view_init_bonus(game, raycast, &view);
-	while (view.y < HEIGHT)
+	while (view.y < view.height)
 	{
 		view.p = view.y - raycast->center;
 		view_init_floor_y(&view);
 		view.x = 0;
-		while (view.x < WIDTH)
+		while (view.x < view.width)
 		{
 			view.perceived_height = view.scale_3d
 				/ view.ray[view.x].distance / 2;

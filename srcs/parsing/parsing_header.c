@@ -14,13 +14,15 @@
 
 void	set_background(t_game *game, t_parsing map)
 {
-	t_layer	*background_split;
-	t_layer	*group;
+	t_layer				*background_split;
+	t_layer				*group;
+	const unsigned int	height = (OUTPUT_HEIGHT / RATIO);
+	const unsigned int	width = (OUTPUT_WIDTH / RATIO);
 
-	background_split = layer_create(game->mlx, WIDTH, HEIGHT * 2, 1);
+	background_split = layer_create(game->mlx, width, height * 2, 1);
 	layer_split_fill(background_split, map.ceiling, map.floor);
-	layer_set_offset(background_split, 0, SPLIT_HEIGHT);
-	group = layer_group_create(WIDTH, HEIGHT, 1);
+	layer_set_offset(background_split, 0, (-(height / 2)));
+	group = layer_group_create(width, height, 1);
 	layer_group_add(group, background_split);
 	layer_stack_add(game->layers, group);
 }

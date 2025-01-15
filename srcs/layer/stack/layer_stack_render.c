@@ -48,24 +48,24 @@ static void	fill_square(unsigned int *data, unsigned int src_value,
 
 static void	ratio_transform(unsigned int *data)
 {
-	int				x;
-	int				y;
-	t_dvector2		pre_y;
-	unsigned int	src_value;
+	t_dvector2					pos;
+	t_dvector2					pre_y;
+	unsigned int				src_value;
+	static const unsigned int	width = OUTPUT_WIDTH / RATIO;
 
-	y = HEIGHT;
-	while (y >= 0)
+	pos.y = (OUTPUT_HEIGHT / RATIO);
+	while (pos.y >= 0)
 	{
-		x = WIDTH;
-		pre_y.y = y * RATIO;
-		pre_y.x = y * OUTPUT_WIDTH;
-		while (x >= 0)
+		pos.x = width;
+		pre_y.y = pos.y * RATIO;
+		pre_y.x = pos.y * OUTPUT_WIDTH;
+		while (pos.x >= 0)
 		{
-			src_value = data[pre_y.x + x];
-			fill_square(data, src_value, x * RATIO, pre_y.y);
-			x--;
+			src_value = data[pre_y.x + pos.x];
+			fill_square(data, src_value, pos.x * RATIO, pre_y.y);
+			pos.x--;
 		}
-		y--;
+		pos.y--;
 	}
 }
 

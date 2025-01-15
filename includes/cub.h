@@ -2,22 +2,10 @@
 #ifndef CUB_H
 # define CUB_H
 
-
-// Raycasting
-
 # define GAME_NAME "My Game !"
 # ifndef FOV
-# define FOV 60
+#  define FOV 60
 # endif
-# define RAYMODE 0
-// 0 = Raycast
-// 1 = Raycast by step
-// 2 = Raycast by Dichotomy
-// 10 = Raymarching
-
-# define RAYSTEP 4
-
-# define DEPTH_COLOR 1
 
 // resolution size
 // QQVGA 160 x 120
@@ -45,45 +33,22 @@
 # endif
 
 # ifndef RATIO
-#  define RATIO 3
+#  define RATIO 2
 # endif
 
 # if OUTPUT_HEIGHT % RATIO != 0
-# error "OUTPUT_HEIGHT must be a multiple of RATIO"
+#  error "OUTPUT_HEIGHT must be a multiple of RATIO"
 # endif
 
 # if OUTPUT_WIDTH % RATIO != 0
-# error "OUTPUT_WIDTH must be a multiple of RATIO"
+#  error "OUTPUT_WIDTH must be a multiple of RATIO"
 # endif
 
 
 # define CEIL_BONUS 1
 
 // Window
-# ifndef HEIGHT
-#  define HEIGHT (OUTPUT_HEIGHT / RATIO)
-# endif
 
-# ifndef WIDTH
-#  define WIDTH (OUTPUT_WIDTH / RATIO)
-# endif
-
-# if HEIGHT < 64
-#  define HEIGHT 64
-# endif
-
-# if HEIGHT > 2160
-#  define HEIGHT 2160
-# endif
-
-
-# if WIDTH < 64
-#  define WIDTH 64
-# endif
-
-# if WIDTH > 3840
-#  define WIDTH 3840
-# endif
 
 # if FOV > 120
 #  define FOV 120
@@ -97,9 +62,9 @@
 # define MAP_OFFSET 25
 # define MIN_WIDTH 550
 
-# define SPLIT_HEIGHT (-(HEIGHT / 2))
 
-# define HEIGHT_PERC ( HEIGHT / 100)
+
+
 // Math
 # define M_PI 3.14159265358979323846
 # define M_RAD 0.017453292519943295
@@ -111,7 +76,7 @@
 # define SPEED 0.1
 
 # define WALL_HEIGHT 1.0
-# define WALL_PROP ( (HEIGHT * 1.0) / (WIDTH * 1.0) + STEP)
+
 # define HIT_BOX 0.25
 # define DOOR_HIT_BOX 0.05
 // # define SPEED 1
@@ -127,7 +92,7 @@
 // Map
 
 # define MAP_SIZE_RATIO 1
-# define MAP_SIZE ((250 * MAP_SIZE_RATIO) / RATIO)
+
 
 // Mouse
 # define YAW_MAX 360
