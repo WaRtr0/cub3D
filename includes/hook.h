@@ -1,6 +1,8 @@
 #ifndef HOOK_H
 # define HOOK_H
 
+# include "types.h"
+
 # define KEY_A 97
 # define KEY_B 98
 # define KEY_C 99
@@ -199,7 +201,6 @@ typedef enum e_keyhook_mask
 	MASK_OWNER_GRAB_BUTTON = 1L<<24
 }	t_keyhook_mask;
 
-# include "types.h"
 typedef struct s_triangle_points
 {
 	t_dvector2	center;

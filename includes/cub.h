@@ -1,10 +1,19 @@
-
 #ifndef CUB_H
 # define CUB_H
 
-# define GAME_NAME "My Game !"
+# define GAME_NAME "My Cub3D !"
 # ifndef FOV
 #  define FOV 60
+# endif
+
+# if FOV > 120
+#  undef FOV
+#  define FOV 120
+# endif
+
+# if FOV < 30
+#  undef FOV
+#  define FOV 30
 # endif
 
 // resolution size
@@ -25,11 +34,11 @@
 # define AUTO_CENTER_MOUSE 1
 
 # ifndef OUTPUT_HEIGHT
-#  define OUTPUT_HEIGHT 1440
+#  define OUTPUT_HEIGHT 1080
 # endif
 
 # ifndef OUTPUT_WIDTH
-#  define OUTPUT_WIDTH 1440
+#  define OUTPUT_WIDTH 1920
 # endif
 
 # ifndef RATIO
@@ -44,55 +53,30 @@
 #  error "OUTPUT_WIDTH must be a multiple of RATIO"
 # endif
 
-
 # define CEIL_BONUS 1
-
-// Window
-
-
-# if FOV > 120
-#  define FOV 120
-# endif
-
-# if FOV < 30
-#  define FOV 30
-# endif
 
 // map
 # define MAP_OFFSET 25
 # define MIN_WIDTH 550
-
-
-
+# define MAP_SIZE_RATIO 1
 
 // Math
 # define M_PI 3.14159265358979323846
 # define M_RAD 0.017453292519943295
 
-// 0.017453292519943295
-// # define M_PI 3.14
-
-# define STEP 0.1
-# define SPEED 0.1
+# define STEP 0.1 //speed
 
 # define WALL_HEIGHT 1.0
 
 # define HIT_BOX 0.25
 # define DOOR_HIT_BOX 0.05
-// # define SPEED 1
-// # define STEP 0.03
 # define DOOR_STEP 0.05
 
-# define ENABLE_TRANSPARENCY 1
+# define ENABLE_TRANSPARENCY 0
 
 // Scale
 # define SCALE_2D (32 / RATIO)
 // # define SCALE_3D (((WIDTH / 2) / tan((FOV / 2) * M_PI / 180)) * WALL_HEIGHT)
-
-// Map
-
-# define MAP_SIZE_RATIO 1
-
 
 // Mouse
 # define YAW_MAX 360

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmorot <mmorot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:08:15 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/13 19:56:57 by garivo           ###   ########.fr       */
+/*   Updated: 2025/01/15 14:57:52 by mmorot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,8 @@ int		extract_pixel(char *line, t_pixel *pixel);
 char	*skip_sp(char *line);
 char	*skip_digits(char *line);
 size_t	get_max_line(char **lines);
-int		check_extension(const char *path , const char *ext);
+int		check_extension(const char *path, const char *ext);
 int		get_dir(char c);
 int		check_dir(t_parsing *map, char *cmap, size_t i, size_t j);
-
 
 #endif

@@ -1,7 +1,6 @@
 #ifndef DRAW_H
 # define DRAW_H
 
-# include "font.h"
 # include "types.h"
 
 typedef struct s_draw_triangle_fill
@@ -15,7 +14,6 @@ typedef struct s_draw_triangle_fill
 	float		area3;
 }				t_draw_triangle_fill;
 
-
 typedef struct s_triangle_vector
 {
 	t_vector2	a;
@@ -28,7 +26,8 @@ typedef struct s_mlx_data
 	int			bpp;
 	int			line_len;
 	int			endian;
-}		t_mlx_data;		
+}		t_mlx_data;
+
 typedef struct s_texture_info
 {
 	int				start_x;
@@ -44,8 +43,6 @@ typedef struct s_texture_info
 	int				src_offset;
 }				t_texture_info;
 
-
-
 void			draw_line(t_layer *layer, t_vector2 start, t_vector2 end,
 					t_pixel color);
 
@@ -54,8 +51,8 @@ void			draw_circle(t_layer *layer, t_vector2 center, int radius,
 void			draw_circle_fill(t_layer *layer, t_vector2 center, int radius,
 					t_pixel color);
 
-void			draw_text(t_layer *layer, t_vector2 position, t_font *font,
-					const char *text);
+// void			draw_text(t_layer *layer, t_vector2 position, t_font *font,
+// 					const char *text);
 
 void			draw_rect_fill(t_layer *layer, t_vector2 start, t_vector2 end,
 					t_pixel color);

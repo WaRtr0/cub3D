@@ -66,6 +66,7 @@ void	map_init(t_map *map_struct, t_game *game)
 	build_map(map_struct, game, map);
 	center_offset_player_on_map(game);
 	layer_volatile_on(map);
+	yaw_init(game);
 	if ((OUTPUT_WIDTH / RATIO) < MIN_WIDTH
 		|| (OUTPUT_HEIGHT / RATIO) < MIN_WIDTH)
 		map->visible = false;

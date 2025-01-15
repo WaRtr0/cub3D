@@ -5,7 +5,6 @@
 # include <../minilibx-linux/mlx.h>
 # include <stdlib.h>
 
-
 typedef struct s_layer_group
 {
 	unsigned int	start_x;
@@ -46,7 +45,6 @@ void			layer_split_fill(t_layer *layer, t_pixel color1,
 t_layer			*layer_add_texture(void *mlx, t_layer_stack *stack, char *path,
 					int z_index);
 
-
 // group layer
 
 t_layer			*layer_group_create(int width, int height, int z_index);
@@ -79,7 +77,5 @@ void			layer_stack_render(t_layer_stack *stack, void *mlx, void *win);
 t_pixel			pixel_create(int r, int g, int b, int a);
 unsigned int	pixel_to_int(t_pixel pixel);
 t_pixel			int_to_pixel(unsigned int color);
-
-
 
 #endif
