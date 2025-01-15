@@ -1,12 +1,8 @@
-
 #ifndef RAYCAST_H
 # define RAYCAST_H
 
-
 // # include "game.h"
 # include "types.h"
-
-
 
 typedef struct s_ray_const
 {
@@ -34,7 +30,6 @@ typedef struct s_raycast_init
 	t_vector2	side_dist;
 	t_vector2	delta_dist;
 }				t_raycast_init;
-
 
 void	raycast(t_game *game);
 int		animate(t_game *game, int pos, int get);

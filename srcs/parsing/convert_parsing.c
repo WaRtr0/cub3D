@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_parsing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gladius <gladius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmorot <mmorot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 19:15:20 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/15 15:23:58 by gladius          ###   ########.fr       */
+/*   Updated: 2025/01/15 16:13:53 by mmorot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int	convert_parsing(t_game *game, t_parsing *map)
 		return (0);
 	game->data->player.x = map->player_x;
 	game->data->player.y = map->player_y;
-	game->data->yaw = map->player_dir * 90;
+	game->data->yaw = map->player_dir * 90. - 90.;
+	printf("player x: %f\n", game->data->player.x);
 	game->data->map->tiles = NULL;
 	game->data->map->height = map->height;
 	game->data->map->width = map->width;

@@ -18,7 +18,6 @@
 // int		create_view(t_game *game);
 // t_view	get_view(t_game *game, t_raycast raycasts);
 
-
 typedef struct s_floor
 {
 	t_layer			*texture;
@@ -44,7 +43,6 @@ typedef struct s_floor
 	double			pos_y;
 }	t_floor;
 
-
 typedef struct s_view
 {
 	t_layer			*render;
@@ -61,7 +59,6 @@ typedef struct s_view
 	int				perceived_height;
 	t_floor			floor;
 }	t_view;
-
 
 // delta_x = 2 * planeX * posZ_div_WIDTH;
 // delta_y = 2 * planeY * posZ_div_WIDTH;
