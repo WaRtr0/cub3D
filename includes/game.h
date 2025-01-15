@@ -1,4 +1,3 @@
-
 #ifndef GAME_H
 # define GAME_H
 
@@ -25,13 +24,13 @@ int		game_handle_keypress(int keycode, t_game *game);
 int		game_handle_close(t_game *game);
 int		game_handle_mouse_move(int x, int y, t_game *game);
 int		game_handle_mouse_press(int button, int x, int y, t_game *game);
-int     game_handle_krelease(int keycode, t_game *game);
+int		game_handle_krelease(int keycode, t_game *game);
 void	game_set_hook_press(t_game *game, void (*hook)(int, t_game *));
 void	game_set_hook_release(t_game *game, void (*hook)(int, t_game *));
-void    game_set_hook_mouse_move(t_game *game, void (*hook)(int, int, t_game *));
-void    game_set_hook_mouse_press(t_game *game, void (*hook)(int, int, t_game *));
-
-// void
+void	game_set_hook_mouse_move(t_game *game,
+			void (*hook)(int, int, t_game *));
+void	game_set_hook_mouse_press(t_game *game,
+			void (*hook)(int, int, t_game *));
 
 // Utility functions
 double	game_get_time(void);

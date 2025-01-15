@@ -111,7 +111,6 @@ typedef struct s_layer
 	t_pixel					clear_color;
 }	t_layer;
 
-
 // typedef struct s_render_data
 // {
 //     unsigned int    *output;
