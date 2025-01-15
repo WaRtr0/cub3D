@@ -25,27 +25,44 @@ static void	set_zero(t_layer *output)
 	}
 }
 
+static void	fill_square(unsigned int *data, unsigned int src_value,
+			unsigned int pos_x, unsigned int pos_y)
+{
+	int				dx;
+	int				dy;
+	unsigned int	dest;
+
+	dy = 0;
+	while (dy < RATIO)
+	{
+		dx = 0;
+		while (dx < RATIO)
+		{
+			dest = (pos_y + dy) * OUTPUT_WIDTH + pos_x + dx;
+			data[dest] = src_value;
+			dx++;
+		}
+		dy++;
+	}
+}
+
 static void	ratio_transform(unsigned int *data)
 {
-	int	x;
-	int	y;
-	unsigned int	dest_x;
-	unsigned int	dest_y;
-	unsigned int	src_y;
+	int				x;
+	int				y;
+	t_dvector2		pre_y;
+	unsigned int	src_value;
 
 	y = HEIGHT;
 	while (y >= 0)
 	{
 		x = WIDTH;
-		src_y = y * OUTPUT_WIDTH;
-		dest_y = y << 1;
+		pre_y.y = y * RATIO;
+		pre_y.x = y * OUTPUT_WIDTH;
 		while (x >= 0)
 		{
-			dest_x = x << 1;
-			data[dest_y * OUTPUT_WIDTH + dest_x] = data[src_y + x];
-			data[dest_y * OUTPUT_WIDTH + dest_x + 1] = data[src_y + x];
-			data[(dest_y + 1) * OUTPUT_WIDTH + dest_x] = data[src_y + x];
-			data[(dest_y + 1) * OUTPUT_WIDTH + dest_x + 1] = data[src_y + x];
+			src_value = data[pre_y.x + x];
+			fill_square(data, src_value, x * RATIO, pre_y.y);
 			x--;
 		}
 		y--;
