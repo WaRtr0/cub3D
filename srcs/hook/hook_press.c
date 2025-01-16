@@ -36,7 +36,6 @@ void	hook_press_dir(int keycode, t_game *game)
 
 void	hook_press(int keycode, t_game *game)
 {
-	printf("keycode : %d\n",keycode);
 	if (keycode == KEY_NUM_6)
 		game->data->player.x += 1;
 	if (keycode == KEY_NUM_4)
