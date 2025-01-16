@@ -77,8 +77,6 @@ void	check_side(t_raycast_init *raycast,
 		ray[i].face = D_FACE
 			+ animate(game, (int)raycast->map_check.y
 				* map->width + (int)raycast->map_check.x, 1);
-	else
-		animate(game, -1, 2);
 	ray[i].distance = raycast->wall_dist
 		* cos(raycast->angle_rad - raycast->yaw_rad);
 	if (DEBUG)

@@ -26,6 +26,7 @@ static void	update(t_game *game)
 	}
 	check_move(game->player_state.move_dir, game);
 	raycast(game);
+	animate(game, -1, 2);
 	if (CEIL_BONUS)
 		draw_view_bonus(game, game->data);
 	else

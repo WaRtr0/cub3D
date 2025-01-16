@@ -68,7 +68,7 @@
 # define M_PI 3.14159265358979323846
 # define M_RAD 0.017453292519943295
 
-# define STEP 0.1 //speed
+# define STEP 0.08 //speed
 
 # define WALL_HEIGHT 1.0
 
@@ -96,9 +96,10 @@
 # define CEILING_TEXTURE 70
 # define FLOOR_TEXTURE 71
 // # define CEIL "./assets/textures/ceiling.xpm"
-# define CEIL "./assets/doom/ceil.xpm"
+// # define CEIL "./assets/doom/ceil.xpm"
+# define CEIL "./assets/textures/a_floor.xpm"
 // # define FLOOR "./assets/textures/ceiling.xpm"
-# define FLOOR "./assets/doom/floor.xpm"
-// # define FLOOR "./assets/textures/a_floor.xpm"
+// # define FLOOR "./assets/doom/floor.xpm"
+# define FLOOR "./assets/textures/a_floor.xpm"
 
 #endif
