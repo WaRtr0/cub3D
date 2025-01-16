@@ -33,7 +33,7 @@ void	view_init_bonus(t_game *game, t_game_data *raycast, t_view *view)
 	t_layer						*group;
 	t_layer						*background;
 	static const unsigned int	height = (OUTPUT_HEIGHT / RATIO);
-	static const unsigned int	split = (-(height / 2));
+	static const int			split = (-(height / 2));
 
 	group = layer_stack_get(game->layers, 1);
 	background = layer_group_get(group, 1);

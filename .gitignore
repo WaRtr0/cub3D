@@ -9,3 +9,8 @@
 cub3d
 vgcore.*
 callgrind.out.*
+libft.a
+*/libft.a
+*o
+**/*.o
+**/.obj
