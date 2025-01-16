@@ -2,6 +2,7 @@
 #include "hook.h"
 #include "player.h"
 #include "layer.h"
+#include "map.h"
 
 static inline void	center_offset_player_on_map(t_game *game)
 {
@@ -21,26 +22,41 @@ static inline void	center_offset_player_on_map(t_game *game)
 		);
 }
 
+void	hook_press_dir(int keycode, t_game *game)
+{
+	if (keycode == KEY_W)
+		game->player_state.move_dir[0] = 1;
+	if (keycode == KEY_S)
+		game->player_state.move_dir[1] = 1;
+	if (keycode == KEY_A)
+		game->player_state.move_dir[2] = 1;
+	if (keycode == KEY_D)
+		game->player_state.move_dir[3] = 1;
+}
+
 void	hook_press(int keycode, t_game *game)
 {
-	if (keycode == KEY_RIGHT)
+	printf("keycode : %d\n",keycode);
+	if (keycode == KEY_NUM_6)
 		game->data->player.x += 1;
-	if (keycode == KEY_LEFT)
+	if (keycode == KEY_NUM_4)
 		game->data->player.x -= 1;
-	if (keycode == KEY_UP)
+	if (keycode == KEY_NUM_8)
 		game->data->player.y -= 1;
-	if (keycode == KEY_DOWN)
+	if (keycode == KEY_NUM_2)
 		game->data->player.y += 1;
-	if ((keycode >= KEY_LEFT) | (keycode <= KEY_DOWN))
+	if ((keycode >= KEY_NUM_4) | (keycode <= KEY_NUM_2))
 		center_offset_player_on_map(game);
-	if (keycode == KEY_W)
-		game->player_state.move_dir = 1;
-	if (keycode == KEY_S)
-		game->player_state.move_dir = -1;
+	hook_press_dir(keycode, game);
 	if (keycode == KEY_SPACE)
 		interact_door(game, 1);
+	if (keycode == KEY_LEFT)
+		game->player_state.key_yaw = -1;
+	if (keycode == KEY_RIGHT)
+		game->player_state.key_yaw = 1;
 	if (keycode == KEY_SHIFT)
 		game->player_state.running = 1;
 	if (keycode == KEY_ESC)
 		game_handle_close(game);
 }
+

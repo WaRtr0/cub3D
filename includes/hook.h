@@ -89,16 +89,16 @@
 # define KEY_F11 65480
 # define KEY_F12 65481
 
-# define KEY_NUM_0 65456
-# define KEY_NUM_1 65457
-# define KEY_NUM_2 65458
-# define KEY_NUM_3 65459
-# define KEY_NUM_4 65460
-# define KEY_NUM_5 65461
-# define KEY_NUM_6 65462
-# define KEY_NUM_7 65463
-# define KEY_NUM_8 65464
-# define KEY_NUM_9 65465
+# define KEY_NUM_0 65438
+# define KEY_NUM_1 65436
+# define KEY_NUM_2 65433
+# define KEY_NUM_3 65435
+# define KEY_NUM_4 65430
+# define KEY_NUM_5 65437
+# define KEY_NUM_6 65432
+# define KEY_NUM_7 65429
+# define KEY_NUM_8 65431
+# define KEY_NUM_9 65434
 
 # define KEY_NUM_ADD 65451
 # define KEY_NUM_SUB 65453

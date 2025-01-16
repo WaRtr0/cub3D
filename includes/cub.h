@@ -85,6 +85,7 @@
 
 // Mouse
 # define YAW_MAX 360
+# define STEP_YAW 1.
 # define YAW_MIN 0
 # define PITCH_MAX 50
 # define SENTIVITY 0.25
@@ -98,5 +99,6 @@
 # define CEIL "./assets/doom/ceil.xpm"
 // # define FLOOR "./assets/textures/ceiling.xpm"
 # define FLOOR "./assets/doom/floor.xpm"
+// # define FLOOR "./assets/textures/a_floor.xpm"
 
 #endif

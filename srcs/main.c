@@ -5,10 +5,26 @@
 #include "map.h"
 #include "player.h"
 
+static void	check_move(int move_dir[4], t_game *game)
+{
+	if (move_dir[0] && !move_dir[1])
+		player_move(game, game->data->yaw + 0);
+	if (move_dir[1] && !move_dir[0])
+		player_move(game, game->data->yaw + 180);
+	if (move_dir[2] && !move_dir[3])
+		player_move(game, game->data->yaw - 90);
+	if (move_dir[3] && !move_dir[2])
+		player_move(game, game->data->yaw + 90);
+}
+
 static void	update(t_game *game)
 {
-	if (game->player_state.move_dir)
-		player_move(game, game->player_state.move_dir);
+	if (game->player_state.key_yaw)
+	{
+		game->data->yaw += game->player_state.key_yaw * STEP_YAW;
+		yaw_init(game);
+	}
+	check_move(game->player_state.move_dir, game);
 	raycast(game);
 	if (CEIL_BONUS)
 		draw_view_bonus(game, game->data);

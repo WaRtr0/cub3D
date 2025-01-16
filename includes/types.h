@@ -152,10 +152,13 @@ typedef struct s_game_data
 	double		center;
 }				t_game_data;
 
+
+
 typedef struct s_player_state
 {
 	bool	running;
-	int		move_dir;
+	int		move_dir[4];
+	int		key_yaw;
 }				t_player_state;
 
 typedef struct s_game
