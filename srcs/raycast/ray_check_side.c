@@ -6,22 +6,23 @@
 
 static inline void	draw_ray(t_game *game, t_raycast_init *raycast)
 {
-	t_layer			*map_layer;
-	const t_vector2	start = {
-		game->data->player.x * SCALE_2D + (SCALE_2D >> 1),
-		game->data->player.y * SCALE_2D + (SCALE_2D >> 1)
+	t_layer						*map_layer;
+	static const unsigned int	scale_2d = (SIZE_2D / RATIO);
+	const t_vector2				start = {
+		game->data->player.x * scale_2d + (scale_2d >> 1),
+		game->data->player.y * scale_2d + (scale_2d >> 1)
 	};
-	t_vector2		end;
+	t_vector2					end;
 
 	map_layer = layer_group_get(layer_stack_get(game->layers, 2), 0);
 	if (raycast->side == 0)
-		end.x = (raycast->map_check.x + (raycast->step.x < 0)) * SCALE_2D;
+		end.x = (raycast->map_check.x + (raycast->step.x < 0)) * scale_2d;
 	else
-		end.x = (raycast->map_check.x + raycast->wall_x) * SCALE_2D;
+		end.x = (raycast->map_check.x + raycast->wall_x) * scale_2d;
 	if (raycast->side == 1)
-		end.y = (raycast->map_check.y + (raycast->step.y < 0)) * SCALE_2D;
+		end.y = (raycast->map_check.y + (raycast->step.y < 0)) * scale_2d;
 	else
-		end.y = (raycast->map_check.y + raycast->wall_x) * SCALE_2D;
+		end.y = (raycast->map_check.y + raycast->wall_x) * scale_2d;
 	draw_line(map_layer, start, end, pixel_create(255, 0, 0, 255));
 }
 

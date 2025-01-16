@@ -7,7 +7,7 @@
 
 static inline t_triangle_points	init_triangle_points(void)
 {
-	static const int	size = (SCALE_2D * HIT_BOX);
+	static const int	size = ((SIZE_2D / RATIO) * HIT_BOX);
 	t_triangle_points	points;
 
 	points.center = (t_dvector2){size, size};

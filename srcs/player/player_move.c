@@ -3,18 +3,19 @@
 
 static inline void	center_offset_player_on_map(t_game *game)
 {
-	t_layer	*group;
-	t_layer	*map;
-	t_layer	*map_mask;
+	t_layer						*group;
+	t_layer						*map;
+	t_layer						*map_mask;
+	static const unsigned int	scale_2d = (SIZE_2D / RATIO);
 
 	group = layer_stack_get(game->layers, 2);
 	map = layer_group_get(group, 0);
 	map_mask = layer_group_get(group, 1);
 	layer_set_offset(map,
 		(map_mask->width >> 1) - (
-			game->data->player.x * SCALE_2D) - (SCALE_2D >> 1),
+			game->data->player.x * scale_2d) - (scale_2d >> 1),
 		(map_mask->height >> 1) - (
-			game->data->player.y * SCALE_2D) - (SCALE_2D >> 1)
+			game->data->player.y * scale_2d) - (scale_2d >> 1)
 		);
 }
 

@@ -53,6 +53,10 @@
 #  error "OUTPUT_WIDTH must be a multiple of RATIO"
 # endif
 
+// 0.1 <-> 0.5
+# define HIT_BOX 0.25
+
+
 # define CEIL_BONUS 1
 
 // map
@@ -68,14 +72,15 @@
 
 # define WALL_HEIGHT 1.0
 
-# define HIT_BOX 0.25
+
 # define DOOR_HIT_BOX 0.05
 # define DOOR_STEP 0.05
 
 # define ENABLE_TRANSPARENCY 0
 
 // Scale
-# define SCALE_2D (32 / RATIO)
+# define SIZE_2D 32
+// # define SCALE_2D (SIZE_2D / RATIO)
 // # define SCALE_3D (((WIDTH / 2) / tan((FOV / 2) * M_PI / 180)) * WALL_HEIGHT)
 
 // Mouse
