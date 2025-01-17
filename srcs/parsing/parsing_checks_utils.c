@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_checks_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gladius <gladius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 19:56:07 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/15 15:24:59 by gladius          ###   ########.fr       */
+/*   Updated: 2025/01/17 19:41:36 by garivo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	check_dir(t_parsing *map, char *cmap, size_t i, size_t j)
 {
 	static int	startpos = 0;
 
+	if (map == NULL)
+		return (startpos);
 	if (cmap[j] == 'N' || cmap[j] == 'S' || cmap[j] == 'E'
 		|| cmap[j] == 'W')
 	{

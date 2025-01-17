@@ -6,7 +6,7 @@
 /*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 19:18:47 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/13 19:35:29 by garivo           ###   ########.fr       */
+/*   Updated: 2025/01/17 19:16:33 by garivo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int	parse_header(t_game *game, t_parsing *map, char **lines)
 	size_t	i;
 
 	i = header_parsing(game, map, lines, 0);
+	if (!i)
+		return (0);
 	if (!layer_stack_get(game->textures, N_FACE)
 		|| !layer_stack_get(game->textures, E_FACE)
 		|| !layer_stack_get(game->textures, S_FACE)

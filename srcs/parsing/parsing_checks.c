@@ -6,7 +6,7 @@
 /*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 00:11:50 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/16 18:27:04 by garivo           ###   ########.fr       */
+/*   Updated: 2025/01/17 19:42:54 by garivo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int	check_map_char(t_parsing *map)
 	size_t	i;
 	size_t	j;
 	char	*cmap;
+	int		player;
 
+	player = 0;
 	i = 0;
 	while (i < (unsigned int)map->height)
 	{
@@ -32,6 +34,8 @@ int	check_map_char(t_parsing *map)
 		}
 		i++;
 	}
+	if (check_dir(NULL, NULL, 0, 0) == 0)
+		return (prerr("Error\nMap must contains no player\n"), 0);
 	return (1);
 }
 
@@ -58,7 +62,7 @@ int	check_closure(t_parsing	*map, char *cmap, size_t i, size_t j)
 	if (cmap[j] == 'D' && !(cmap[j - 1] == '1' && cmap[j + 1] == '1')
 		&& !(get_line(map, i - 1)[j] == '1'
 		&& get_line(map, i + 1)[j] == '1'))
-		return (prerr("Error\nInvalid door position\n"), 0);	
+		return (prerr("Error\nInvalid door position\n"), 0);
 	return (1);
 }
 
