@@ -45,8 +45,8 @@ void	check_new(t_game *game, int check_tile, double new_x, double new_y)
 	{
 		check_x = new_x + (check_points[i][0] * HIT_BOX);
 		check_y = new_y + (check_points[i][1] * HIT_BOX);
-		if ((check_x >= 0) | (check_x < map->width)
-			| (check_y >= 0) | (check_y < map->height))
+		if ((check_x >= 0) && (check_x < map->width)
+			&& (check_y >= 0) && (check_y < map->height))
 		{
 			check_tile = map->tiles[(int)check_y * map->width + (int)check_x];
 			if (check_tile != W && check_tile != D && check_tile != C)
@@ -67,9 +67,18 @@ void	player_move(t_game *game, int dir)
 			* (STEP + game->player_state.running * STEP)) + 0.5;
 	new_y = game->data->player.y + (sin(dir * M_RAD)
 			* (STEP + game->player_state.running * STEP)) + 0.5;
-	check_tile = map->tiles[(int)new_y * map->width + (int)new_x];
-	if (check_tile == W || check_tile == D || check_tile == C)
-		return ;
-	check_new(game, check_tile, new_x, new_y);
+	if (!(new_x < 0 || new_x >= map->width
+			|| new_y < 0 || new_y >= map->height))
+	{
+		check_tile = map->tiles[(int)new_y * map->width + (int)new_x];
+		if (check_tile == W || check_tile == D || check_tile == C)
+			return ;
+		check_new(game, check_tile, new_x, new_y);
+	}
+	else
+	{
+		game->data->player.x = new_x - 0.5;
+		game->data->player.y = new_y - 0.5;
+	}
 	center_offset_player_on_map(game);
 }

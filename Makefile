@@ -26,7 +26,7 @@ INCLUDES = $(INCLUDES_DIR)/game.h\
 FLAG_OPTI =  -O3 -march=native -flto -ffast-math
 FLAG_ASAN = -fsanitize=address -g3
 DEFAULT_FLAG =
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 
 ifeq ($(OPTI), 1)
 	CFLAGS += $(FLAG_OPTI)

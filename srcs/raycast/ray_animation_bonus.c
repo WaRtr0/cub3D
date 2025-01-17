@@ -6,7 +6,7 @@
 /*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:26:44 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/16 18:22:18 by garivo           ###   ########.fr       */
+/*   Updated: 2025/01/17 16:59:05 by garivo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,10 @@ int	close_door(t_game *game, int pos, int get)
 
 int	animate(t_game *game, int pos, int get)
 {
-	if (game->data->map->tiles[pos] == D)
+	if (pos >= 0 && game->data->map->tiles[pos] == D)
 		return (open_door(game, pos, get, 0));
-	else if (game->data->map->tiles[pos] == C
-		|| game->data->map->tiles[pos] == H)
+	else if (pos >= 0 && (game->data->map->tiles[pos] == C
+		|| game->data->map->tiles[pos] == H))
 		return (close_door(game, pos, get));
 	open_door(game, pos, get, 0);
 	close_door(game, pos, get);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_checks.c                                   :+:      :+:    :+:   */
+/*   parsing_checks_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 00:11:50 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/16 18:26:19 by garivo           ###   ########.fr       */
+/*   Updated: 2025/01/17 18:47:57 by garivo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	check_border(t_parsing *map, char *cmap, size_t i, size_t j)
 int	check_closure(t_parsing	*map, char *cmap, size_t i, size_t j)
 {
 	if ((cmap[j] == '0' || cmap[j] == 'N' || cmap[j] == 'S'
-			|| cmap[j] == 'E' || cmap[j] == 'W')
+			|| cmap[j] == 'E' || cmap[j] == 'W' || cmap[j] == 'D')
 		&& !(i == 0 || i == (unsigned int)map->height
 			|| j == 0 || j == (unsigned int)map->width - 1))
 	{
@@ -56,9 +56,9 @@ int	check_closure(t_parsing	*map, char *cmap, size_t i, size_t j)
 			|| get_line(map, i - 1)[j] == ' ' || get_line(map, i + 1)[j] == ' ')
 			return (0);
 	}
-	if (cmap[j] == 'D' && !(cmap[j - 1] == '1' && cmap[j + 1] == '1')
-		&& !(get_line(map, i - 1)[j] == '1'
-		&& get_line(map, i + 1)[j] == '1'))
+	if (cmap[j] == 'D' && (!(cmap[j - 1] == '1' && cmap[j + 1] == '1')
+			&& !(get_line(map, i - 1)[j] == '1'
+			&& get_line(map, i + 1)[j] == '1')))
 		return (prerr("Error\nInvalid door position\n"), 0);	
 	return (1);
 }

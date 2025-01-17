@@ -72,6 +72,8 @@
 
 # define WALL_HEIGHT 1.0
 
+# define MAX_WIDTH 500
+# define MAX_HEIGHT 500
 
 # define DOOR_HIT_BOX 0.05
 # define DOOR_STEP 0.05

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_textures.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gladius <gladius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 18:03:06 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/15 15:23:32 by gladius          ###   ########.fr       */
+/*   Updated: 2025/01/17 18:06:43 by garivo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,13 @@ static int	door_textures(t_game *game)
 			path[22] = id[0];
 			path[23] = id[1];
 		}
-		printf("%s\n", path);
 		layer_add_texture(game->mlx, game->textures,
 			path, D_FACE + i);
-		if (!layer_stack_get(game->textures, D_FACE + i))
+		if (!layer_stack_get(game->textures, D_FACE + i++))
 			return (free(id), 0);
-		i++;
+		free(id);
 	}
-	return (free(id), 1);
+	return (1);
 }
 
 int	set_textures(t_game *game)

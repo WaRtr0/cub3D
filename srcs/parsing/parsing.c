@@ -6,7 +6,7 @@
 /*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:10:06 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/13 19:33:06 by garivo           ###   ########.fr       */
+/*   Updated: 2025/01/17 18:06:29 by garivo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,6 @@ int	parse(t_game *game, const char *path)
 	map.ceiling.r = 277;
 	if (!check_extension(path, ".cub"))
 		return (destroy_parsing(&map));
-	if (!set_textures(game))
-		return (destroy_parsing(&map));
 	lines = extract_all(path);
 	if (!lines)
 		return (destroy_parsing(&map));
@@ -103,6 +101,8 @@ int	parse(t_game *game, const char *path)
 	if (!parse_map(&map, lines + end_of_header))
 		return (free_lines(lines), destroy_parsing(&map));
 	free_lines(lines);
+	if (!set_textures(game))
+		return (destroy_parsing(&map));
 	if (!convert_parsing(game, &map))
 		return (destroy_parsing(&map));
 	free(map.map);
