@@ -48,7 +48,7 @@ SRC_FILE = main.c\
 		   layer/stack/layer_stack_add.c layer/stack/layer_stack_create.c layer/stack/layer_stack_destroy.c layer/stack/layer_stack_get.c layer/stack/layer_stack_render.c\
 		   layer/group/layer_group_create.c layer/group/layer_group_destroy.c layer/group/layer_group_add.c layer/group/layer_group_get.c layer/group/layer_group_render.c layer/group/layer_group_get_depth.c\
 		   draw/draw_circle_fill.c draw/draw_circle.c draw/draw_line.c draw/draw_rect_fill.c draw/draw_rect.c draw/draw_triangle_fill.c draw/draw_triangle.c draw/draw_xpm_texture.c draw/draw_text.c\
-		   utils/int_to_pixel.c utils/pixel_create.c utils/pixel_to_int.c utils/prerr.c utils/math_utils_bonus.c utils/vector2.c\
+		   utils/int_to_pixel.c utils/pixel_create.c utils/pixel_to_int.c utils/prerr.c utils/vector2.c utils/framerate_limiter.c\
 		   raycast/ray.c raycast/ray_wall_hit.c raycast/ray_check_side.c  raycast/ray_animation.c\
 		   view/view_create.c view/view_create_bonus.c view/view_init_bonus.c\
 		   map/map_init.c map/map_draw_init.c map/map_init_pos.c\
@@ -62,7 +62,7 @@ SRC_FILE_BONUS = main.c\
 		   layer/stack/layer_stack_add.c layer/stack/layer_stack_create.c layer/stack/layer_stack_destroy.c layer/stack/layer_stack_get.c layer/stack/layer_stack_render.c\
 		   layer/group/layer_group_create.c layer/group/layer_group_destroy.c layer/group/layer_group_add.c layer/group/layer_group_get.c layer/group/layer_group_render.c layer/group/layer_group_get_depth.c\
 		   draw/draw_circle_fill.c draw/draw_circle.c draw/draw_line.c draw/draw_rect_fill.c draw/draw_rect.c draw/draw_triangle_fill.c draw/draw_triangle.c draw/draw_xpm_texture.c draw/draw_text.c\
-		   utils/int_to_pixel.c utils/pixel_create.c utils/pixel_to_int.c utils/prerr.c utils/math_utils_bonus.c utils/vector2.c\
+		   utils/int_to_pixel.c utils/pixel_create.c utils/pixel_to_int.c utils/prerr.c utils/math_utils_bonus.c utils/vector2.c utils/framerate_limiter_bonus.c\
 		   raycast/ray.c raycast/ray_wall_hit.c raycast/ray_check_side.c  raycast/ray_animation_bonus.c\
 		   view/view_create.c view/view_create_bonus.c view/view_init_bonus.c\
 		   map/map_init.c map/map_draw_init.c map/map_init_pos.c\

@@ -6,12 +6,14 @@
 /*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:26:44 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/17 16:59:05 by garivo           ###   ########.fr       */
+/*   Updated: 2025/01/20 16:24:30 by garivo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 #include "utils.h"
+
+long long	current_time(void);
 
 int	get_frame(void)
 {
@@ -95,7 +97,7 @@ int	animate(t_game *game, int pos, int get)
 	if (pos >= 0 && game->data->map->tiles[pos] == D)
 		return (open_door(game, pos, get, 0));
 	else if (pos >= 0 && (game->data->map->tiles[pos] == C
-		|| game->data->map->tiles[pos] == H))
+			|| game->data->map->tiles[pos] == H))
 		return (close_door(game, pos, get));
 	open_door(game, pos, get, 0);
 	close_door(game, pos, get);

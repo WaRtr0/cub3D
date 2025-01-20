@@ -69,9 +69,9 @@ void	player_move(t_game *game, int dir)
 	double				new_y;
 
 	new_x = game->data->player.x + (cos(dir * M_RAD)
-			* (STEP + game->player_state.running * STEP)) + 0.5;
+			* (STEP + game->player_state.running * STEP * RUNNING)) + 0.5;
 	new_y = game->data->player.y + (sin(dir * M_RAD)
-			* (STEP + game->player_state.running * STEP)) + 0.5;
+			* (STEP + game->player_state.running * STEP * RUNNING)) + 0.5;
 	if (!(new_x < 0 || new_x >= map->width
 			|| new_y < 0 || new_y >= map->height))
 	{

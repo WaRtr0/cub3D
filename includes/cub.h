@@ -31,7 +31,7 @@
 // 4K 3840 x 2160
 
 # define NO_DISPLAY_MOUSE 0
-# define AUTO_CENTER_MOUSE 0
+# define AUTO_CENTER_MOUSE 1
 
 # ifndef OUTPUT_HEIGHT
 #  define OUTPUT_HEIGHT 1080
@@ -69,6 +69,7 @@
 # define M_RAD 0.017453292519943295
 
 # define STEP 0.08 //speed
+# define RUNNING 0.5
 
 # define WALL_HEIGHT 1.0
 
@@ -94,6 +95,7 @@
 
 # define DEBUG 0
 # define MAX_FRAME 1800
+# define FRAME_RATE 60
 
 # define CEILING_TEXTURE 70
 # define FLOOR_TEXTURE 71
