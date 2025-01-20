@@ -25,8 +25,9 @@ t_game	*game_new(int width, int height, char *title)
 					(FOV >> 1) * M_PI / 180)) * WALL_HEIGHT);
 	if (game_init(game) == 0)
 	{
-		free(game);
+		game_destroy(game);
 		return (NULL);
 	}
+
 	return (game);
 }
