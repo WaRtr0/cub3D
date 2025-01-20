@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_header.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmorot <mmorot@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 19:18:47 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/17 19:16:33 by garivo           ###   ########.fr       */
+/*   Updated: 2025/01/20 13:12:19 by mmorot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ void	set_background(t_game *game, t_parsing map)
 	const unsigned int	height = (OUTPUT_HEIGHT / RATIO);
 	const unsigned int	width = (OUTPUT_WIDTH / RATIO);
 
+	group = layer_group_create(width, height, 1);
+	if (!group)
+		return ;
 	background_split = layer_create(game->mlx, width, height * 2, 1);
 	layer_split_fill(background_split, map.ceiling, map.floor);
 	layer_set_offset(background_split, 0, (-(height / 2)));
-	group = layer_group_create(width, height, 1);
 	layer_group_add(group, background_split);
 	layer_stack_add(game->layers, group);
 }

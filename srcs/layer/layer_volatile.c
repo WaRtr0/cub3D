@@ -3,6 +3,8 @@
 
 void	layer_volatile_on(t_layer *layer)
 {
+	if (!layer)
+		return ;
 	if (layer->is_volatile)
 		return ;
 	layer->is_volatile = true;
@@ -17,6 +19,8 @@ void	layer_volatile_on(t_layer *layer)
 
 void	layer_volatile_off(t_layer *layer)
 {
+	if (!layer)
+		return ;
 	if (!layer->is_volatile)
 		return ;
 	layer->is_volatile = false;

@@ -31,7 +31,15 @@ void			layer_set_clear_color(t_layer *layer, t_pixel color);
 void			layer_set_offset(t_layer *layer, int x, int y);
 void			layer_get_offset(t_layer *layer, int *x, int *y);
 void			layer_set_scale(t_layer *layer, int scale);
-void			layer_set_visible(t_layer *layer, int visible);
+bool			layer_get_visible(t_layer *layer);
+void			layer_set_visible(t_layer *layer, bool visible);
+
+void			layer_set_mask(t_layer *layer, bool mask);
+bool			layer_is_mask(t_layer *layer);
+int				layer_offset_y(t_layer *layer);
+int				layer_offset_x(t_layer *layer);
+unsigned int	layer_get_height(t_layer *layer);
+unsigned int	layer_get_width(t_layer *layer);
 
 // Layer duplication
 int				layer_data_dupe(t_layer *src, unsigned int *dst);

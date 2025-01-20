@@ -49,7 +49,17 @@ static void	init_layer(t_game *game)
 	const unsigned int	width = (OUTPUT_WIDTH / RATIO);
 
 	group = layer_stack_get(game->layers, 1);
+	if (!group)
+	{
+		game->is_running = false;
+		return ;
+	}
 	wall = layer_create(game->mlx, width, height, 2);
+	if (!wall)
+	{
+		game->is_running = false;
+		return ;
+	}
 	layer_group_add(group, wall);
 	layer_volatile_on(wall);
 }

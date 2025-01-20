@@ -66,6 +66,11 @@ t_layer	*layer_add_texture(void *mlx, t_layer_stack *stack, char *path,
 	if (!get_image(&info, mlx, path))
 		return (NULL);
 	new_layer = layer_create(mlx, info.end_x, info.end_y, z_index);
+	if (!new_layer)
+	{
+		mlx_destroy_image(mlx, info.img);
+		return (NULL);
+	}
 	while (info.y < info.end_y)
 	{
 		copy_texture_line(new_layer, info.data, info);

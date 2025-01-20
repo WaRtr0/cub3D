@@ -30,8 +30,8 @@
 // 2K 2560 x 1440
 // 4K 3840 x 2160
 
-# define NO_DISPLAY_MOUSE 1
-# define AUTO_CENTER_MOUSE 1
+# define NO_DISPLAY_MOUSE 0
+# define AUTO_CENTER_MOUSE 0
 
 # ifndef OUTPUT_HEIGHT
 #  define OUTPUT_HEIGHT 1080
@@ -42,7 +42,7 @@
 # endif
 
 # ifndef RATIO
-#  define RATIO 2
+#  define RATIO 3
 # endif
 
 # if OUTPUT_HEIGHT % RATIO != 0

@@ -16,5 +16,10 @@ t_layer	*layer_group_create(int width, int height, int z_index)
 	group->visible = true;
 	group->layers = NULL;
 	group->layers = layer_stack_create();
+	if (!group->layers)
+	{
+		free(group);
+		return (NULL);
+	}
 	return (group);
 }
