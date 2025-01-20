@@ -56,6 +56,7 @@
 // 0.1 <-> 0.5
 # define HIT_BOX 0.25
 
+#define CURSOR_SIZE 11
 
 # define CEIL_BONUS 1
 
