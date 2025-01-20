@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_checks.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmorot <mmorot@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 00:11:50 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/17 19:42:54 by garivo           ###   ########.fr       */
+/*   Updated: 2025/01/20 12:19:17 by mmorot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ int	check_map_char(t_parsing *map)
 	size_t	i;
 	size_t	j;
 	char	*cmap;
-	int		player;
 
-	player = 0;
 	i = 0;
 	while (i < (unsigned int)map->height)
 	{
