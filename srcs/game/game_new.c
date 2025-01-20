@@ -28,6 +28,5 @@ t_game	*game_new(int width, int height, char *title)
 		game_destroy(game);
 		return (NULL);
 	}
-
 	return (game);
 }

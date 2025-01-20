@@ -46,16 +46,19 @@ static int	check_hitbox_door(t_game *game, int pos, double new_x, double new_y)
 	return (hold_wall(-1));
 }
 
-int	check_player(int pos, int i)
+static int	check_valid(t_map *map, int pos, int player_pos)
 {
-	if (i == 1)
+	if (!(map->tiles[pos] == D || map->tiles[pos] == H))
 		return (-1);
-	return (pos);
+	if (pos != player_pos)
+		return (pos);
+	return (0);
 }
 
 int	ray_door(t_game *game, int dir, int i)
 {
 	int			pos;
+	int			player_pos;
 	double		new_x;
 	double		new_y;
 	t_map		*map;
@@ -68,15 +71,14 @@ int	ray_door(t_game *game, int dir, int i)
 		new_y = game->data->player.y + (sin((game->data->yaw) * M_RAD)
 				* DOOR_STEP * i * dir) + 0.5;
 		pos = (int)new_y * map->width + (int)new_x;
-		if (map->tiles[pos] == D || map->tiles[pos] == H)
-			return (check_player(pos, i));
+		player_pos = (int)(game->data->player.y + 0.5) * map->width
+			+ (int)(game->data->player.x + 0.5);
+		if (((map->tiles[pos] == D || map->tiles[pos] == H))
+			&& pos != player_pos)
+			return (pos);
 		pos = check_hitbox_door(game, 0, new_x, new_y);
-		if (pos != -1)
-		{
-			if (map->tiles[pos] == D || map->tiles[pos] == H)
-				return (check_player(pos, i));
-			break ;
-		}
+		if (pos != -1 && check_valid(map, pos, player_pos) != 0)
+			return (check_valid(map, pos, player_pos));
 	}
 	return (-1);
 }

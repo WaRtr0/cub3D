@@ -5,8 +5,6 @@ void	hook_release(int keycode, t_game *game)
 {
 	if (keycode == KEY_SHIFT)
 		game->player_state.running = 0;
-	/*if (keycode == KEY_W || keycode == KEY_S || keycode == KEY_A || keycode == KEY_D)
-		game->player_state.move_dir = 0;*/
 	if (keycode == KEY_W)
 		game->player_state.move_dir[0] = 0;
 	if (keycode == KEY_S)

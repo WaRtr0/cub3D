@@ -2,7 +2,7 @@ NAME = cub3d
 NAME_BONUS = cub3d_bonus
 CC = cc
 
-OPTI = 1
+OPTI = 0
 ASAN = 0
 
 RM = rm -rf

@@ -21,17 +21,15 @@ static void	check_move(int move_dir[4], t_game *game)
 
 static void	update(t_game *game)
 {
-	if (frame_limit())
+	if (game->player_state.key_yaw)
 	{
-		if (game->player_state.key_yaw)
-		{
-			game->data->yaw += game->player_state.key_yaw * STEP_YAW;
-			yaw_init(game);
-		}
-		check_move(game->player_state.move_dir, game);
-		raycast(game);
-		animate(game, -1, 2);
+		game->data->yaw += game->player_state.key_yaw * STEP_YAW;
+		yaw_init(game);
 	}
+	if (frame_limit())
+		check_move(game->player_state.move_dir, game);
+	raycast(game);
+	animate(game, -1, 2);
 	if (CEIL_BONUS)
 		draw_view_bonus(game, game->data);
 	else

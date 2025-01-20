@@ -42,7 +42,7 @@
 # endif
 
 # ifndef RATIO
-#  define RATIO 3
+#  define RATIO 2
 # endif
 
 # if OUTPUT_HEIGHT % RATIO != 0
@@ -100,10 +100,10 @@
 # define CEILING_TEXTURE 70
 # define FLOOR_TEXTURE 71
 // # define CEIL "./assets/textures/ceiling.xpm"
-// # define CEIL "./assets/doom/ceil.xpm"
-# define CEIL "./assets/textures/a_floor.xpm"
+# define CEIL "./assets/doom/ceil.xpm"
+// # define CEIL "./assets/textures/a_floor.xpm"
 // # define FLOOR "./assets/textures/ceiling.xpm"
-// # define FLOOR "./assets/doom/floor.xpm"
-# define FLOOR "./assets/textures/a_floor.xpm"
+# define FLOOR "./assets/doom/floor.xpm"
+// # define FLOOR "./assets/textures/a_floor.xpm"
 
 #endif

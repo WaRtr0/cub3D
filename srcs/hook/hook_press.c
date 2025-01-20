@@ -63,4 +63,3 @@ void	hook_press(int keycode, t_game *game)
 	if (keycode == KEY_ESC)
 		game_handle_close(game);
 }
-
