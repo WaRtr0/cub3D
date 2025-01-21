@@ -31,7 +31,7 @@
 // 4K 3840 x 2160
 
 # define NO_DISPLAY_MOUSE 0
-# define AUTO_CENTER_MOUSE 1
+# define AUTO_CENTER_MOUSE 0
 
 # ifndef OUTPUT_HEIGHT
 #  define OUTPUT_HEIGHT 1080
