@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   types.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmorot <mmorot@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/22 00:20:16 by mmorot            #+#    #+#             */
+/*   Updated: 2025/01/22 00:28:51 by mmorot           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef TYPES_H
 # define TYPES_H
 
@@ -151,8 +163,6 @@ typedef struct s_game_data
 	int			height;
 	double		center;
 }				t_game_data;
-
-
 
 typedef struct s_player_state
 {
