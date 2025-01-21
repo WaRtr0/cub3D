@@ -1,7 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_init.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmorot <mmorot@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/22 00:17:11 by mmorot            #+#    #+#             */
+/*   Updated: 2025/01/22 00:17:11 by mmorot           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "game.h"
 #include "draw.h"
 #include "layer.h"
 #include "map.h"
+
+static void	draw_cursor(t_game *game)
+{
+	t_layer				*group;
+	t_layer				*cursor;
+	const unsigned int	width = OUTPUT_WIDTH / RATIO;
+	const unsigned int	height = OUTPUT_HEIGHT / RATIO;
+
+	group = layer_group_create(CURSOR_SIZE, CURSOR_SIZE, 1);
+	if (!group)
+	{
+		game->is_running = false;
+		return ;
+	}
+	cursor = layer_create(game->mlx, CURSOR_SIZE, CURSOR_SIZE, 1);
+	draw_line(cursor, (t_vector2){.x = CURSOR_SIZE
+		/ 2, .y = 0}, (t_vector2){.x = CURSOR_SIZE
+		/ 2, .y = CURSOR_SIZE}, pixel_create(0, 0, 0, 255));
+	draw_line(cursor, (t_vector2){.x = 0, .y = CURSOR_SIZE
+		/ 2}, (t_vector2){.x = CURSOR_SIZE, .y = CURSOR_SIZE
+		/ 2}, pixel_create(0, 0, 0, 255));
+	layer_group_add(group, cursor);
+	layer_stack_add(game->layers, group);
+	layer_set_offset(group, (width / 2) - (CURSOR_SIZE
+			/ 2), (height / 2) - (CURSOR_SIZE / 2));
+}
 
 static inline void	center_offset_player_on_map(t_game *game)
 {
@@ -80,4 +118,5 @@ void	map_init(t_map *map_struct, t_game *game)
 	if ((OUTPUT_WIDTH / RATIO) < MIN_WIDTH
 		|| (OUTPUT_HEIGHT / RATIO) < MIN_WIDTH)
 		layer_set_visible(map, false);
+	draw_cursor(game);
 }

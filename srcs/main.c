@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmorot <mmorot@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/22 00:15:36 by mmorot            #+#    #+#             */
+/*   Updated: 2025/01/22 00:15:36 by mmorot           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "hook.h"
 #include "layer.h"
 #include "view.h"
@@ -44,28 +56,6 @@ static void	update(t_game *game)
 	}
 }
 
-
-static void	draw_cursor(t_game *game)
-{
-	t_layer *group;
-	t_layer *cursor;
-	const int width = OUTPUT_WIDTH / RATIO;
-	const int height = OUTPUT_HEIGHT / RATIO;
-
-	group = layer_group_create(CURSOR_SIZE, CURSOR_SIZE, 1);
-	if (!group)
-	{
-		game->is_running = false;
-		return ;
-	}
-	cursor = layer_create(game->mlx, CURSOR_SIZE, CURSOR_SIZE, 1);
-	draw_line(cursor, (t_vector2){.x=CURSOR_SIZE / 2, .y=0}, (t_vector2){.x=CURSOR_SIZE / 2, .y=CURSOR_SIZE} , pixel_create(0,0,0,255));
-	draw_line(cursor, (t_vector2){.x=0, .y=CURSOR_SIZE / 2}, (t_vector2){.x=CURSOR_SIZE, .y=CURSOR_SIZE / 2} , pixel_create(0,0,0,255));
-	layer_group_add(group, cursor);
-	layer_stack_add(game->layers, group);
-	layer_set_offset(group, (width / 2) - (CURSOR_SIZE / 2), (height / 2) - (CURSOR_SIZE / 2));
-}
-
 static void	init_layer(t_game *game)
 {
 	t_layer				*group;
@@ -87,7 +77,6 @@ static void	init_layer(t_game *game)
 	}
 	layer_group_add(group, wall);
 	layer_volatile_on(wall);
-	draw_cursor(game);
 }
 
 static int	check_and_parse(int argc, char **argv, t_game *game)
