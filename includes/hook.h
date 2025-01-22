@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmorot <mmorot@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: mmorot <mmorot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 00:20:32 by mmorot            #+#    #+#             */
-/*   Updated: 2025/01/22 00:20:32 by mmorot           ###   ########.fr       */
+/*   Updated: 2025/01/22 14:16:19 by mmorot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,5 +225,5 @@ void	hook_no_display_mouse_move(int x, int y, t_game *game);
 void	hook_display_mouse_move(int x, int y, t_game *game);
 void	hook_release(int keycode, t_game *game);
 void	hook_press(int keycode, t_game *game);
-
+void	hook_mouse(t_game *game);
 #endif

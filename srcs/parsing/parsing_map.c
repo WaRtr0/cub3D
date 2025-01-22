@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmorot <mmorot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 19:32:42 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/20 18:35:11 by garivo           ###   ########.fr       */
+/*   Updated: 2025/01/22 16:15:21 by mmorot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,6 @@ int	parse_map(t_parsing *map, char **lines)
 
 	map->height = get_lines(lines);
 	map->width = get_max_line(lines);
-	if (map->height == 0 || map->width == 0)
-		return (0);
 	if (!extract_map(map, lines))
 		return (0);
 	if (!check_map(map))

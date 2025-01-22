@@ -6,16 +6,11 @@
 /*   By: mmorot <mmorot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:08:54 by mmorot            #+#    #+#             */
-/*   Updated: 2023/11/15 10:39:18 by mmorot           ###   ########.fr       */
+/*   Updated: 2025/01/22 17:51:26 by mmorot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-int	ft_isdigit(int c)
-{
-	return (c >= '0' && c <= '9');
-}
 
 static int	ft_white_space(const char *nptr, long *i)
 {

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_header_text_pix.c                          :+:      :+:    :+:   */
+/*   parsing_header_textures.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmorot <mmorot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 19:22:09 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/17 19:01:50 by garivo           ###   ########.fr       */
+/*   Updated: 2025/01/22 18:03:39 by mmorot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,38 +17,6 @@ char	*skip_sp(char *line)
 	while (*line == ' ')
 		line++;
 	return (line);
-}
-
-char	*skip_digits(char *line)
-{
-	while (*line >= '0' && *line <= '9')
-		line++;
-	return (line);
-}
-
-int	extract_pixel(char *line, t_pixel *pixel)
-{
-	line = skip_sp(line + 1);
-	pixel->r = ft_atoi(line);
-	line = skip_digits(line);
-	if (*line != ',')
-		return (prerr("Error\nRGB values must be comma separated\n"), 0);
-	line = skip_sp(++line);
-	pixel->g = ft_atoi(line);
-	line = skip_digits(line);
-	if (*line != ',')
-		return (prerr("Error\nRGB values must be comma separated\n"), 0);
-	line = skip_sp(++line);
-	pixel->b = ft_atoi(line);
-	line = skip_digits(line);
-	line = skip_sp(line);
-	if (*line != '\0')
-		return (prerr("Error\nInvalid character after RGB declaration\n"), 0);
-	pixel->a = 255;
-	if (pixel->r > 255 || pixel->g > 255
-		|| pixel->b > 255)
-		return (prerr("Error\nRGB values must be between 0 and 255\n"), 0);
-	return (1);
 }
 
 char	*extract_last_word(char *line)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmorot <mmorot@student.42lyon.fr>          +#+  +:+       +#+         #
+#    By: mmorot <mmorot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/22 00:29:57 by mmorot            #+#    #+#              #
-#    Updated: 2025/01/22 00:29:57 by mmorot           ###   ########.fr        #
+#    Updated: 2025/01/22 18:02:54 by mmorot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,9 +64,9 @@ SRC_FILE = main.c\
 			raycast/ray.c raycast/ray_wall_hit.c raycast/ray_check_side.c  raycast/ray_animation.c\
 			view/view_create.c view/view_create_bonus.c view/view_init_bonus.c\
 			map/map_init.c map/map_draw_init.c map/map_init_pos.c\
-			hook/hook_display_mouse_move.c hook/hook_no_display_mouse_move.c hook/hook_release.c hook/hook_press.c\
+			hook/hook_display_mouse_move.c hook/hook_no_display_mouse_move.c hook/hook_release.c hook/hook_press.c hook/hook_mouse.c\
 			player/player_move.c player/door_manager.c\
-			parsing/parsing.c parsing/parsing_map.c parsing/parsing_checks.c parsing/parsing_checks_utils.c parsing/set_textures.c parsing/convert_parsing.c parsing/parsing_header.c parsing/parsing_header_text_pix.c parsing/parsing_map_utils.c\
+			parsing/parsing.c parsing/parsing_map.c parsing/parsing_checks.c parsing/parsing_checks_utils.c parsing/set_textures.c parsing/convert_parsing.c parsing/parsing_header.c parsing/parsing_header_textures.c parsing/parsing_header_pixels.c parsing/parsing_map_utils.c\
 
 SRC_FILE_BONUS = main.c\
 			game/game_new.c game/game_init.c game/game_run.c game/game_destroy.c game/game_handle.c  game/game_set.c\
@@ -78,9 +78,9 @@ SRC_FILE_BONUS = main.c\
 			raycast/ray.c raycast/ray_wall_hit.c raycast/ray_check_side.c  raycast/ray_animation_bonus.c\
 			view/view_create.c view/view_create_bonus.c view/view_init_bonus.c\
 			map/map_init.c map/map_draw_init.c map/map_init_pos.c\
-			hook/hook_display_mouse_move.c hook/hook_no_display_mouse_move.c hook/hook_release.c hook/hook_press.c\
+			hook/hook_display_mouse_move.c hook/hook_no_display_mouse_move.c hook/hook_release.c hook/hook_press.c hook/hook_mouse.c\
 			player/player_move.c player/door_manager.c\
-			parsing/parsing.c parsing/parsing_map.c parsing/parsing_checks_bonus.c parsing/parsing_checks_utils.c parsing/set_textures.c parsing/convert_parsing.c parsing/parsing_header.c parsing/parsing_header_text_pix.c parsing/parsing_map_utils.c\
+			parsing/parsing.c parsing/parsing_map.c parsing/parsing_checks_bonus.c parsing/parsing_checks_utils.c parsing/set_textures.c parsing/convert_parsing.c parsing/parsing_header.c parsing/parsing_header_textures.c parsing/parsing_header_pixels.c parsing/parsing_map_utils.c\
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILE))
 SRC_BONUS = $(addprefix $(SRC_DIR)/, $(SRC_FILE_BONUS))

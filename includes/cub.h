@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmorot <mmorot@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: mmorot <mmorot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 00:20:39 by mmorot            #+#    #+#             */
-/*   Updated: 2025/01/22 00:20:55 by mmorot           ###   ########.fr       */
+/*   Updated: 2025/01/22 17:25:22 by mmorot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
 
-# define GAME_NAME "My Cub3D !"
+# define GAME_NAME "cub3D"
 # ifndef FOV
 #  define FOV 60
 # endif
@@ -43,14 +43,14 @@
 // 4K 3840 x 2160
 
 # define NO_DISPLAY_MOUSE 0
-# define AUTO_CENTER_MOUSE 0
+# define AUTO_CENTER_MOUSE 1
 
 # ifndef OUTPUT_HEIGHT
-#  define OUTPUT_HEIGHT 1080
+#  define OUTPUT_HEIGHT 1000
 # endif
 
 # ifndef OUTPUT_WIDTH
-#  define OUTPUT_WIDTH 1920
+#  define OUTPUT_WIDTH 1000
 # endif
 
 # ifndef RATIO
@@ -81,7 +81,7 @@
 # define M_PI 3.14159265358979323846
 # define M_RAD 0.017453292519943295
 
-# define STEP 0.08 //speed
+# define STEP 0.08
 # define RUNNING 0.5
 
 # define WALL_HEIGHT 1.0
@@ -107,7 +107,7 @@
 # define SENTIVITY 0.25
 
 # define DEBUG 0
-# define MAX_FRAME 1800
+# define MAX_FRAME 1500
 # define FRAME_RATE 60
 
 # define CEILING_TEXTURE 70

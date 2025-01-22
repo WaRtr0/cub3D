@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   layer_destroy.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmorot <mmorot@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: mmorot <mmorot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 00:17:52 by mmorot            #+#    #+#             */
-/*   Updated: 2025/01/22 00:17:52 by mmorot           ###   ########.fr       */
+/*   Updated: 2025/01/22 17:23:04 by mmorot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	layer_destroy(void *mlx, t_layer *layer)
 {
 	if (!layer)
 		return ;
-	printf("Destroying layer %d\n", layer->z_index);
 	if (layer->is_volatile == true && layer->volatile_data)
 	{
 		free(layer->volatile_data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_checks_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garivo <garivo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmorot <mmorot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 19:56:07 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/17 19:41:36 by garivo           ###   ########.fr       */
+/*   Updated: 2025/01/22 17:35:12 by mmorot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,6 @@ int	check_dir(t_parsing *map, char *cmap, size_t i, size_t j)
 		map->player_y = i;
 	}
 	else
-		return (prerr("Error\nInvalid char\n"), 0);
+		return (prerr("Error\nInvalid map char\n"), 0);
 	return (1);
 }

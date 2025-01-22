@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_header.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmorot <mmorot@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: mmorot <mmorot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 19:18:47 by garivo            #+#    #+#             */
-/*   Updated: 2025/01/20 13:12:19 by mmorot           ###   ########.fr       */
+/*   Updated: 2025/01/22 18:07:39 by mmorot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,13 @@ int	extract_background(t_parsing *map, char *line)
 	return (1);
 }
 
+static int	one_space(char *line)
+{
+	if (*line != ' ')
+		return (prerr("Error\nInformations must be space(s) separated\n"), 0);
+	return (1);
+}
+
 int	header_parsing(t_game *game, t_parsing *map, char **lines, size_t i)
 {
 	char	*line;
@@ -64,12 +71,12 @@ int	header_parsing(t_game *game, t_parsing *map, char **lines, size_t i)
 		if (ft_strncmp(line, "NO", 2) == 0 || ft_strncmp(line, "SO", 2) == 0
 			|| ft_strncmp(line, "WE", 2) == 0 || ft_strncmp(line, "EA", 2) == 0)
 		{
-			if (!extract_textures(game, line))
+			if (!one_space(line + 2) || !extract_textures(game, line))
 				return (0);
 		}
 		else if (*line == 'F' || *line == 'C')
 		{
-			if (!extract_background(map, line))
+			if (!one_space(line + 1) || !extract_background(map, line))
 				return (0);
 		}
 		else if (*line == '1' || *line == '0' || *line == ' '
@@ -87,8 +94,6 @@ int	parse_header(t_game *game, t_parsing *map, char **lines)
 	size_t	i;
 
 	i = header_parsing(game, map, lines, 0);
-	if (!i)
-		return (0);
 	if (!layer_stack_get(game->textures, N_FACE)
 		|| !layer_stack_get(game->textures, E_FACE)
 		|| !layer_stack_get(game->textures, S_FACE)

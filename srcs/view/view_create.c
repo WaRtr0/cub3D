@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   view_create.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmorot <mmorot@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: mmorot <mmorot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 00:16:00 by mmorot            #+#    #+#             */
-/*   Updated: 2025/01/22 00:16:00 by mmorot           ###   ########.fr       */
+/*   Updated: 2025/01/22 11:56:50 by mmorot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static inline void	texture_pixel_horizontal(t_view *view)
 	t_layer	*xpm;
 
 	xpm = layer_stack_get(view->textures, view->ray[view->x].face);
-	pixel = layer_get_pixel(xpm, floor(view->ray[view->x].percent / 100.
+	pixel = layer_get_pixel(xpm, floor(view->ray[view->x].percent
 				* (double)xpm->width), (view->y
 				- (view->center - view->perceived_height))
 			/ (view->perceived_height << 1) * xpm->height);

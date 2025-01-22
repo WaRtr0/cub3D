@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_check_side.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmorot <mmorot@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: mmorot <mmorot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 00:16:43 by mmorot            #+#    #+#             */
-/*   Updated: 2025/01/22 00:16:44 by mmorot           ###   ########.fr       */
+/*   Updated: 2025/01/22 11:58:53 by mmorot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ static inline void	ray_side_zero(t_raycast_init *raycast, t_ray *ray, int i)
 	if (raycast->ray_dir.x > 0)
 	{
 		ray[i].face = W_FACE;
-		ray[i].percent = raycast->wall_x * 100;
+		ray[i].percent = raycast->wall_x;
 	}
 	else
 	{
 		ray[i].face = E_FACE;
-		ray[i].percent = (1 - raycast->wall_x) * 100;
+		ray[i].percent = (1 - raycast->wall_x);
 	}
 }
 
@@ -65,12 +65,12 @@ static inline void	ray_side_one(t_raycast_init *raycast, t_ray *ray, int i)
 	if (raycast->ray_dir.y > 0)
 	{
 		ray[i].face = N_FACE;
-		ray[i].percent = (1 - raycast->wall_x) * 100;
+		ray[i].percent = (1 - raycast->wall_x);
 	}
 	else
 	{
 		ray[i].face = S_FACE;
-		ray[i].percent = raycast->wall_x * 100;
+		ray[i].percent = raycast->wall_x;
 	}
 }
 

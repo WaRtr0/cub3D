@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   layer_stack_destroy.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmorot <mmorot@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: mmorot <mmorot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 00:18:09 by mmorot            #+#    #+#             */
-/*   Updated: 2025/01/22 00:18:10 by mmorot           ###   ########.fr       */
+/*   Updated: 2025/01/22 17:23:01 by mmorot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	layer_stack_destroy(void *mlx, t_layer_stack *stack)
 
 	if (!stack)
 		return ;
-	printf("Destroying layer stack\n");
 	output_layer = stack->output_layer;
 	i = 0;
 	while (i < stack->count)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmorot <mmorot@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: mmorot <mmorot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 00:15:36 by mmorot            #+#    #+#             */
-/*   Updated: 2025/01/22 00:15:36 by mmorot           ###   ########.fr       */
+/*   Updated: 2025/01/22 17:22:46 by mmorot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,15 @@ static void	check_move(int move_dir[4], t_game *game)
 
 static void	update(t_game *game)
 {
-	if (game->player_state.key_yaw)
-	{
-		game->data->yaw += game->player_state.key_yaw * STEP_YAW;
-		yaw_init(game);
-	}
 	if (frame_limit())
+	{
 		check_move(game->player_state.move_dir, game);
+		if (game->player_state.key_yaw)
+		{
+			game->data->yaw += game->player_state.key_yaw * STEP_YAW;
+			yaw_init(game);
+		}
+	}
 	raycast(game);
 	animate(game, -1, 2);
 	if (CEIL_BONUS)
@@ -108,11 +110,8 @@ int	main(int argc, char **argv)
 	else
 		game_set_hook_mouse_move(game, hook_display_mouse_move);
 	game_set_update_callback(game, update);
-	printf("hook\n");
 	map_init(game->data->map, game);
-	printf("map init\n");
 	init_layer(game);
-	printf("layer init\n");
 	if (NO_DISPLAY_MOUSE)
 		mlx_mouse_hide(game->mlx, game->win);
 	game_run(game);
