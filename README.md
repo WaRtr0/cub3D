@@ -21,11 +21,17 @@ This project was a deep dive into mathematics (Trigonometry, Vectors) and perfor
 
 ## Features
 
-- **Raycasting Engine:** Uses the Digital Differential Analysis (DDA) algorithm to calculate ray intersections and render walls accurately.
+#### Core Features
+- **Raycasting Algorithm:** Uses the Digital Differential Analysis (DDA) algorithm to calculate ray intersections and render walls accurately without fisheye distortion.
 - **Texture Mapping:** Reads XPM images and maps them pixel by pixel onto the rendered walls depending on the compass direction (North, South, East, West).
 - **Map Parsing:** A robust `.cub` file parser that checks for map enclosures, invalid characters, and duplicate player spawns.
+
+#### Advanced & Bonus Features
+- **Custom 2D Layer Engine:** Developed a dedicated layer-based rendering system (Z-index simulation). This allows for clean and efficient superposition of 2D UI elements over the 3D environment.
 - **Smooth Movement:** Frame-independent player movement and camera rotation with collision detection (sliding along walls).
-- **Memory Management:** Strict adherence to C programming standards, ensuring no memory leaks during execution, rendering, or window closing.
+- **Interactive Animated Doors:** Raycasting extension to detect, render, and animate doors. Players can open and close them from a distance using an action key.
+- **Dynamic Minimap:** A real-time, top-down 2D minimap integrated via the layer engine, which continuously tracks and centers on the player's position and field of view.
+- **Textured Floor & Ceiling:** Replaced flat RGB colors with textured rendering for the environment, requiring complex perspective calculations and heavy CPU rendering optimization.
 
 ## Install project
 
@@ -52,6 +58,7 @@ make bonus
 ## Controls
 - `W`, `A`, `S`, `D` : Move the player
 - `←` , `→` / `Mouse` : Rotate camera
+- `Space` : Open/Close aimed doors
 - `ESC` : Quit game
 
 ## The team
