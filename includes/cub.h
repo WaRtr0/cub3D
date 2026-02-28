@@ -112,11 +112,11 @@
 
 # define CEILING_TEXTURE 70
 # define FLOOR_TEXTURE 71
-// # define CEIL "./assets/textures/ceiling.xpm"
-# define CEIL "./assets/doom/ceil.xpm"
+# define CEIL "./assets/textures/ceiling.xpm"
+// # define CEIL "./assets/doom/ceil.xpm"
 // # define CEIL "./assets/textures/a_floor.xpm"
 // # define FLOOR "./assets/textures/ceiling.xpm"
-# define FLOOR "./assets/doom/floor.xpm"
-// # define FLOOR "./assets/textures/a_floor.xpm"
+// # define FLOOR "./assets/doom/floor.xpm"
+# define FLOOR "./assets/textures/a_floor.xpm"
 
 #endif
