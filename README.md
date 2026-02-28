@@ -39,7 +39,7 @@ This project revolves around mathematics (Trigonometry, Vectors) and performance
 This project requires a Linux environment (or WSL) with the standard X11 libraries installed to compile the MiniLibX.
 
 ```bash
-git clone --recursive git@github.com:WaRtr0/cub3D.git
+git clone --recursive https://github.com/WaRtr0/cub3D.git
 cd cub3D
 ```
 
